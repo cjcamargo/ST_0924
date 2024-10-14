@@ -47,11 +47,11 @@ $$
 
 ## Bonus 2: Estadisticos de Box-Pierce
 
-#### Demostración: Similitud entre $ \( Q_{LB} \) y \( Q_{BP} \) $ cuando \( T \) es grande
+#### Demostración: Similitud entre $ ( Q_{LB} )  y  ( Q_{BP} ) $ cuando \( T \) es grande
 
 ### Definiciones de los estadísticos
 
-El **estadístico de Box-Pierce** $ (\( Q_{BP} \)) $ se define como:
+El **estadístico de Box-Pierce** $ ( Q_{BP} ) $ se define como:
 
 $$
 Q_{BP} = T \sum_{k=1}^{K} r_k^2,
@@ -99,7 +99,7 @@ $$
 \frac{T(T+2)}{T-k} \approx \frac{T^2}{T} = T \quad \text{cuando} \ T \ \text{es grande}.
 $$
 
-### Simplificación del estadístico $$ \( Q_{LB} \) $$
+### Simplificación del estadístico $ \( Q_{LB} \) $
 
 Cuando \( T \) es muy grande, podemos aproximar el estadístico de Ljung-Box \( Q_{LB} \) de la siguiente manera:
 
