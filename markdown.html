@@ -57,6 +57,8 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'markdown';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -394,31 +396,35 @@ document.write(`
                   
   <section id="bonus-1-derivacion-del-error-estandar">
 <h1>Bonus 1: Derivación del error estándar<a class="headerlink" href="#bonus-1-derivacion-del-error-estandar" title="Link to this heading">#</a></h1>
-<p>El error estándar del coeficiente de autocorrelación ( r_k ) se obtiene tomando la raíz cuadrada de la varianza. A partir de la expresión aproximada de la varianza en el Paso 5, tenemos que:</p>
-<p>[
+<p>El error estándar del coeficiente de autocorrelación $<span class="math notranslate nohighlight">\(\( r_k \)\)</span>$ se obtiene tomando la raíz cuadrada de la varianza. A partir de la expresión aproximada de la varianza en el Paso 5, tenemos que:</p>
+<div class="math notranslate nohighlight">
+\[
 \text{se}(r_k) = \sqrt{\text{Var}(r_k)} = \sqrt{\frac{1}{T} \left( 1 + 2 \sum_{v=1}^{q} \rho_v^2 \right)}.
-]</p>
+\]</div>
 <section id="simplificacion-para-grandes-k">
 <h2>Simplificación para grandes ( k )<a class="headerlink" href="#simplificacion-para-grandes-k" title="Link to this heading">#</a></h2>
 <p>Cuando el rezago ( k ) es lo suficientemente grande, es decir, ( k &gt; q ), las autocorrelaciones ( \rho_v ) para ( v &gt; q ) son insignificantes, ya que ( \rho_v = \phi^v ) y ( \phi^{v} ) decrece exponencialmente. Esto permite hacer la siguiente simplificación:</p>
-<p>[
+<div class="math notranslate nohighlight">
+\[
 \sum_{v=1}^{q} \rho_v^2 \approx 0 \quad \text{para grandes valores de} \ k.
-]</p>
+\]</div>
 <p>Por lo tanto, la varianza se aproxima a:</p>
-<p>[
+<div class="math notranslate nohighlight">
+\[
 \text{Var}(r_k) \simeq \frac{1}{T}.
-]</p>
+\]</div>
 </section>
 <section id="error-estandar-simplificado">
 <h2>Error estándar simplificado<a class="headerlink" href="#error-estandar-simplificado" title="Link to this heading">#</a></h2>
 <p>Al tomar la raíz cuadrada de esta expresión, obtenemos el <strong>error estándar</strong>:</p>
-<p>[
+<div class="math notranslate nohighlight">
+\[
 \text{se}(r_k) \simeq \sqrt{\frac{1}{T}} = \frac{1}{\sqrt{T}}.
-]</p>
+\]</div>
 </section>
 <section id="interpretacion-del-resultado">
 <h2>Interpretación del resultado<a class="headerlink" href="#interpretacion-del-resultado" title="Link to this heading">#</a></h2>
-<p>Este resultado tiene una interpretación importante. Para rezagos grandes ( k ), las autocorrelaciones ( \rho_k ) son prácticamente cero, lo que implica que los valores de la serie temporal son casi independientes. En este caso, el error estándar del estimador ( r_k ) es similar al error estándar de una estimación basada en datos independientes, que es inversamente proporcional a la raíz cuadrada del tamaño de la muestra ( T ).</p>
+<p>Este resultado tiene una interpretación importante. Para rezagos grandes ( k ), las autocorrelaciones $<span class="math notranslate nohighlight">\(\( \rho_k \)\)</span>$ son prácticamente cero, lo que implica que los valores de la serie temporal son casi independientes. En este caso, el error estándar del estimador ( r_k ) es similar al error estándar de una estimación basada en datos independientes, que es inversamente proporcional a la raíz cuadrada del tamaño de la muestra ( T ).</p>
 <p>Por lo tanto, para grandes valores de ( k ), el error estándar del coeficiente de autocorrelación estimado es:</p>
 <p>[
 \text{se}(r_k) \approx \frac{1}{\sqrt{T}}.
