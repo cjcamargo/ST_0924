@@ -403,10 +403,15 @@ document.write(`
 \]</div>
 <section id="simplificacion-para-grandes-k">
 <h2>Simplificación para grandes ( k )<a class="headerlink" href="#simplificacion-para-grandes-k" title="Link to this heading">#</a></h2>
-<p>Cuando el rezago ( k ) es lo suficientemente grande, es decir, ( k &gt; q ), las autocorrelaciones ( \rho_v ) para ( v &gt; q ) son insignificantes, ya que ( \rho_v = \phi^v ) y ( \phi^{v} ) decrece exponencialmente. Esto permite hacer la siguiente simplificación:</p>
+<p>Cuando el rezago ( k ) es lo suficientemente grande, es decir, ( k &gt; q ), las autocorrelaciones ( \rho_v ) para ( v &gt; q ) son insignificantes, ya que:</p>
 <div class="math notranslate nohighlight">
 \[
-\sum_{v=1}^{q} \rho_v^2 \approx 0 \quad \text{para grandes valores de} \ k.
+\rho_v = \phi^v \quad \text{y} \quad \phi^{v} \text{ decrece exponencialmente}.
+\]</div>
+<p>Esto permite hacer la siguiente simplificación:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{v=1}^{q} \rho_v^2 \approx 0 \quad \text{para grandes valores de } k.
 \]</div>
 <p>Por lo tanto, la varianza se aproxima a:</p>
 <div class="math notranslate nohighlight">
@@ -424,7 +429,7 @@ document.write(`
 </section>
 <section id="interpretacion-del-resultado">
 <h2>Interpretación del resultado<a class="headerlink" href="#interpretacion-del-resultado" title="Link to this heading">#</a></h2>
-<p>Este resultado tiene una interpretación importante. Para rezagos grandes ( k ), las autocorrelaciones <span class="math notranslate nohighlight">\(( \rho_k )\)</span> son prácticamente cero, lo que implica que los valores de la serie temporal son casi independientes. En este caso, el error estándar del estimador ( r_k ) es similar al error estándar de una estimación basada en datos independientes, que es inversamente proporcional a la raíz cuadrada del tamaño de la muestra ( T ).</p>
+<p>Este resultado tiene una interpretación importante. Para rezagos grandes ( k ), las autocorrelaciones ( \rho_k ) son prácticamente cero, lo que implica que los valores de la serie temporal son casi independientes. En este caso, el error estándar del estimador ( r_k ) es similar al error estándar de una estimación basada en datos independientes, que es inversamente proporcional a la raíz cuadrada del tamaño de la muestra ( T ).</p>
 <p>Por lo tanto, para grandes valores de ( k ), el error estándar del coeficiente de autocorrelación estimado es:</p>
 <div class="math notranslate nohighlight">
 \[
