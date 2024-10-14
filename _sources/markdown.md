@@ -39,7 +39,7 @@ $$
 
 ### Interpretación del resultado
 
-Este resultado tiene una interpretación importante. Para rezagos grandes \( k \), las autocorrelaciones \( \rho_k \) son prácticamente cero, lo que implica que los valores de la serie temporal son casi independientes. En este caso, el error estándar del estimador \( r_k \) es similar al error estándar de una estimación basada en datos independientes, que es inversamente proporcional a la raíz cuadrada del tamaño de la muestra \( T \).
+Este resultado tiene una interpretación importante. Para rezagos grandes \( k \), las autocorrelaciones $$ \( \rho_k \) $$ son prácticamente cero, lo que implica que los valores de la serie temporal son casi independientes. En este caso, el error estándar del estimador \( r_k \) es similar al error estándar de una estimación basada en datos independientes, que es inversamente proporcional a la raíz cuadrada del tamaño de la muestra \( T \).
 
 Por lo tanto, para grandes valores de \( k \), el error estándar del coeficiente de autocorrelación estimado es:
 
@@ -49,18 +49,18 @@ $$
 
 ## Bonus 2: Estadisticos de Box-Pierce
 
-### Demostración: Similitud entre \( Q_{LB} \) y \( Q_{BP} \) cuando \( T \) es grande
+#### Demostración: Similitud entre $$ \( Q_{LB} \) y \( Q_{BP} \) $$ cuando \( T \) es grande
 
 ### Definiciones de los estadísticos
 
-El **estadístico de Box-Pierce** (\( Q_{BP} \)) se define como:
+El **estadístico de Box-Pierce** $$ (\( Q_{BP} \)) $$ se define como:
 
 $$
 Q_{BP} = T \sum_{k=1}^{K} r_k^2,
 $$
 
 donde:
-- \( T \) es el tamaño de la muestra.
+-  \( T \) es el tamaño de la muestra.
 - \( r_k \) es el coeficiente de autocorrelación muestral en el rezago \( k \).
 - \( K \) es el número de rezagos a considerar en la prueba.
 
@@ -72,18 +72,18 @@ $$
 
 ### Paso 1: Comparación de las fórmulas
 
-La diferencia entre los dos estadísticos está en el factor de ponderación. En \( Q_{LB} \), los coeficientes \( r_k^2 \) se ponderan por:
+La diferencia entre los dos estadísticos está en el factor de ponderación. En \( Q_{LB} \), los coeficientes $$ \( r_k^2 \) $$ se ponderan por:
 
 $$
 \frac{T(T+2)}{T-k}.
 $$
 
-En \( Q_{BP} \), el coeficiente es simplemente \( T \). Ahora, vamos a estudiar el comportamiento asintótico de este factor cuando \( T \) es muy grande.
+En $$ \( Q_{BP} \) $$, el coeficiente es simplemente \( T \). Ahora, vamos a estudiar el comportamiento asintótico de este factor cuando \( T \) es muy grande.
 
-### Paso 2: Comportamiento asintótico cuando \( T \to \infty \)
+### Paso 2: Comportamiento asintótico cuando $$ \( T \to \infty \) $$
 
 Para \( T \) grande, observamos lo siguiente:
-- \( T(T+2) \) se aproxima a \( T^2 \):
+- \( T(T+2) \) se aproxima a $$ \( T^2 \): $$
   
   $$
   T(T+2) = T^2 + 2T \approx T^2 \quad \text{cuando} \ T \ \text{es grande}.
@@ -101,7 +101,7 @@ $$
 \frac{T(T+2)}{T-k} \approx \frac{T^2}{T} = T \quad \text{cuando} \ T \ \text{es grande}.
 $$
 
-### Paso 3: Simplificación del estadístico \( Q_{LB} \)
+### Paso 3: Simplificación del estadístico $$ \( Q_{LB} \) $$
 
 Cuando \( T \) es muy grande, podemos aproximar el estadístico de Ljung-Box \( Q_{LB} \) de la siguiente manera:
 
@@ -113,7 +113,7 @@ Esta expresión es exactamente la misma que la fórmula del estadístico de Box-
 
 ### Conclusión
 
-Por lo tanto, cuando \( T \) es muy grande, los estadísticos \( Q_{LB} \) y \( Q_{BP} \) se vuelven prácticamente idénticos:
+Por lo tanto, cuando \( T \) es muy grande, los estadísticos $$ \( Q_{LB} \) y \( Q_{BP} \) $$ se vuelven prácticamente idénticos:
 
 $$
 Q_{LB} \approx Q_{BP}.
@@ -121,65 +121,10 @@ $$
 
 Esto significa que, para muestras grandes, ambas pruebas producirán resultados muy similares.
 
-## Bonus 3: Intervalos de predicción
 
-### Modelo de tendencia lineal
+### Bonus 3 : Error Estandar Coef. Autocorrelacion Muestral
 
-El modelo de tendencia lineal está dado por:
-
-$$
-y_t = \hat{\beta}_0 + \hat{\beta}_1 t + \epsilon_t,
-$$
-
-donde \( \epsilon_t \sim N(0, \sigma^2_\epsilon) \).
-
-El pronóstico para el tiempo \( T + \tau \) es:
-
-$$
-\hat{y}_{T+\tau} = \hat{y}_T + \hat{\beta}_1 \tau.
-$$
-
-### Pronóstico en términos de suavización exponencial
-
-El pronóstico en términos de los suavizadores exponenciales de primer y segundo orden se puede escribir como:
-
-$$
-\hat{y}_{T+\tau}(T) = \left( 2 + \frac{\lambda}{1 - \lambda} \tau \right) \tilde{y}^{(1)}_T - \left( 1 + \frac{\lambda}{1 - \lambda} \tau \right) \tilde{y}^{(2)}_T,
-$$
-
-donde \( \lambda \) es el parámetro de suavización.
-
-### Intervalo de predicción
-
-El \( 100(1 - \alpha/2) \) intervalo de predicción está dado por:
-
-$$
-\hat{y}_{T+\tau} \pm Z_{\alpha/2} \frac{c_\tau}{c_1} \hat{\sigma}_\epsilon,
-$$
-
-donde:
-
-- \( Z_{\alpha/2} \) es el valor crítico de la distribución normal estándar.
-- \( \hat{\sigma}_\epsilon \) es la desviación estándar estimada del error.
-- \( c_\tau \) y \( c_1 \) son factores de ajuste relacionados con el horizonte de predicción \( \tau \) y el parámetro \( \lambda \).
-
-### Cálculo de \( c_\tau \)
-
-El término \( c_\tau^2 \) está dado por:
-
-$$
-c_\tau^2 = 1 + \frac{\lambda}{(2 - \lambda)^3} \left[ (10 - 14 \lambda + 5 \lambda^2) + 2 \tau \lambda (4 - 3 \lambda) + 2 \tau^2 \lambda^2 \right].
-$$
-
-Este término ajusta el intervalo para reflejar la incertidumbre asociada con la predicción a futuro.
-
-### Conclusión
-
-El intervalo de predicción para el horizonte \( \tau \) incluye tanto el pronóstico basado en suavización exponencial como un término que captura la incertidumbre del error de estimación.
-
-### Bonus 4 : Error Estandar Coef. Autocorrelacion Muestral
-
-## Derivación del error estándar del coeficiente de autocorrelación muestral \( r(k) \)
+### Derivación del error estándar del coeficiente de autocorrelación muestral \( r(k) \)
 
 La fórmula precisa para la varianza del coeficiente de autocorrelación muestral \( r(k) \) es:
 
@@ -230,3 +175,50 @@ $$
 $$
 
 Esta fórmula es más precisa que \( 1/\sqrt{N} \), ya que considera la influencia de las autocorrelaciones en los retardos anteriores, ajustando el error estándar según la dependencia serial en la serie temporal.
+
+## Bonus 4: Significancia Estadistica del coeficiente de correlación muestral
+
+# Derivación del límite de significancia estadística \(\pm \frac{2}{\sqrt{N}}\)
+
+## Paso 1: Distribución de la autocorrelación parcial estimada
+Cuando se calcula la autocorrelación parcial estimada $$ \(\hat{\phi}_{kk}\) $$, esta sigue aproximadamente una distribución normal para muestras grandes. Para un proceso $$ \(AR(p)\) $$, la varianza de $$ \(\hat{\phi}_{kk}\) $$ es inversamente proporcional al tamaño de la muestra \(N\):
+
+$$
+\hat{\phi}_{kk} \sim N\left(0, \frac{1}{N}\right)
+$$
+
+Esto implica que, en promedio, la autocorrelación parcial estimada será cero si no hay autocorrelación verdadera, con una varianza que disminuye al aumentar \(N\), lo que mejora la precisión de la estimación.
+
+## Paso 2: Relación entre varianza y desviación estándar
+La varianza de $$ \(\hat{\phi}_{kk}\) $$ es $$ \(\frac{1}{N}\) $$, por lo que la desviación estándar es:
+
+$$
+\frac{1}{\sqrt{N}}
+$$
+
+Este comportamiento es típico en estimaciones basadas en muestras: a medida que \(N\) crece, la precisión de la estimación mejora.
+
+## Paso 3: Relación con el intervalo de confianza
+Para establecer límites de confianza al 95%, usamos la fórmula:
+
+$$
+\text{Estimación} \pm \left(Z_{\alpha/2} \times \text{Desviación estándar}\right)
+$$
+
+Donde $$ \(Z_{\alpha/2} \approx 1.96\) $$ para un intervalo del 95%. Con la desviación estándar \(\frac{1}{\sqrt{N}}\), los límites de confianza se expresan como:
+
+$$
+\hat{\phi}_{kk} \pm \frac{2}{\sqrt{N}}
+$$
+
+Este es el límite comúnmente utilizado para muestras grandes, donde la aproximación normal es válida.
+
+## Paso 4: Significancia estadística
+Si $$ \(\hat{\phi}_{kk}\) $$ cae fuera del rango $$ \(\pm \frac{2}{\sqrt{N}}\) $$, es estadísticamente significativa al 95%, indicando que la autocorrelación parcial no es cero.
+
+
+En el trabajo de **Quenouille (1949)** se detalla que, en **muestras pequeñas**, los coeficientes de autocorrelación pueden tener **distribuciones más complejas** y que los límites de confianza deben ajustarse usando la **t de Student** para reflejar mejor la variabilidad. Quenouille sugiere que los límites de confianza en estas situaciones tienden a ser **asimétricos**.
+
+### Conclusión:
+- Para **muestras grandes**, la aproximación normal con límite $$ \(\pm \frac{2}{\sqrt{N}}\) $$ es válida.
+- Para **muestras pequeñas**, es más adecuado utilizar la **distribución t de Student**, que ajusta mejor la variabilidad e introduce límites asimétricos que mejor capturan la incertidumbre en la estimación.
