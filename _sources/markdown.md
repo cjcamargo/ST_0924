@@ -1,55 +1,39 @@
-# Markdown Files
+## Bonus 1: Derivación del error estándar
 
-Whether you write your book's content in Jupyter Notebooks (`.ipynb`) or
-in regular markdown files (`.md`), you'll write in the same flavor of markdown
-called **MyST Markdown**.
-This is a simple file to help you get started and show off some syntax.
+El error estándar del coeficiente de autocorrelación \( r_k \) se obtiene tomando la raíz cuadrada de la varianza. A partir de la expresión aproximada de la varianza en el Paso 5, tenemos que:
 
-## What is MyST?
+\[
+\text{se}(r_k) = \sqrt{\text{Var}(r_k)} = \sqrt{\frac{1}{T} \left( 1 + 2 \sum_{v=1}^{q} \rho_v^2 \right)}.
+\]
 
-MyST stands for "Markedly Structured Text". It
-is a slight variation on a flavor of markdown called "CommonMark" markdown,
-with small syntax extensions to allow you to write **roles** and **directives**
-in the Sphinx ecosystem.
+### Simplificación para grandes \( k \)
 
-For more about MyST, see [the MyST Markdown Overview](https://jupyterbook.org/content/myst.html).
+Cuando el rezago \( k \) es lo suficientemente grande, es decir, \( k > q \), las autocorrelaciones \( \rho_v \) para \( v > q \) son insignificantes, ya que \( \rho_v = \phi^v \) y \( \phi^{v} \) decrece exponencialmente. Esto permite hacer la siguiente simplificación:
 
-## Sample Roles and Directives
+\[
+\sum_{v=1}^{q} \rho_v^2 \approx 0 \quad \text{para grandes valores de} \ k.
+\]
 
-Roles and directives are two of the most powerful tools in Jupyter Book. They
-are like functions, but written in a markup language. They both
-serve a similar purpose, but **roles are written in one line**, whereas
-**directives span many lines**. They both accept different kinds of inputs,
-and what they do with those inputs depends on the specific role or directive
-that is being called.
+Por lo tanto, la varianza se aproxima a:
 
-Here is a "note" directive:
+\[
+\text{Var}(r_k) \simeq \frac{1}{T}.
+\]
 
-```{note}
-Here is a note
-```
+### Error estándar simplificado
 
-It will be rendered in a special box when you build your book.
+Al tomar la raíz cuadrada de esta expresión, obtenemos el **error estándar**:
 
-Here is an inline directive to refer to a document: {doc}`markdown-notebooks`.
+\[
+\text{se}(r_k) \simeq \sqrt{\frac{1}{T}} = \frac{1}{\sqrt{T}}.
+\]
 
+### Interpretación del resultado
 
-## Citations
+Este resultado tiene una interpretación importante. Para rezagos grandes \( k \), las autocorrelaciones \( \rho_k \) son prácticamente cero, lo que implica que los valores de la serie temporal son casi independientes. En este caso, el error estándar del estimador \( r_k \) es similar al error estándar de una estimación basada en datos independientes, que es inversamente proporcional a la raíz cuadrada del tamaño de la muestra \( T \).
 
-You can also cite references that are stored in a `bibtex` file. For example,
-the following syntax: `` {cite}`holdgraf_evidence_2014` `` will render like
-this: {cite}`holdgraf_evidence_2014`.
+Por lo tanto, para grandes valores de \( k \), el error estándar del coeficiente de autocorrelación estimado es:
 
-Moreover, you can insert a bibliography into your page with this syntax:
-The `{bibliography}` directive must be used for all the `{cite}` roles to
-render properly.
-For example, if the references for your book are stored in `references.bib`,
-then the bibliography is inserted with:
-
-```{bibliography}
-```
-
-## Learn more
-
-This is just a simple starter to get you started.
-You can learn a lot more at [jupyterbook.org](https://jupyterbook.org).
+\[
+\text{se}(r_k) \approx \frac{1}{\sqrt{T}}.
+\]
