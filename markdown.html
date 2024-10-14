@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Bonus 1: Derivación del error estándar &#8212; Trabajos iniciales (Data + Bonus)</title>
+    <title>Bonus Teoricos &#8212; Trabajos iniciales (Data + Bonus)</title>
   
   
   
@@ -182,7 +182,11 @@
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Bonus 1: Derivación del error estándar</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Bonus Teoricos</a></li>
+
+
+
+
 <li class="toctree-l1"><a class="reference internal" href="notebooks.html">Dataset Proyecto final</a></li>
 <li class="toctree-l1"><a class="reference internal" href="markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
 </ul>
@@ -370,7 +374,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Bonus 1: Derivación del error estándar</h1>
+    <h1>Bonus Teoricos</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -380,10 +384,41 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Bonus Teoricos</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-1-derivacion-del-error-estandar">Bonus 1: Derivación del error estándar</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simplificacion-para-grandes-k">Simplificación para grandes ( k )</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#error-estandar-simplificado">Error estándar simplificado</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretacion-del-resultado">Interpretación del resultado</a></li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-2-estadisticos-de-box-pierce">Bonus 2: Estadisticos de Box-Pierce</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#demostracion-similitud-entre-q-lb-y-q-bp-cuando-t-es-grande">Demostración: Similitud entre ( Q_{LB} ) y ( Q_{BP} ) cuando ( T ) es grande</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definiciones-de-los-estadisticos">Definiciones de los estadísticos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-1-comparacion-de-las-formulas">Paso 1: Comparación de las fórmulas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-2-comportamiento-asintotico-cuando-t-to-infty">Paso 2: Comportamiento asintótico cuando ( T \to \infty )</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-3-simplificacion-del-estadistico-q-lb">Paso 3: Simplificación del estadístico ( Q_{LB} )</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusión</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-3-intervalos-de-prediccion">Bonus 3: Intervalos de predicción</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo-de-tendencia-lineal">Modelo de tendencia lineal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pronostico-en-terminos-de-suavizacion-exponencial">Pronóstico en términos de suavización exponencial</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intervalo-de-prediccion">Intervalo de predicción</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculo-de-c-tau">Cálculo de ( c_\tau )</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Conclusión</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-4-error-estandar-coef-autocorrelacion-muestral">Bonus 4 : Error Estandar Coef. Autocorrelacion Muestral</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#derivacion-del-error-estandar-del-coeficiente-de-autocorrelacion-muestral-r-k">Derivación del error estándar del coeficiente de autocorrelación muestral ( r(k) )</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-inicial-del-proceso-autoregresivo">Análisis inicial del proceso autoregresivo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simplificacion-para-valores-grandes-de-k">Simplificación para valores grandes de ( k )</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#incorporacion-de-los-coeficientes-de-autocorrelacion-muestral">Incorporación de los coeficientes de autocorrelación muestral</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relacion-con-el-termino-1-2-sum-r-j-2">Relación con el término ( 1 + 2 \sum r(j)^2 )</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Conclusión</a></li>
+</ul>
+</li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -394,7 +429,11 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="bonus-1-derivacion-del-error-estandar">
+  <section id="bonus-teoricos">
+<h1>Bonus Teoricos<a class="headerlink" href="#bonus-teoricos" title="Link to this heading">#</a></h1>
+<p>Se presentan 4 Bonus teoricos, por : Carlos Camargo.</p>
+</section>
+<section id="bonus-1-derivacion-del-error-estandar">
 <h1>Bonus 1: Derivación del error estándar<a class="headerlink" href="#bonus-1-derivacion-del-error-estandar" title="Link to this heading">#</a></h1>
 <p>El error estándar del coeficiente de autocorrelación ( r_k ) se obtiene tomando la raíz cuadrada de la varianza. A partir de la expresión aproximada de la varianza en el Paso 5, tenemos que:</p>
 <div class="math notranslate nohighlight">
@@ -435,6 +474,185 @@ document.write(`
 \[
 \text{se}(r_k) \approx \frac{1}{\sqrt{T}}.
 \]</div>
+</section>
+</section>
+<section id="bonus-2-estadisticos-de-box-pierce">
+<h1>Bonus 2: Estadisticos de Box-Pierce<a class="headerlink" href="#bonus-2-estadisticos-de-box-pierce" title="Link to this heading">#</a></h1>
+<section id="demostracion-similitud-entre-q-lb-y-q-bp-cuando-t-es-grande">
+<h2>Demostración: Similitud entre ( Q_{LB} ) y ( Q_{BP} ) cuando ( T ) es grande<a class="headerlink" href="#demostracion-similitud-entre-q-lb-y-q-bp-cuando-t-es-grande" title="Link to this heading">#</a></h2>
+</section>
+<section id="definiciones-de-los-estadisticos">
+<h2>Definiciones de los estadísticos<a class="headerlink" href="#definiciones-de-los-estadisticos" title="Link to this heading">#</a></h2>
+<p>El <strong>estadístico de Box-Pierce</strong> (( Q_{BP} )) se define como:</p>
+<div class="math notranslate nohighlight">
+\[
+Q_{BP} = T \sum_{k=1}^{K} r_k^2,
+\]</div>
+<p>donde:</p>
+<ul class="simple">
+<li><p>( T ) es el tamaño de la muestra.</p></li>
+<li><p>( r_k ) es el coeficiente de autocorrelación muestral en el rezago ( k ).</p></li>
+<li><p>( K ) es el número de rezagos a considerar en la prueba.</p></li>
+</ul>
+<p>El <strong>estadístico de Ljung-Box</strong> (( Q_{LB} )) se define como:</p>
+<div class="math notranslate nohighlight">
+\[
+Q_{LB} = T (T+2) \sum_{k=1}^{K} \left( \frac{1}{T - k} \right) r_k^2.
+\]</div>
+</section>
+<section id="paso-1-comparacion-de-las-formulas">
+<h2>Paso 1: Comparación de las fórmulas<a class="headerlink" href="#paso-1-comparacion-de-las-formulas" title="Link to this heading">#</a></h2>
+<p>La diferencia entre los dos estadísticos está en el factor de ponderación. En ( Q_{LB} ), los coeficientes ( r_k^2 ) se ponderan por:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{T(T+2)}{T-k}.
+\]</div>
+<p>En ( Q_{BP} ), el coeficiente es simplemente ( T ). Ahora, vamos a estudiar el comportamiento asintótico de este factor cuando ( T ) es muy grande.</p>
+</section>
+<section id="paso-2-comportamiento-asintotico-cuando-t-to-infty">
+<h2>Paso 2: Comportamiento asintótico cuando ( T \to \infty )<a class="headerlink" href="#paso-2-comportamiento-asintotico-cuando-t-to-infty" title="Link to this heading">#</a></h2>
+<p>Para ( T ) grande, observamos lo siguiente:</p>
+<ul>
+<li><p>( T(T+2) ) se aproxima a ( T^2 ):</p>
+<div class="math notranslate nohighlight">
+\[
+  T(T+2) = T^2 + 2T \approx T^2 \quad \text{cuando} \ T \ \text{es grande}.
+  \]</div>
+</li>
+<li><p>( T - k ) también se aproxima a ( T ), ya que ( k ) es mucho menor que ( T ):</p>
+<div class="math notranslate nohighlight">
+\[
+  T - k \approx T \quad \text{cuando} \ T \ \text{es grande}.
+  \]</div>
+</li>
+</ul>
+<p>Por lo tanto, la fracción ( \frac{T(T+2)}{T-k} ) se simplifica para ( T ) grande:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{T(T+2)}{T-k} \approx \frac{T^2}{T} = T \quad \text{cuando} \ T \ \text{es grande}.
+\]</div>
+</section>
+<section id="paso-3-simplificacion-del-estadistico-q-lb">
+<h2>Paso 3: Simplificación del estadístico ( Q_{LB} )<a class="headerlink" href="#paso-3-simplificacion-del-estadistico-q-lb" title="Link to this heading">#</a></h2>
+<p>Cuando ( T ) es muy grande, podemos aproximar el estadístico de Ljung-Box ( Q_{LB} ) de la siguiente manera:</p>
+<div class="math notranslate nohighlight">
+\[
+Q_{LB} \approx T \sum_{k=1}^{K} r_k^2.
+\]</div>
+<p>Esta expresión es exactamente la misma que la fórmula del estadístico de Box-Pierce ( Q_{BP} ).</p>
+</section>
+<section id="conclusion">
+<h2>Conclusión<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
+<p>Por lo tanto, cuando ( T ) es muy grande, los estadísticos ( Q_{LB} ) y ( Q_{BP} ) se vuelven prácticamente idénticos:</p>
+<div class="math notranslate nohighlight">
+\[
+Q_{LB} \approx Q_{BP}.
+\]</div>
+<p>Esto significa que, para muestras grandes, ambas pruebas producirán resultados muy similares.</p>
+</section>
+</section>
+<section id="bonus-3-intervalos-de-prediccion">
+<h1>Bonus 3: Intervalos de predicción<a class="headerlink" href="#bonus-3-intervalos-de-prediccion" title="Link to this heading">#</a></h1>
+<section id="modelo-de-tendencia-lineal">
+<h2>Modelo de tendencia lineal<a class="headerlink" href="#modelo-de-tendencia-lineal" title="Link to this heading">#</a></h2>
+<p>El modelo de tendencia lineal está dado por:</p>
+<div class="math notranslate nohighlight">
+\[
+y_t = \hat{\beta}_0 + \hat{\beta}_1 t + \epsilon_t,
+\]</div>
+<p>donde ( \epsilon_t \sim N(0, \sigma^2_\epsilon) ).</p>
+<p>El pronóstico para el tiempo ( T + \tau ) es:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{y}_{T+\tau} = \hat{y}_T + \hat{\beta}_1 \tau.
+\]</div>
+</section>
+<section id="pronostico-en-terminos-de-suavizacion-exponencial">
+<h2>Pronóstico en términos de suavización exponencial<a class="headerlink" href="#pronostico-en-terminos-de-suavizacion-exponencial" title="Link to this heading">#</a></h2>
+<p>El pronóstico en términos de los suavizadores exponenciales de primer y segundo orden se puede escribir como:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{y}_{T+\tau}(T) = \left( 2 + \frac{\lambda}{1 - \lambda} \tau \right) \tilde{y}^{(1)}_T - \left( 1 + \frac{\lambda}{1 - \lambda} \tau \right) \tilde{y}^{(2)}_T,
+\]</div>
+<p>donde ( \lambda ) es el parámetro de suavización.</p>
+</section>
+<section id="intervalo-de-prediccion">
+<h2>Intervalo de predicción<a class="headerlink" href="#intervalo-de-prediccion" title="Link to this heading">#</a></h2>
+<p>El ( 100(1 - \alpha/2) ) intervalo de predicción está dado por:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{y}_{T+\tau} \pm Z_{\alpha/2} \frac{c_\tau}{c_1} \hat{\sigma}_\epsilon,
+\]</div>
+<p>donde:</p>
+<ul class="simple">
+<li><p>( Z_{\alpha/2} ) es el valor crítico de la distribución normal estándar.</p></li>
+<li><p>( \hat{\sigma}_\epsilon ) es la desviación estándar estimada del error.</p></li>
+<li><p>( c_\tau ) y ( c_1 ) son factores de ajuste relacionados con el horizonte de predicción ( \tau ) y el parámetro ( \lambda ).</p></li>
+</ul>
+</section>
+<section id="calculo-de-c-tau">
+<h2>Cálculo de ( c_\tau )<a class="headerlink" href="#calculo-de-c-tau" title="Link to this heading">#</a></h2>
+<p>El término ( c_\tau^2 ) está dado por:</p>
+<div class="math notranslate nohighlight">
+\[
+c_\tau^2 = 1 + \frac{\lambda}{(2 - \lambda)^3} \left[ (10 - 14 \lambda + 5 \lambda^2) + 2 \tau \lambda (4 - 3 \lambda) + 2 \tau^2 \lambda^2 \right].
+\]</div>
+<p>Este término ajusta el intervalo para reflejar la incertidumbre asociada con la predicción a futuro.</p>
+</section>
+<section id="id1">
+<h2>Conclusión<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>El intervalo de predicción para el horizonte ( \tau ) incluye tanto el pronóstico basado en suavización exponencial como un término que captura la incertidumbre del error de estimación.</p>
+</section>
+<section id="bonus-4-error-estandar-coef-autocorrelacion-muestral">
+<h2>Bonus 4 : Error Estandar Coef. Autocorrelacion Muestral<a class="headerlink" href="#bonus-4-error-estandar-coef-autocorrelacion-muestral" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section id="derivacion-del-error-estandar-del-coeficiente-de-autocorrelacion-muestral-r-k">
+<h1>Derivación del error estándar del coeficiente de autocorrelación muestral ( r(k) )<a class="headerlink" href="#derivacion-del-error-estandar-del-coeficiente-de-autocorrelacion-muestral-r-k" title="Link to this heading">#</a></h1>
+<p>La fórmula precisa para la varianza del coeficiente de autocorrelación muestral ( r(k) ) es:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Var}(r(k)) \approx \frac{1}{N} \left( 1 + 2 \sum_{j=1}^{k-1} r(j)^2 \right),
+\]</div>
+<p>donde ( N ) es el tamaño de la muestra y ( r(j) ) son los coeficientes de autocorrelación muestral en retardos anteriores a ( k ).</p>
+<section id="analisis-inicial-del-proceso-autoregresivo">
+<h2>Análisis inicial del proceso autoregresivo<a class="headerlink" href="#analisis-inicial-del-proceso-autoregresivo" title="Link to this heading">#</a></h2>
+<p>Según Bartlett (1946), para un proceso autoregresivo ( AR(1) ), la varianza del coeficiente de autocorrelación estimado en el retardo ( k ) puede expresarse como:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Var}(r_k) \approx \frac{1}{T} \sum_{v=-\infty}^{\infty} \left( \rho_v^2 + \rho_{v+k}\rho_{v-k} - 4\rho_k\rho_v\rho_{v-k} + 2\rho_v^2 \rho_k^2 \right),
+\]</div>
+<p>donde ( \rho_v ) representa los coeficientes de autocorrelación teóricos y ( T ) es el tamaño de la muestra.</p>
+</section>
+<section id="simplificacion-para-valores-grandes-de-k">
+<h2>Simplificación para valores grandes de ( k )<a class="headerlink" href="#simplificacion-para-valores-grandes-de-k" title="Link to this heading">#</a></h2>
+<p>Cuando ( k ) es grande y las autocorrelaciones en retardos mayores a ( k ) se vuelven insignificantes, esta expresión se simplifica como:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Var}(r(k)) \approx \frac{1}{T} \left( 1 + 2 \sum_{v=1}^{q} \rho_v^2 \right), \quad k &gt; q.
+\]</div>
+<p>Aquí, ( q ) es un valor suficientemente grande donde la autocorrelación teórica es pequeña.</p>
+</section>
+<section id="incorporacion-de-los-coeficientes-de-autocorrelacion-muestral">
+<h2>Incorporación de los coeficientes de autocorrelación muestral<a class="headerlink" href="#incorporacion-de-los-coeficientes-de-autocorrelacion-muestral" title="Link to this heading">#</a></h2>
+<p>Si no conocemos los coeficientes de autocorrelación teóricos ( \rho_v ), usamos los coeficientes de autocorrelación muestral ( r(j) ) como aproximación. Entonces, reemplazamos ( \rho_v ) por ( r(j) ), lo que resulta en:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Var}(r(k)) \approx \frac{1}{N} \left( 1 + 2 \sum_{j=1}^{k-1} r(j)^2 \right).
+\]</div>
+</section>
+<section id="relacion-con-el-termino-1-2-sum-r-j-2">
+<h2>Relación con el término ( 1 + 2 \sum r(j)^2 )<a class="headerlink" href="#relacion-con-el-termino-1-2-sum-r-j-2" title="Link to this heading">#</a></h2>
+<p>El término ( 1 + 2 \sum_{j=1}^{k-1} r(j)^2 ) proviene del análisis de la autocovarianza y la estructura de la matriz de covarianza de los coeficientes de autocorrelación. Captura cómo las autocorrelaciones en los retardos anteriores afectan la varianza de ( r(k) ).</p>
+</section>
+<section id="id2">
+<h2>Conclusión<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>Finalmente, el error estándar del coeficiente de autocorrelación muestral ( r(k) ) es:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{s.e.}(r(k)) = \frac{1}{\sqrt{N}} \left( 1 + 2 \sum_{j=1}^{k-1} r(j)^2 \right)^{1/2}.
+\]</div>
+<p>Esta fórmula es más precisa que ( 1/\sqrt{N} ), ya que considera la influencia de las autocorrelaciones en los retardos anteriores, ajustando el error estándar según la dependencia serial en la serie temporal.</p>
 </section>
 </section>
 
@@ -502,10 +720,41 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Bonus Teoricos</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-1-derivacion-del-error-estandar">Bonus 1: Derivación del error estándar</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simplificacion-para-grandes-k">Simplificación para grandes ( k )</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#error-estandar-simplificado">Error estándar simplificado</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretacion-del-resultado">Interpretación del resultado</a></li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-2-estadisticos-de-box-pierce">Bonus 2: Estadisticos de Box-Pierce</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#demostracion-similitud-entre-q-lb-y-q-bp-cuando-t-es-grande">Demostración: Similitud entre ( Q_{LB} ) y ( Q_{BP} ) cuando ( T ) es grande</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definiciones-de-los-estadisticos">Definiciones de los estadísticos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-1-comparacion-de-las-formulas">Paso 1: Comparación de las fórmulas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-2-comportamiento-asintotico-cuando-t-to-infty">Paso 2: Comportamiento asintótico cuando ( T \to \infty )</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-3-simplificacion-del-estadistico-q-lb">Paso 3: Simplificación del estadístico ( Q_{LB} )</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusión</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-3-intervalos-de-prediccion">Bonus 3: Intervalos de predicción</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo-de-tendencia-lineal">Modelo de tendencia lineal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pronostico-en-terminos-de-suavizacion-exponencial">Pronóstico en términos de suavización exponencial</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intervalo-de-prediccion">Intervalo de predicción</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculo-de-c-tau">Cálculo de ( c_\tau )</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Conclusión</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-4-error-estandar-coef-autocorrelacion-muestral">Bonus 4 : Error Estandar Coef. Autocorrelacion Muestral</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#derivacion-del-error-estandar-del-coeficiente-de-autocorrelacion-muestral-r-k">Derivación del error estándar del coeficiente de autocorrelación muestral ( r(k) )</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-inicial-del-proceso-autoregresivo">Análisis inicial del proceso autoregresivo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simplificacion-para-valores-grandes-de-k">Simplificación para valores grandes de ( k )</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#incorporacion-de-los-coeficientes-de-autocorrelacion-muestral">Incorporación de los coeficientes de autocorrelación muestral</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relacion-con-el-termino-1-2-sum-r-j-2">Relación con el término ( 1 + 2 \sum r(j)^2 )</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Conclusión</a></li>
+</ul>
+</li>
+</ul>
+
   </nav></div>
 
 </div></div>
