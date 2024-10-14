@@ -393,14 +393,14 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#demostracion-similitud-entre-q-lb-y-q-bp-cuando-t-es-grande">Demostración: Similitud entre <span class="math notranslate nohighlight">\( ( Q_{LB} )  y  ( Q_{BP} ) \)</span> cuando ( T ) es grande</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definiciones-de-los-estadisticos">Definiciones de los estadísticos</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparacion-de-las-formulas">Comparación de las fórmulas</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comportamiento-asintotico-cuando-t-to-infty">Comportamiento asintótico cuando <span class="math notranslate nohighlight">\( \( T \to \infty \) \)</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comportamiento-asintotico-cuando-t-to-infty">Comportamiento asintótico cuando <span class="math notranslate nohighlight">\( ( T \to \infty ) \)</span></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simplificacion-del-estadistico-q-lb">Simplificación del estadístico <span class="math notranslate nohighlight">\( ( Q_{LB} ) \)</span></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-3-error-estandar-coef-autocorrelacion-muestral">Bonus 3 : Error Estandar Coef. Autocorrelacion Muestral</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#derivacion-del-error-estandar-del-coeficiente-de-autocorrelacion-muestral-r-k">Derivación del error estándar del coeficiente de autocorrelación muestral ( r(k) )</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#derivacion-del-error-estandar-del-coeficiente-de-autocorrelacion-muestral-r-k">Derivación del error estándar del coeficiente de autocorrelación muestral <span class="math notranslate nohighlight">\( ( r(k) ) \)</span></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-inicial-del-proceso-autoregresivo">Análisis inicial del proceso autoregresivo</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simplificacion-para-valores-grandes-de-k">Simplificación para valores grandes de ( k )</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#incorporacion-de-los-coeficientes-de-autocorrelacion-muestral">Incorporación de los coeficientes de autocorrelación muestral</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relacion-con-el-termino-1-2-sum-r-j-2">Relación con el término ( 1 + 2 \sum r(j)^2 )</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relacion-con-el-termino-1-2-sum-r-j-2">Relación con el término <span class="math notranslate nohighlight">\( ( 1 + 2 \sum r(j)^2 ) \)</span></a></li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-4-significancia-estadistica-del-coeficiente-de-correlacion-muestral">Bonus 4: Significancia Estadistica del coeficiente de correlación muestral</a><ul class="visible nav section-nav flex-column">
@@ -429,14 +429,14 @@ document.write(`
 </section>
 <section id="bonus-1-derivacion-del-error-estandar">
 <h1>Bonus 1: Derivación del error estándar<a class="headerlink" href="#bonus-1-derivacion-del-error-estandar" title="Link to this heading">#</a></h1>
-<p>El error estándar del coeficiente de autocorrelación ( r_k ) se obtiene tomando la raíz cuadrada de la varianza. A partir de la expresión aproximada de la varianza en el Paso 5, tenemos que:</p>
+<p>El error estándar del coeficiente de autocorrelación <span class="math notranslate nohighlight">\( ( r_k ) \)</span> se obtiene tomando la raíz cuadrada de la varianza. A partir de la expresión aproximada de la varianza en el Paso 5, tenemos que:</p>
 <div class="math notranslate nohighlight">
 \[
 \text{se}(r_k) = \sqrt{\text{Var}(r_k)} = \sqrt{\frac{1}{T} \left( 1 + 2 \sum_{v=1}^{q} \rho_v^2 \right)}.
 \]</div>
 <section id="simplificacion-para-grandes-k">
 <h2>Simplificación para grandes ( k )<a class="headerlink" href="#simplificacion-para-grandes-k" title="Link to this heading">#</a></h2>
-<p>Cuando el rezago ( k ) es lo suficientemente grande, es decir, ( k &gt; q ), las autocorrelaciones ( \rho_v ) para ( v &gt; q ) son insignificantes, ya que:</p>
+<p>Cuando el rezago ( k ) es lo suficientemente grande, es decir, ( k &gt; q ), las autocorrelaciones <span class="math notranslate nohighlight">\(( \rho_v ) \)</span> para ( v &gt; q ) son insignificantes, ya que:</p>
 <div class="math notranslate nohighlight">
 \[
 \rho_v = \phi^v \quad \text{y} \quad \phi^{v} \text{ decrece exponencialmente}.
@@ -459,7 +459,7 @@ document.write(`
 \[
 \text{se}(r_k) \simeq \sqrt{\frac{1}{T}} = \frac{1}{\sqrt{T}}.
 \]</div>
-<p>Este resultado tiene una interpretación importante. Para rezagos grandes ( k ), las autocorrelaciones <span class="math notranslate nohighlight">\( \( \rho_k \) \)</span> son prácticamente cero, lo que implica que los valores de la serie temporal son casi independientes. En este caso, el error estándar del estimador ( r_k ) es similar al error estándar de una estimación basada en datos independientes, que es inversamente proporcional a la raíz cuadrada del tamaño de la muestra ( T ).</p>
+<p>Este resultado tiene una interpretación importante. Para rezagos grandes ( k ), las autocorrelaciones <span class="math notranslate nohighlight">\( ( \rho_k ) \)</span> son prácticamente cero, lo que implica que los valores de la serie temporal son casi independientes. En este caso, el error estándar del estimador <span class="math notranslate nohighlight">\( ( r_k ) \)</span> es similar al error estándar de una estimación basada en datos independientes, que es inversamente proporcional a la raíz cuadrada del tamaño de la muestra ( T ).</p>
 <p>Por lo tanto, para grandes valores de ( k ), el error estándar del coeficiente de autocorrelación estimado es:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -501,7 +501,7 @@ Q_{LB} = T (T+2) \sum_{k=1}^{K} \left( \frac{1}{T - k} \right) r_k^2.
 <p>En <span class="math notranslate nohighlight">\( ( Q_{BP} ) \)</span>, el coeficiente es simplemente ( T ). Ahora, vamos a estudiar el comportamiento asintótico de este factor cuando ( T ) es muy grande.</p>
 </section>
 <section id="comportamiento-asintotico-cuando-t-to-infty">
-<h2>Comportamiento asintótico cuando <span class="math notranslate nohighlight">\( \( T \to \infty \) \)</span><a class="headerlink" href="#comportamiento-asintotico-cuando-t-to-infty" title="Link to this heading">#</a></h2>
+<h2>Comportamiento asintótico cuando <span class="math notranslate nohighlight">\( ( T \to \infty ) \)</span><a class="headerlink" href="#comportamiento-asintotico-cuando-t-to-infty" title="Link to this heading">#</a></h2>
 <p>Para ( T ) grande, observamos lo siguiente:</p>
 <ul>
 <li><p>( T(T+2) ) se aproxima a  ( T^2 ):</p>
@@ -517,7 +517,7 @@ Q_{LB} = T (T+2) \sum_{k=1}^{K} \left( \frac{1}{T - k} \right) r_k^2.
   \]</div>
 </li>
 </ul>
-<p>Por lo tanto, la fracción ( \frac{T(T+2)}{T-k} ) se simplifica para ( T ) grande:</p>
+<p>Por lo tanto, la fracción <span class="math notranslate nohighlight">\( ( \frac{T(T+2)}{T-k} ) \)</span> se simplifica para ( T ) grande:</p>
 <div class="math notranslate nohighlight">
 \[
 \frac{T(T+2)}{T-k} \approx \frac{T^2}{T} = T \quad \text{cuando} \ T \ \text{es grande}.
@@ -530,7 +530,7 @@ Q_{LB} = T (T+2) \sum_{k=1}^{K} \left( \frac{1}{T - k} \right) r_k^2.
 \[
 Q_{LB} \approx T \sum_{k=1}^{K} r_k^2.
 \]</div>
-<p>Esta expresión es exactamente la misma que la fórmula del estadístico de Box-Pierce ( Q_{BP} ).</p>
+<p>Esta expresión es exactamente la misma que la fórmula del estadístico de Box-Pierce <span class="math notranslate nohighlight">\( ( Q_{BP} ) \)</span>.</p>
 <p>Por lo tanto, cuando ( T ) es muy grande, los estadísticos <span class="math notranslate nohighlight">\( ( Q_{LB} ) y  ( Q_{BP} ) \)</span> se vuelven prácticamente idénticos:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -542,22 +542,22 @@ Q_{LB} \approx Q_{BP}.
 <h2>Bonus 3 : Error Estandar Coef. Autocorrelacion Muestral<a class="headerlink" href="#bonus-3-error-estandar-coef-autocorrelacion-muestral" title="Link to this heading">#</a></h2>
 </section>
 <section id="derivacion-del-error-estandar-del-coeficiente-de-autocorrelacion-muestral-r-k">
-<h2>Derivación del error estándar del coeficiente de autocorrelación muestral ( r(k) )<a class="headerlink" href="#derivacion-del-error-estandar-del-coeficiente-de-autocorrelacion-muestral-r-k" title="Link to this heading">#</a></h2>
-<p>La fórmula precisa para la varianza del coeficiente de autocorrelación muestral ( r(k) ) es:</p>
+<h2>Derivación del error estándar del coeficiente de autocorrelación muestral <span class="math notranslate nohighlight">\( ( r(k) ) \)</span><a class="headerlink" href="#derivacion-del-error-estandar-del-coeficiente-de-autocorrelacion-muestral-r-k" title="Link to this heading">#</a></h2>
+<p>La fórmula precisa para la varianza del coeficiente de autocorrelación muestral <span class="math notranslate nohighlight">\( ( r(k) ) \)</span> es:</p>
 <div class="math notranslate nohighlight">
 \[
 \text{Var}(r(k)) \approx \frac{1}{N} \left( 1 + 2 \sum_{j=1}^{k-1} r(j)^2 \right),
 \]</div>
-<p>donde ( N ) es el tamaño de la muestra y ( r(j) ) son los coeficientes de autocorrelación muestral en retardos anteriores a ( k ).</p>
+<p>donde ( N ) es el tamaño de la muestra y <span class="math notranslate nohighlight">\( ( r(j) ) \)</span> son los coeficientes de autocorrelación muestral en retardos anteriores a ( k ).</p>
 </section>
 <section id="analisis-inicial-del-proceso-autoregresivo">
 <h2>Análisis inicial del proceso autoregresivo<a class="headerlink" href="#analisis-inicial-del-proceso-autoregresivo" title="Link to this heading">#</a></h2>
-<p>Según Bartlett (1946), para un proceso autoregresivo ( AR(1) ), la varianza del coeficiente de autocorrelación estimado en el retardo ( k ) puede expresarse como:</p>
+<p>Según Bartlett (1946), para un proceso autoregresivo <span class="math notranslate nohighlight">\( ( AR(1) ) \)</span>, la varianza del coeficiente de autocorrelación estimado en el retardo ( k ) puede expresarse como:</p>
 <div class="math notranslate nohighlight">
 \[
 \text{Var}(r_k) \approx \frac{1}{T} \sum_{v=-\infty}^{\infty} \left( \rho_v^2 + \rho_{v+k}\rho_{v-k} - 4\rho_k\rho_v\rho_{v-k} + 2\rho_v^2 \rho_k^2 \right),
 \]</div>
-<p>donde ( \rho_v ) representa los coeficientes de autocorrelación teóricos y ( T ) es el tamaño de la muestra.</p>
+<p>donde <span class="math notranslate nohighlight">\( ( \rho_v ) \)</span> representa los coeficientes de autocorrelación teóricos y ( T ) es el tamaño de la muestra.</p>
 </section>
 <section id="simplificacion-para-valores-grandes-de-k">
 <h2>Simplificación para valores grandes de ( k )<a class="headerlink" href="#simplificacion-para-valores-grandes-de-k" title="Link to this heading">#</a></h2>
@@ -570,14 +570,14 @@ Q_{LB} \approx Q_{BP}.
 </section>
 <section id="incorporacion-de-los-coeficientes-de-autocorrelacion-muestral">
 <h2>Incorporación de los coeficientes de autocorrelación muestral<a class="headerlink" href="#incorporacion-de-los-coeficientes-de-autocorrelacion-muestral" title="Link to this heading">#</a></h2>
-<p>Si no conocemos los coeficientes de autocorrelación teóricos <span class="math notranslate nohighlight">\( ( \rho_v ) \)</span>, usamos los coeficientes de autocorrelación muestral <span class="math notranslate nohighlight">\( ( r(j) ) \)</span> como aproximación. Entonces, reemplazamos <span class="math notranslate nohighlight">\( ( \rho_v ) \)</span> por ( r(j) ), lo que resulta en:</p>
+<p>Si no conocemos los coeficientes de autocorrelación teóricos <span class="math notranslate nohighlight">\( ( \rho_v ) \)</span>, usamos los coeficientes de autocorrelación muestral <span class="math notranslate nohighlight">\( ( r(j) ) \)</span> como aproximación. Entonces, reemplazamos <span class="math notranslate nohighlight">\( ( \rho_v ) \)</span> por <span class="math notranslate nohighlight">\( ( r(j) ) \)</span>, lo que resulta en:</p>
 <div class="math notranslate nohighlight">
 \[
 \text{Var}(r(k)) \approx \frac{1}{N} \left( 1 + 2 \sum_{j=1}^{k-1} r(j)^2 \right).
 \]</div>
 </section>
 <section id="relacion-con-el-termino-1-2-sum-r-j-2">
-<h2>Relación con el término ( 1 + 2 \sum r(j)^2 )<a class="headerlink" href="#relacion-con-el-termino-1-2-sum-r-j-2" title="Link to this heading">#</a></h2>
+<h2>Relación con el término <span class="math notranslate nohighlight">\( ( 1 + 2 \sum r(j)^2 ) \)</span><a class="headerlink" href="#relacion-con-el-termino-1-2-sum-r-j-2" title="Link to this heading">#</a></h2>
 <p>El término <span class="math notranslate nohighlight">\( ( 1 + 2 \sum_{j=1}^{k-1} r(j)^2 ) \)</span> proviene del análisis de la autocovarianza y la estructura de la matriz de covarianza de los coeficientes de autocorrelación. Captura cómo las autocorrelaciones en los retardos anteriores afectan la varianza de <span class="math notranslate nohighlight">\( ( r(k) ) \)</span>.</p>
 <p>Finalmente, el error estándar del coeficiente de autocorrelación muestral <span class="math notranslate nohighlight">\( ( r(k) ) \)</span> es:</p>
 <div class="math notranslate nohighlight">
@@ -617,7 +617,7 @@ Q_{LB} \approx Q_{BP}.
 \[
 \text{Estimación} \pm \left(Z_{\alpha/2} \times \text{Desviación estándar}\right)
 \]</div>
-<p>Donde <span class="math notranslate nohighlight">\( (Z_{\alpha/2} \approx 1.96) \)</span> para un intervalo del 95%. Con la desviación estándar <span class="math notranslate nohighlight">\( \(\frac{1}{\sqrt{N}}\) \)</span>, los límites de confianza se expresan como:</p>
+<p>Donde <span class="math notranslate nohighlight">\( (Z_{\alpha/2} \approx 1.96) \)</span> para un intervalo del 95%. Con la desviación estándar <span class="math notranslate nohighlight">\( (\frac{1}{\sqrt{N}}) \)</span>, los límites de confianza se expresan como:</p>
 <div class="math notranslate nohighlight">
 \[
 \hat{\phi}_{kk} \pm \frac{2}{\sqrt{N}}
@@ -626,7 +626,7 @@ Q_{LB} \approx Q_{BP}.
 </section>
 <section id="significancia-estadistica">
 <h2>Significancia estadística<a class="headerlink" href="#significancia-estadistica" title="Link to this heading">#</a></h2>
-<p>Si <span class="math notranslate nohighlight">\( (\hat{\phi}_{kk}) \)</span> cae fuera del rango <span class="math notranslate nohighlight">\( \(\pm \frac{2}{\sqrt{N}}\) \)</span>, es estadísticamente significativa al 95%, indicando que la autocorrelación parcial no es cero.</p>
+<p>Si <span class="math notranslate nohighlight">\( (\hat{\phi}_{kk}) \)</span> cae fuera del rango <span class="math notranslate nohighlight">\( (\pm \frac{2}{\sqrt{N}}) \)</span>, es estadísticamente significativa al 95%, indicando que la autocorrelación parcial no es cero.</p>
 <p>En el trabajo de <strong>Quenouille (1949)</strong> se detalla que, en <strong>muestras pequeñas</strong>, los coeficientes de autocorrelación pueden tener <strong>distribuciones más complejas</strong> y que los límites de confianza deben ajustarse usando la <strong>t de Student</strong> para reflejar mejor la variabilidad. Quenouille sugiere que los límites de confianza en estas situaciones tienden a ser <strong>asimétricos</strong>.</p>
 <p>Así:</p>
 <ul class="simple">
@@ -710,14 +710,14 @@ Q_{LB} \approx Q_{BP}.
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#demostracion-similitud-entre-q-lb-y-q-bp-cuando-t-es-grande">Demostración: Similitud entre <span class="math notranslate nohighlight">\( ( Q_{LB} )  y  ( Q_{BP} ) \)</span> cuando ( T ) es grande</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definiciones-de-los-estadisticos">Definiciones de los estadísticos</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparacion-de-las-formulas">Comparación de las fórmulas</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comportamiento-asintotico-cuando-t-to-infty">Comportamiento asintótico cuando <span class="math notranslate nohighlight">\( \( T \to \infty \) \)</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comportamiento-asintotico-cuando-t-to-infty">Comportamiento asintótico cuando <span class="math notranslate nohighlight">\( ( T \to \infty ) \)</span></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simplificacion-del-estadistico-q-lb">Simplificación del estadístico <span class="math notranslate nohighlight">\( ( Q_{LB} ) \)</span></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-3-error-estandar-coef-autocorrelacion-muestral">Bonus 3 : Error Estandar Coef. Autocorrelacion Muestral</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#derivacion-del-error-estandar-del-coeficiente-de-autocorrelacion-muestral-r-k">Derivación del error estándar del coeficiente de autocorrelación muestral ( r(k) )</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#derivacion-del-error-estandar-del-coeficiente-de-autocorrelacion-muestral-r-k">Derivación del error estándar del coeficiente de autocorrelación muestral <span class="math notranslate nohighlight">\( ( r(k) ) \)</span></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-inicial-del-proceso-autoregresivo">Análisis inicial del proceso autoregresivo</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simplificacion-para-valores-grandes-de-k">Simplificación para valores grandes de ( k )</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#incorporacion-de-los-coeficientes-de-autocorrelacion-muestral">Incorporación de los coeficientes de autocorrelación muestral</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relacion-con-el-termino-1-2-sum-r-j-2">Relación con el término ( 1 + 2 \sum r(j)^2 )</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relacion-con-el-termino-1-2-sum-r-j-2">Relación con el término <span class="math notranslate nohighlight">\( ( 1 + 2 \sum r(j)^2 ) \)</span></a></li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-4-significancia-estadistica-del-coeficiente-de-correlacion-muestral">Bonus 4: Significancia Estadistica del coeficiente de correlación muestral</a><ul class="visible nav section-nav flex-column">
