@@ -63,7 +63,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Dataset Proyecto final" href="notebooks.html" />
-    <link rel="prev" title="Welcome to your Jupyter Book" href="intro.html" />
+    <link rel="prev" title="Guia para entregables iniciales" href="intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -177,7 +177,7 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="intro.html">
-                    Welcome to your Jupyter Book
+                    Guia para entregables iniciales
                 </a>
             </li>
         </ul>
@@ -186,8 +186,11 @@
 
 
 
+
+
+
+
 <li class="toctree-l1"><a class="reference internal" href="notebooks.html">Dataset Proyecto final</a></li>
-<li class="toctree-l1"><a class="reference internal" href="markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
 </ul>
 
     </div>
@@ -384,31 +387,80 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Bonus Teoricos</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-1-derivacion-del-error-estandar">Bonus 1: Derivación del error estándar</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simplificacion-para-grandes-k">Simplificación para grandes ( k )</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#error-estandar-simplificado">Error estándar simplificado</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bono-1-demostracion-detallada-del-calculo-de-la-varianza-de-hat-rho-k-y-obtencion-del-error-estandar-para-rezagos-grandes">Bono 1: Demostración detallada del cálculo de la varianza de (\hat{\rho}_k) y obtención del error estándar para rezagos grandes</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduccion">Introducción</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivo">Objetivo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#desarrollo-de-la-demostracion">Desarrollo de la demostración</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definicion-del-proceso-ar-q">1. Definición del proceso AR(( q ))</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#propiedades-de-las-autocorrelaciones-en-un-proceso-ar-q">2. Propiedades de las autocorrelaciones en un proceso AR(( q ))</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definicion-de-la-autocorrelacion-muestral-hat-rho-k">3. Definición de la autocorrelación muestral (\hat{\rho}_k)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculo-de-la-varianza-de-hat-rho-k">4. Cálculo de la varianza de (\hat{\rho}_k)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#expansion-de-hat-rho-k">4.1. Expansión de (\hat{\rho}_k)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#calculo-de-e-hat-rho-k-2">4.2. Cálculo de ( E[\hat{\rho}_k^2] )</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#calculo-de-la-esperanza-e-x-t-x-t-k-x-s-x-s-k">4.3. Cálculo de la esperanza ( E[ X_t X_{t + k} X_s X_{s + k} ] )</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#simplificacion-de-la-suma">4.4. Simplificación de la suma</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#aproximacion-de-d">4.5. Aproximación de ( D )</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#calculo-final-de-e-hat-rho-k-2">4.6. Cálculo final de ( E[\hat{\rho}_k^2] )</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-2-estadisticos-de-box-pierce">Bonus 2: Estadisticos de Box-Pierce</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#demostracion-similitud-entre-q-lb-y-q-bp-cuando-t-es-grande">Demostración: Similitud entre <span class="math notranslate nohighlight">\( ( Q_{LB} )  y  ( Q_{BP} ) \)</span> cuando ( T ) es grande</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definiciones-de-los-estadisticos">Definiciones de los estadísticos</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparacion-de-las-formulas">Comparación de las fórmulas</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comportamiento-asintotico-cuando-t-to-infty">Comportamiento asintótico cuando <span class="math notranslate nohighlight">\( ( T \to \infty ) \)</span></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simplificacion-del-estadistico-q-lb">Simplificación del estadístico <span class="math notranslate nohighlight">\( ( Q_{LB} ) \)</span></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-3-error-estandar-coef-autocorrelacion-muestral">Bonus 3 : Error Estandar Coef. Autocorrelacion Muestral</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#derivacion-del-error-estandar-del-coeficiente-de-autocorrelacion-muestral-r-k">Derivación del error estándar del coeficiente de autocorrelación muestral <span class="math notranslate nohighlight">\( ( r(k) ) \)</span></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-inicial-del-proceso-autoregresivo">Análisis inicial del proceso autoregresivo</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simplificacion-para-valores-grandes-de-k">Simplificación para valores grandes de ( k )</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#incorporacion-de-los-coeficientes-de-autocorrelacion-muestral">Incorporación de los coeficientes de autocorrelación muestral</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relacion-con-el-termino-1-2-sum-r-j-2">Relación con el término <span class="math notranslate nohighlight">\( ( 1 + 2 \sum r(j)^2 ) \)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">5. Conclusión</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-4-significancia-estadistica-del-coeficiente-de-correlacion-muestral">Bonus 4: Significancia Estadistica del coeficiente de correlación muestral</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#derivacion-del-limite-de-significancia-estadistica-pm-frac-2-sqrt-n">Derivación del límite de significancia estadística <span class="math notranslate nohighlight">\( (\pm \frac{2}{\sqrt{N}}) \)</span></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-de-la-autocorrelacion-parcial-estimada">Distribución de la autocorrelación parcial estimada</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relacion-entre-varianza-y-desviacion-estandar">Relación entre varianza y desviación estándar</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relacion-con-el-intervalo-de-confianza">Relación con el intervalo de confianza</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#significancia-estadistica">Significancia estadística</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fin-de-la-demostracion">Fin de la demostración</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bono-2-demostracion-de-la-equivalencia-asintotica-entre-los-estadisticos-de-ljung-box-y-box-pierce">Bono 2: Demostración de la Equivalencia Asintótica entre los Estadísticos de Ljung-Box y Box-Pierce</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Introducción</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definiciones">Definiciones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Objetivo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#demostracion">Demostración</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-1-reescribir-q-text-lb-en-terminos-de-q-text-bp">Paso 1: Reescribir ( Q_{\text{LB}} ) en términos de ( Q_{\text{BP}} )</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-2-expandir-el-denominador-utilizando-la-serie-de-taylor">Paso 2: Expandir el denominador utilizando la serie de Taylor</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-3-aproximar-q-text-lb-utilizando-la-expansion">Paso 3: Aproximar ( Q_{\text{LB}} ) utilizando la expansión</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-4-multiplicar-y-simplificar-terminos">Paso 4: Multiplicar y simplificar términos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-5-separar-la-suma">Paso 5: Separar la suma</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-6-evaluar-el-valor-esperado-bajo-la-hipotesis-nula">Paso 6: Evaluar el valor esperado bajo la hipótesis nula</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-7-conclusion">Paso 7: Conclusión</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Fin de la Demostración</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bono-3-derivacion-del-error-estandar-del-coeficiente-de-autocorrelacion-muestral-r-k">Bono 3: Derivación del Error Estándar del Coeficiente de Autocorrelación Muestral ( r(k) )</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Introducción</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definiciones-y-supuestos">Definiciones y Supuestos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Objetivo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Demostración</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-1-expresion-de-r-k">Paso 1: Expresión de ( r(k) )</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-2-calculo-de-la-varianza-de-r-k">Paso 2: Cálculo de la Varianza de ( r(k) )</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-3-expansion-de-r-k-2">Paso 3: Expansión de ( r(k)^2 )</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-4-calculo-de-e-r-k-2">Paso 4: Cálculo de ( E[r(k)^2] )</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-1-t-s">Caso 1: ( t = s )</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-2-t-neq-s">Caso 2: ( t \neq s )</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-5-simplificacion-de-la-suma">Paso 5: Simplificación de la Suma</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-6-aproximacion-de-s">Paso 6: Aproximación de ( S )</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-7-calculo-final-de-la-varianza">Paso 7: Cálculo Final de la Varianza</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-8-error-estandar">Paso 8: Error Estándar</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-9-formula-de-bartlett">Paso 9: Fórmula de Bartlett</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Conclusión</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#referencia">Referencia</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fin-de-la-derivacion">Fin de la Derivación</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-4-significancia-estadistica-del-coeficiente-de-correlacion-muestral">Bonus 4: Significancia Estadística del Coeficiente de Correlación Muestral</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#derivacion-del-limite-de-significancia-estadistica">Derivación del Límite de Significancia Estadística</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Objetivo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supuestos">Supuestos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-1-varianza-de-r-k-para-rezagos-grandes">Paso 1: Varianza de ( r(k) ) para Rezagos Grandes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-2-distribucion-de-r-k-bajo-la-hipotesis-nula">Paso 2: Distribución de ( r(k) ) Bajo la Hipótesis Nula</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-3-determinacion-del-limite-de-significancia-estadistica">Paso 3: Determinación del Límite de Significancia Estadística</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Conclusión</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -425,214 +477,677 @@ document.write(`
                   
   <section id="bonus-teoricos">
 <h1>Bonus Teoricos<a class="headerlink" href="#bonus-teoricos" title="Link to this heading">#</a></h1>
-<p>Se presentan 4 Bonus teoricos, por : Carlos Camargo.</p>
+<p>Se presentan 4 Bonus teoricos, por : Andres Usma y Carlos Camargo.</p>
 </section>
-<section id="bonus-1-derivacion-del-error-estandar">
-<h1>Bonus 1: Derivación del error estándar<a class="headerlink" href="#bonus-1-derivacion-del-error-estandar" title="Link to this heading">#</a></h1>
-<p>El error estándar del coeficiente de autocorrelación <span class="math notranslate nohighlight">\( ( r_k ) \)</span> se obtiene tomando la raíz cuadrada de la varianza. A partir de la expresión aproximada de la varianza en el Paso 5, tenemos que:</p>
+<section class="tex2jax_ignore mathjax_ignore" id="bono-1-demostracion-detallada-del-calculo-de-la-varianza-de-hat-rho-k-y-obtencion-del-error-estandar-para-rezagos-grandes">
+<h1>Bono 1: Demostración detallada del cálculo de la varianza de (\hat{\rho}_k) y obtención del error estándar para rezagos grandes<a class="headerlink" href="#bono-1-demostracion-detallada-del-calculo-de-la-varianza-de-hat-rho-k-y-obtencion-del-error-estandar-para-rezagos-grandes" title="Link to this heading">#</a></h1>
+<section id="introduccion">
+<h2>Introducción<a class="headerlink" href="#introduccion" title="Link to this heading">#</a></h2>
+<p>En esta demostración, realizaremos un análisis matemático detallado para calcular la varianza de la autocorrelación muestral (\hat{\rho}_k) en un proceso autorregresivo (AR) de orden ( q ) para rezagos grandes ( k &gt; q ). Nos enfocaremos en los pasos algebraicos y matemáticos para llegar al resultado:</p>
 <div class="math notranslate nohighlight">
 \[
-\text{se}(r_k) = \sqrt{\text{Var}(r_k)} = \sqrt{\frac{1}{T} \left( 1 + 2 \sum_{v=1}^{q} \rho_v^2 \right)}.
+\text{Var}(\hat{\rho}_k) \approx \frac{1}{n}
 \]</div>
-<section id="simplificacion-para-grandes-k">
-<h2>Simplificación para grandes ( k )<a class="headerlink" href="#simplificacion-para-grandes-k" title="Link to this heading">#</a></h2>
-<p>Cuando el rezago ( k ) es lo suficientemente grande, es decir, ( k &gt; q ), las autocorrelaciones <span class="math notranslate nohighlight">\(( \rho_v ) \)</span> para ( v &gt; q ) son insignificantes, ya que:</p>
+<p>y, por lo tanto, el error estándar:</p>
 <div class="math notranslate nohighlight">
 \[
-\rho_v = \phi^v \quad \text{y} \quad \phi^{v} \text{ decrece exponencialmente}.
+\text{SE}(\hat{\rho}_k) = \sqrt{\text{Var}(\hat{\rho}_k)} \approx \frac{1}{\sqrt{n}}
 \]</div>
-<p>Esto permite hacer la siguiente simplificación:</p>
-<div class="math notranslate nohighlight">
-\[
-\sum_{v=1}^{q} \rho_v^2 \approx 0 \quad \text{para grandes valores de } k.
-\]</div>
-<p>Por lo tanto, la varianza se aproxima a:</p>
-<div class="math notranslate nohighlight">
-\[
-\text{Var}(r_k) \simeq \frac{1}{T}.
-\]</div>
+<p>donde ( n ) es el tamaño de la muestra.</p>
 </section>
-<section id="error-estandar-simplificado">
-<h2>Error estándar simplificado<a class="headerlink" href="#error-estandar-simplificado" title="Link to this heading">#</a></h2>
-<p>Al tomar la raíz cuadrada de esta expresión, obtenemos el <strong>error estándar</strong>:</p>
+<section id="objetivo">
+<h2>Objetivo<a class="headerlink" href="#objetivo" title="Link to this heading">#</a></h2>
+<p>Calcular detalladamente la varianza de (\hat{\rho}_k) para ( k &gt; q ) en un proceso AR(( q )) y demostrar que (\text{Var}(\hat{\rho}_k) \approx \frac{1}{n}).</p>
+</section>
+<section id="desarrollo-de-la-demostracion">
+<h2>Desarrollo de la demostración<a class="headerlink" href="#desarrollo-de-la-demostracion" title="Link to this heading">#</a></h2>
+<section id="definicion-del-proceso-ar-q">
+<h3>1. Definición del proceso AR(( q ))<a class="headerlink" href="#definicion-del-proceso-ar-q" title="Link to this heading">#</a></h3>
+<p>Un proceso autorregresivo de orden ( q ), AR(( q )), está dado por:</p>
 <div class="math notranslate nohighlight">
 \[
-\text{se}(r_k) \simeq \sqrt{\frac{1}{T}} = \frac{1}{\sqrt{T}}.
-\]</div>
-<p>Este resultado tiene una interpretación importante. Para rezagos grandes ( k ), las autocorrelaciones <span class="math notranslate nohighlight">\( ( \rho_k ) \)</span> son prácticamente cero, lo que implica que los valores de la serie temporal son casi independientes. En este caso, el error estándar del estimador <span class="math notranslate nohighlight">\( ( r_k ) \)</span> es similar al error estándar de una estimación basada en datos independientes, que es inversamente proporcional a la raíz cuadrada del tamaño de la muestra ( T ).</p>
-<p>Por lo tanto, para grandes valores de ( k ), el error estándar del coeficiente de autocorrelación estimado es:</p>
-<div class="math notranslate nohighlight">
-\[
-\text{se}(r_k) \approx \frac{1}{\sqrt{T}}.
-\]</div>
-</section>
-</section>
-<section id="bonus-2-estadisticos-de-box-pierce">
-<h1>Bonus 2: Estadisticos de Box-Pierce<a class="headerlink" href="#bonus-2-estadisticos-de-box-pierce" title="Link to this heading">#</a></h1>
-<section id="demostracion-similitud-entre-q-lb-y-q-bp-cuando-t-es-grande">
-<h2>Demostración: Similitud entre <span class="math notranslate nohighlight">\( ( Q_{LB} )  y  ( Q_{BP} ) \)</span> cuando ( T ) es grande<a class="headerlink" href="#demostracion-similitud-entre-q-lb-y-q-bp-cuando-t-es-grande" title="Link to this heading">#</a></h2>
-</section>
-<section id="definiciones-de-los-estadisticos">
-<h2>Definiciones de los estadísticos<a class="headerlink" href="#definiciones-de-los-estadisticos" title="Link to this heading">#</a></h2>
-<p>El <strong>estadístico de Box-Pierce</strong> <span class="math notranslate nohighlight">\( ( Q_{BP} ) \)</span> se define como:</p>
-<div class="math notranslate nohighlight">
-\[
-Q_{BP} = T \sum_{k=1}^{K} r_k^2,
+X_t = \phi_1 X_{t-1} + \phi_2 X_{t-2} + \dots + \phi_q X_{t-q} + \varepsilon_t
 \]</div>
 <p>donde:</p>
-<ul class="simple">
-<li><p>( T ) es el tamaño de la muestra.</p></li>
-<li><p>( r_k ) es el coeficiente de autocorrelación muestral en el rezago ( k ).</p></li>
-<li><p>( K ) es el número de rezagos a considerar en la prueba.</p></li>
-</ul>
-<p>El <strong>estadístico de Ljung-Box</strong> <span class="math notranslate nohighlight">\( ( Q_{LB} ) \)</span> se define como:</p>
-<div class="math notranslate nohighlight">
-\[
-Q_{LB} = T (T+2) \sum_{k=1}^{K} \left( \frac{1}{T - k} \right) r_k^2.
-\]</div>
-</section>
-<section id="comparacion-de-las-formulas">
-<h2>Comparación de las fórmulas<a class="headerlink" href="#comparacion-de-las-formulas" title="Link to this heading">#</a></h2>
-<p>La diferencia entre los dos estadísticos está en el factor de ponderación. En <span class="math notranslate nohighlight">\( ( Q_{LB} ) \)</span>, los coeficientes <span class="math notranslate nohighlight">\( ( r_k^2 ) \)</span> se ponderan por:</p>
-<div class="math notranslate nohighlight">
-\[
-\frac{T(T+2)}{T-k}.
-\]</div>
-<p>En <span class="math notranslate nohighlight">\( ( Q_{BP} ) \)</span>, el coeficiente es simplemente ( T ). Ahora, vamos a estudiar el comportamiento asintótico de este factor cuando ( T ) es muy grande.</p>
-</section>
-<section id="comportamiento-asintotico-cuando-t-to-infty">
-<h2>Comportamiento asintótico cuando <span class="math notranslate nohighlight">\( ( T \to \infty ) \)</span><a class="headerlink" href="#comportamiento-asintotico-cuando-t-to-infty" title="Link to this heading">#</a></h2>
-<p>Para ( T ) grande, observamos lo siguiente:</p>
 <ul>
-<li><p>( T(T+2) ) se aproxima a  ( T^2 ):</p>
+<li><p>( \phi_i ) son los coeficientes autorregresivos.</p></li>
+<li><p>( \varepsilon_t ) es un ruido blanco con media cero y varianza constante ( \sigma^2 ):</p>
 <div class="math notranslate nohighlight">
 \[
-  T(T+2) = T^2 + 2T \approx T^2 \quad \text{cuando} \ T \ \text{es grande}.
-  \]</div>
-</li>
-<li><p>( T - k ) también se aproxima a ( T ), ya que ( k ) es mucho menor que ( T ):</p>
-<div class="math notranslate nohighlight">
-\[
-  T - k \approx T \quad \text{cuando} \ T \ \text{es grande}.
+  E[\varepsilon_t] = 0, \quad E[\varepsilon_t^2] = \sigma^2, \quad E[\varepsilon_t \varepsilon_s] = 0 \text{ para } t \neq s
   \]</div>
 </li>
 </ul>
-<p>Por lo tanto, la fracción <span class="math notranslate nohighlight">\( ( \frac{T(T+2)}{T-k} ) \)</span> se simplifica para ( T ) grande:</p>
+</section>
+<section id="propiedades-de-las-autocorrelaciones-en-un-proceso-ar-q">
+<h3>2. Propiedades de las autocorrelaciones en un proceso AR(( q ))<a class="headerlink" href="#propiedades-de-las-autocorrelaciones-en-un-proceso-ar-q" title="Link to this heading">#</a></h3>
+<p>Las autocorrelaciones teóricas (\rho_k) satisfacen las ecuaciones de Yule-Walker:</p>
+<p>Para ( k = 1, 2, \dots, q ):</p>
 <div class="math notranslate nohighlight">
 \[
-\frac{T(T+2)}{T-k} \approx \frac{T^2}{T} = T \quad \text{cuando} \ T \ \text{es grande}.
+\rho_k = \sum_{i=1}^q \phi_i \rho_{k - i}
 \]</div>
+<p>Con ( \rho_0 = 1 ).</p>
+<p>Para ( k &gt; q ):</p>
+<p>Las autocorrelaciones (\rho_k) dependen de las anteriores, pero en procesos estacionarios, decaen exponencialmente hacia cero. Para ( k &gt; q ), podemos asumir que (\rho_k \approx 0).</p>
 </section>
-<section id="simplificacion-del-estadistico-q-lb">
-<h2>Simplificación del estadístico <span class="math notranslate nohighlight">\( ( Q_{LB} ) \)</span><a class="headerlink" href="#simplificacion-del-estadistico-q-lb" title="Link to this heading">#</a></h2>
-<p>Cuando ( T ) es muy grande, podemos aproximar el estadístico de Ljung-Box <span class="math notranslate nohighlight">\( ( Q_{LB} ) \)</span> de la siguiente manera:</p>
+<section id="definicion-de-la-autocorrelacion-muestral-hat-rho-k">
+<h3>3. Definición de la autocorrelación muestral (\hat{\rho}_k)<a class="headerlink" href="#definicion-de-la-autocorrelacion-muestral-hat-rho-k" title="Link to this heading">#</a></h3>
+<p>La autocorrelación muestral para un rezago ( k ) se define como:</p>
 <div class="math notranslate nohighlight">
 \[
-Q_{LB} \approx T \sum_{k=1}^{K} r_k^2.
+\hat{\rho}_k = \frac{\sum_{t=1}^{n - k} (X_t - \bar{X})(X_{t + k} - \bar{X})}{\sum_{t=1}^{n} (X_t - \bar{X})^2}
 \]</div>
-<p>Esta expresión es exactamente la misma que la fórmula del estadístico de Box-Pierce <span class="math notranslate nohighlight">\( ( Q_{BP} ) \)</span>.</p>
-<p>Por lo tanto, cuando ( T ) es muy grande, los estadísticos <span class="math notranslate nohighlight">\( ( Q_{LB} ) y  ( Q_{BP} ) \)</span> se vuelven prácticamente idénticos:</p>
+<p>Donde ( \bar{X} ) es la media muestral:</p>
 <div class="math notranslate nohighlight">
 \[
-Q_{LB} \approx Q_{BP}.
+\bar{X} = \frac{1}{n} \sum_{t=1}^{n} X_t
 \]</div>
-<p>Esto significa que, para muestras grandes, ambas pruebas producirán resultados muy similares.</p>
-</section>
-<section id="bonus-3-error-estandar-coef-autocorrelacion-muestral">
-<h2>Bonus 3 : Error Estandar Coef. Autocorrelacion Muestral<a class="headerlink" href="#bonus-3-error-estandar-coef-autocorrelacion-muestral" title="Link to this heading">#</a></h2>
-</section>
-<section id="derivacion-del-error-estandar-del-coeficiente-de-autocorrelacion-muestral-r-k">
-<h2>Derivación del error estándar del coeficiente de autocorrelación muestral <span class="math notranslate nohighlight">\( ( r(k) ) \)</span><a class="headerlink" href="#derivacion-del-error-estandar-del-coeficiente-de-autocorrelacion-muestral-r-k" title="Link to this heading">#</a></h2>
-<p>La fórmula precisa para la varianza del coeficiente de autocorrelación muestral <span class="math notranslate nohighlight">\( ( r(k) ) \)</span> es:</p>
+<p>Sin pérdida de generalidad, podemos asumir que la serie tiene media cero (( \bar{X} = 0 )), lo cual simplifica los cálculos:</p>
 <div class="math notranslate nohighlight">
 \[
-\text{Var}(r(k)) \approx \frac{1}{N} \left( 1 + 2 \sum_{j=1}^{k-1} r(j)^2 \right),
+\hat{\rho}_k = \frac{\sum_{t=1}^{n - k} X_t X_{t + k}}{\sum_{t=1}^{n} X_t^2}
 \]</div>
-<p>donde ( N ) es el tamaño de la muestra y <span class="math notranslate nohighlight">\( ( r(j) ) \)</span> son los coeficientes de autocorrelación muestral en retardos anteriores a ( k ).</p>
 </section>
-<section id="analisis-inicial-del-proceso-autoregresivo">
-<h2>Análisis inicial del proceso autoregresivo<a class="headerlink" href="#analisis-inicial-del-proceso-autoregresivo" title="Link to this heading">#</a></h2>
-<p>Según Bartlett (1946), para un proceso autoregresivo <span class="math notranslate nohighlight">\( ( AR(1) ) \)</span>, la varianza del coeficiente de autocorrelación estimado en el retardo ( k ) puede expresarse como:</p>
+<section id="calculo-de-la-varianza-de-hat-rho-k">
+<h3>4. Cálculo de la varianza de (\hat{\rho}_k)<a class="headerlink" href="#calculo-de-la-varianza-de-hat-rho-k" title="Link to this heading">#</a></h3>
+<p>Queremos calcular:</p>
 <div class="math notranslate nohighlight">
 \[
-\text{Var}(r_k) \approx \frac{1}{T} \sum_{v=-\infty}^{\infty} \left( \rho_v^2 + \rho_{v+k}\rho_{v-k} - 4\rho_k\rho_v\rho_{v-k} + 2\rho_v^2 \rho_k^2 \right),
+\text{Var}(\hat{\rho}_k) = E\left[ \left( \hat{\rho}_k - \rho_k \right)^2 \right]
 \]</div>
-<p>donde <span class="math notranslate nohighlight">\( ( \rho_v ) \)</span> representa los coeficientes de autocorrelación teóricos y ( T ) es el tamaño de la muestra.</p>
-</section>
-<section id="simplificacion-para-valores-grandes-de-k">
-<h2>Simplificación para valores grandes de ( k )<a class="headerlink" href="#simplificacion-para-valores-grandes-de-k" title="Link to this heading">#</a></h2>
-<p>Cuando ( k ) es grande y las autocorrelaciones en retardos mayores a ( k ) se vuelven insignificantes, esta expresión se simplifica como:</p>
+<p>Dado que para ( k &gt; q ), (\rho_k \approx 0), podemos aproximar:</p>
 <div class="math notranslate nohighlight">
 \[
-\text{Var}(r(k)) \approx \frac{1}{T} \left( 1 + 2 \sum_{v=1}^{q} \rho_v^2 \right), \quad k &gt; q.
+\text{Var}(\hat{\rho}_k) = E\left[ \hat{\rho}_k^2 \right]
 \]</div>
-<p>Aquí, ( q ) es un valor suficientemente grande donde la autocorrelación teórica es pequeña.</p>
-</section>
-<section id="incorporacion-de-los-coeficientes-de-autocorrelacion-muestral">
-<h2>Incorporación de los coeficientes de autocorrelación muestral<a class="headerlink" href="#incorporacion-de-los-coeficientes-de-autocorrelacion-muestral" title="Link to this heading">#</a></h2>
-<p>Si no conocemos los coeficientes de autocorrelación teóricos <span class="math notranslate nohighlight">\( ( \rho_v ) \)</span>, usamos los coeficientes de autocorrelación muestral <span class="math notranslate nohighlight">\( ( r(j) ) \)</span> como aproximación. Entonces, reemplazamos <span class="math notranslate nohighlight">\( ( \rho_v ) \)</span> por <span class="math notranslate nohighlight">\( ( r(j) ) \)</span>, lo que resulta en:</p>
+<section id="expansion-de-hat-rho-k">
+<h4>4.1. Expansión de (\hat{\rho}_k)<a class="headerlink" href="#expansion-de-hat-rho-k" title="Link to this heading">#</a></h4>
+<p>Utilizando la definición:</p>
 <div class="math notranslate nohighlight">
 \[
-\text{Var}(r(k)) \approx \frac{1}{N} \left( 1 + 2 \sum_{j=1}^{k-1} r(j)^2 \right).
+\hat{\rho}_k = \frac{\sum_{t=1}^{n - k} X_t X_{t + k}}{\sum_{t=1}^{n} X_t^2}
 \]</div>
-</section>
-<section id="relacion-con-el-termino-1-2-sum-r-j-2">
-<h2>Relación con el término <span class="math notranslate nohighlight">\( ( 1 + 2 \sum r(j)^2 ) \)</span><a class="headerlink" href="#relacion-con-el-termino-1-2-sum-r-j-2" title="Link to this heading">#</a></h2>
-<p>El término <span class="math notranslate nohighlight">\( ( 1 + 2 \sum_{j=1}^{k-1} r(j)^2 ) \)</span> proviene del análisis de la autocovarianza y la estructura de la matriz de covarianza de los coeficientes de autocorrelación. Captura cómo las autocorrelaciones en los retardos anteriores afectan la varianza de <span class="math notranslate nohighlight">\( ( r(k) ) \)</span>.</p>
-<p>Finalmente, el error estándar del coeficiente de autocorrelación muestral <span class="math notranslate nohighlight">\( ( r(k) ) \)</span> es:</p>
+<p>Sea ( D = \sum_{t=1}^{n} X_t^2 ).</p>
+<p>Entonces:</p>
 <div class="math notranslate nohighlight">
 \[
-\text{s.e.}(r(k)) = \frac{1}{\sqrt{N}} \left( 1 + 2 \sum_{j=1}^{k-1} r(j)^2 \right)^{1/2}.
+\hat{\rho}_k = \frac{1}{D} \sum_{t=1}^{n - k} X_t X_{t + k}
 \]</div>
-<p>Esta fórmula es más precisa que <span class="math notranslate nohighlight">\( ( 1/\sqrt{N} ) \)</span>, ya que considera la influencia de las autocorrelaciones en los retardos anteriores, ajustando el error estándar según la dependencia serial en la serie temporal.</p>
 </section>
-</section>
-<section id="bonus-4-significancia-estadistica-del-coeficiente-de-correlacion-muestral">
-<h1>Bonus 4: Significancia Estadistica del coeficiente de correlación muestral<a class="headerlink" href="#bonus-4-significancia-estadistica-del-coeficiente-de-correlacion-muestral" title="Link to this heading">#</a></h1>
-<section id="derivacion-del-limite-de-significancia-estadistica-pm-frac-2-sqrt-n">
-<h2>Derivación del límite de significancia estadística <span class="math notranslate nohighlight">\( (\pm \frac{2}{\sqrt{N}}) \)</span><a class="headerlink" href="#derivacion-del-limite-de-significancia-estadistica-pm-frac-2-sqrt-n" title="Link to this heading">#</a></h2>
-</section>
-<section id="distribucion-de-la-autocorrelacion-parcial-estimada">
-<h2>Distribución de la autocorrelación parcial estimada<a class="headerlink" href="#distribucion-de-la-autocorrelacion-parcial-estimada" title="Link to this heading">#</a></h2>
-<p>Cuando se calcula la autocorrelación parcial estimada <span class="math notranslate nohighlight">\( (\hat{\phi}_{kk}) \)</span>, esta sigue aproximadamente una distribución normal para muestras grandes. Para un proceso <span class="math notranslate nohighlight">\( (AR(p)) \)</span>, la varianza de <span class="math notranslate nohighlight">\( (\hat{\phi}_{kk}) \)</span> es inversamente proporcional al tamaño de la muestra (N):</p>
+<section id="calculo-de-e-hat-rho-k-2">
+<h4>4.2. Cálculo de ( E[\hat{\rho}_k^2] )<a class="headerlink" href="#calculo-de-e-hat-rho-k-2" title="Link to this heading">#</a></h4>
+<p>Tenemos:</p>
 <div class="math notranslate nohighlight">
 \[
-\hat{\phi}_{kk} \sim N\left(0, \frac{1}{N}\right)
+E[\hat{\rho}_k^2] = E\left[ \left( \frac{1}{D} \sum_{t=1}^{n - k} X_t X_{t + k} \right)^2 \right]
 \]</div>
-<p>Esto implica que, en promedio, la autocorrelación parcial estimada será cero si no hay autocorrelación verdadera, con una varianza que disminuye al aumentar (N), lo que mejora la precisión de la estimación.</p>
-</section>
-<section id="relacion-entre-varianza-y-desviacion-estandar">
-<h2>Relación entre varianza y desviación estándar<a class="headerlink" href="#relacion-entre-varianza-y-desviacion-estandar" title="Link to this heading">#</a></h2>
-<p>La varianza de <span class="math notranslate nohighlight">\( (\hat{\phi}_{kk}) \)</span> es <span class="math notranslate nohighlight">\( (\frac{1}{N}) \)</span>, por lo que la desviación estándar es:</p>
+<p>Como ( D ) es una constante dado que estamos condicionando en los datos, podemos extraer ( \frac{1}{D^2} ):</p>
 <div class="math notranslate nohighlight">
 \[
-\frac{1}{\sqrt{N}}
+E[\hat{\rho}_k^2] = \frac{1}{D^2} E\left[ \left( \sum_{t=1}^{n - k} X_t X_{t + k} \right)^2 \right]
 \]</div>
-<p>Este comportamiento es típico en estimaciones basadas en muestras: a medida que (N) crece, la precisión de la estimación mejora.</p>
-</section>
-<section id="relacion-con-el-intervalo-de-confianza">
-<h2>Relación con el intervalo de confianza<a class="headerlink" href="#relacion-con-el-intervalo-de-confianza" title="Link to this heading">#</a></h2>
-<p>Para establecer límites de confianza al 95%, usamos la fórmula:</p>
+<p>Expandiendo el cuadrado:</p>
 <div class="math notranslate nohighlight">
 \[
-\text{Estimación} \pm \left(Z_{\alpha/2} \times \text{Desviación estándar}\right)
+\left( \sum_{t=1}^{n - k} X_t X_{t + k} \right)^2 = \sum_{t=1}^{n - k} \sum_{s=1}^{n - k} X_t X_{t + k} X_s X_{s + k}
 \]</div>
-<p>Donde <span class="math notranslate nohighlight">\( (Z_{\alpha/2} \approx 1.96) \)</span> para un intervalo del 95%. Con la desviación estándar <span class="math notranslate nohighlight">\( (\frac{1}{\sqrt{N}}) \)</span>, los límites de confianza se expresan como:</p>
+<p>Entonces:</p>
 <div class="math notranslate nohighlight">
 \[
-\hat{\phi}_{kk} \pm \frac{2}{\sqrt{N}}
+E[\hat{\rho}_k^2] = \frac{1}{D^2} \sum_{t=1}^{n - k} \sum_{s=1}^{n - k} E\left[ X_t X_{t + k} X_s X_{s + k} \right]
 \]</div>
-<p>Este es el límite comúnmente utilizado para muestras grandes, donde la aproximación normal es válida.</p>
 </section>
-<section id="significancia-estadistica">
-<h2>Significancia estadística<a class="headerlink" href="#significancia-estadistica" title="Link to this heading">#</a></h2>
-<p>Si <span class="math notranslate nohighlight">\( (\hat{\phi}_{kk}) \)</span> cae fuera del rango <span class="math notranslate nohighlight">\( (\pm \frac{2}{\sqrt{N}}) \)</span>, es estadísticamente significativa al 95%, indicando que la autocorrelación parcial no es cero.</p>
-<p>En el trabajo de <strong>Quenouille (1949)</strong> se detalla que, en <strong>muestras pequeñas</strong>, los coeficientes de autocorrelación pueden tener <strong>distribuciones más complejas</strong> y que los límites de confianza deben ajustarse usando la <strong>t de Student</strong> para reflejar mejor la variabilidad. Quenouille sugiere que los límites de confianza en estas situaciones tienden a ser <strong>asimétricos</strong>.</p>
-<p>Así:</p>
+<section id="calculo-de-la-esperanza-e-x-t-x-t-k-x-s-x-s-k">
+<h4>4.3. Cálculo de la esperanza ( E[ X_t X_{t + k} X_s X_{s + k} ] )<a class="headerlink" href="#calculo-de-la-esperanza-e-x-t-x-t-k-x-s-x-s-k" title="Link to this heading">#</a></h4>
+<p>Consideramos dos casos:</p>
+<ol class="arabic">
+<li><p><strong>Cuando ( t = s )</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+   E[ X_t X_{t + k} X_t X_{t + k} ] = E[ X_t^2 X_{t + k}^2 ] = E[ X_t^2 ] E[ X_{t + k}^2 ] \quad (\text{asumiendo incorrelación})
+   \]</div>
+<p>Para ( k &gt; q ), podemos aproximar que ( X_t ) y ( X_{t + k} ) están incorrelacionados (( \rho_k \approx 0 )).</p>
+<p>Por lo tanto:</p>
+<div class="math notranslate nohighlight">
+\[
+   E[ X_t^2 X_{t + k}^2 ] \approx E[ X_t^2 ] E[ X_{t + k}^2 ] = (\gamma_0)^2
+   \]</div>
+</li>
+<li><p><strong>Cuando ( t \neq s )</strong>:</p>
+<p>Si ( |t - s| \geq q ), entonces ( X_t ) es aproximadamente incorrelacionado con ( X_s ) y con ( X_{s + k} ).</p>
+<p>Entonces:</p>
+<div class="math notranslate nohighlight">
+\[
+   E[ X_t X_{t + k} X_s X_{s + k} ] \approx E[ X_t ] E[ X_{t + k} ] E[ X_s ] E[ X_{s + k} ] = 0
+   \]</div>
+<p>Porque ( E[X_t] = 0 ).</p>
+</li>
+</ol>
+</section>
+<section id="simplificacion-de-la-suma">
+<h4>4.4. Simplificación de la suma<a class="headerlink" href="#simplificacion-de-la-suma" title="Link to this heading">#</a></h4>
+<p>Dado lo anterior, solo los términos donde ( t = s ) contribuyen significativamente:</p>
+<div class="math notranslate nohighlight">
+\[
+E[\hat{\rho}_k^2] \approx \frac{1}{D^2} \sum_{t=1}^{n - k} E[ X_t^2 X_{t + k}^2 ] = \frac{1}{D^2} (n - k) (\gamma_0)^2
+\]</div>
+</section>
+<section id="aproximacion-de-d">
+<h4>4.5. Aproximación de ( D )<a class="headerlink" href="#aproximacion-de-d" title="Link to this heading">#</a></h4>
+<p>Sabemos que:</p>
+<div class="math notranslate nohighlight">
+\[
+D = \sum_{t=1}^{n} X_t^2
+\]</div>
+<p>El valor esperado de ( D ) es:</p>
+<div class="math notranslate nohighlight">
+\[
+E[D] = n \gamma_0
+\]</div>
+<p>Podemos aproximar ( D \approx n \gamma_0 ) para ( n ) grande.</p>
+</section>
+<section id="calculo-final-de-e-hat-rho-k-2">
+<h4>4.6. Cálculo final de ( E[\hat{\rho}_k^2] )<a class="headerlink" href="#calculo-final-de-e-hat-rho-k-2" title="Link to this heading">#</a></h4>
+<p>Sustituyendo en la expresión de ( E[\hat{\rho}_k^2] ):</p>
+<div class="math notranslate nohighlight">
+\[
+E[\hat{\rho}_k^2] \approx \frac{(n - k) (\gamma_0)^2}{(n \gamma_0)^2} = \frac{n - k}{n^2}
+\]</div>
+<p>Para ( n ) grande y ( k \ll n ), tenemos que ( n - k \approx n ), entonces:</p>
+<div class="math notranslate nohighlight">
+\[
+E[\hat{\rho}_k^2] \approx \frac{n}{n^2} = \frac{1}{n}
+\]</div>
+<p>Por lo tanto:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Var}(\hat{\rho}_k) = E[\hat{\rho}_k^2] \approx \frac{1}{n}
+\]</div>
+</section>
+</section>
+<section id="conclusion">
+<h3>5. Conclusión<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h3>
+<p>Hemos demostrado que, para ( k &gt; q ) y bajo los supuestos mencionados, la varianza de (\hat{\rho}_k) es aproximadamente:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Var}(\hat{\rho}_k) \approx \frac{1}{n}
+\]</div>
+<p>Por lo tanto, el error estándar es:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{SE}(\hat{\rho}_k) = \sqrt{\text{Var}(\hat{\rho}_k)} \approx \frac{1}{\sqrt{n}}
+\]</div>
+<hr class="docutils" />
+<p><strong>Referencias</strong>:</p>
 <ul class="simple">
-<li><p>Para <strong>muestras grandes</strong>, la aproximación normal con límite <span class="math notranslate nohighlight">\( (\pm \frac{2}{\sqrt{N}}) \)</span> es válida.</p></li>
-<li><p>Para <strong>muestras pequeñas</strong>, es más adecuado utilizar la <strong>distribución t de Student</strong>, que ajusta mejor la variabilidad e introduce límites asimétricos que mejor capturan la incertidumbre en la estimación.</p></li>
+<li><p><strong>Bartlett, M. S. (1946)</strong>. <em>On the Theoretical Specification and Sampling Properties of Autocorrelated Time-Series</em>. <strong>Journal of the Royal Statistical Society</strong>, 8(1), 27-41.</p></li>
 </ul>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="fin-de-la-demostracion">
+<h1>Fin de la demostración<a class="headerlink" href="#fin-de-la-demostracion" title="Link to this heading">#</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="bono-2-demostracion-de-la-equivalencia-asintotica-entre-los-estadisticos-de-ljung-box-y-box-pierce">
+<h1>Bono 2: Demostración de la Equivalencia Asintótica entre los Estadísticos de Ljung-Box y Box-Pierce<a class="headerlink" href="#bono-2-demostracion-de-la-equivalencia-asintotica-entre-los-estadisticos-de-ljung-box-y-box-pierce" title="Link to this heading">#</a></h1>
+<section id="id1">
+<h2>Introducción<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>En el análisis de series temporales, las pruebas de <strong>Ljung-Box</strong> y <strong>Box-Pierce</strong> son métodos estadísticos utilizados para detectar la presencia de autocorrelación en los residuos de un modelo ajustado. Aunque sus formulaciones difieren ligeramente, se vuelven asintóticamente equivalentes a medida que el tamaño de la muestra ( n ) se hace grande.</p>
+</section>
+<section id="definiciones">
+<h2>Definiciones<a class="headerlink" href="#definiciones" title="Link to this heading">#</a></h2>
+<ol class="arabic">
+<li><p><strong>Estadístico de Box-Pierce</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+   Q_{\text{BP}} = n \sum_{k=1}^h \hat{\rho}_k^2
+   \]</div>
+</li>
+<li><p><strong>Estadístico de Ljung-Box</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+   Q_{\text{LB}} = n(n+2) \sum_{k=1}^h \frac{\hat{\rho}_k^2}{n - k}
+   \]</div>
+</li>
+</ol>
+<p>Donde:</p>
+<ul class="simple">
+<li><p>( n ) es el tamaño de la muestra.</p></li>
+<li><p>( h ) es el número de rezagos analizados (típicamente ( h \ll n )).</p></li>
+<li><p>( \hat{\rho}_k ) es la autocorrelación muestral en el rezago ( k ).</p></li>
+</ul>
+</section>
+<section id="id2">
+<h2>Objetivo<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>Nuestro objetivo es demostrar que:</p>
+<div class="math notranslate nohighlight">
+\[
+\lim_{n \to \infty} \left( Q_{\text{LB}} - Q_{\text{BP}} \right) = 0
+\]</div>
+<p>Esto demuestra que ( Q_{\text{LB}} ) y ( Q_{\text{BP}} ) son asintóticamente equivalentes cuando ( n \to \infty ).</p>
+</section>
+<section id="demostracion">
+<h2>Demostración<a class="headerlink" href="#demostracion" title="Link to this heading">#</a></h2>
+<section id="paso-1-reescribir-q-text-lb-en-terminos-de-q-text-bp">
+<h3>Paso 1: Reescribir ( Q_{\text{LB}} ) en términos de ( Q_{\text{BP}} )<a class="headerlink" href="#paso-1-reescribir-q-text-lb-en-terminos-de-q-text-bp" title="Link to this heading">#</a></h3>
+<p>Comenzamos expresando ( Q_{\text{LB}} ) de una forma similar a ( Q_{\text{BP}} ):</p>
+<div class="math notranslate nohighlight">
+\[
+Q_{\text{LB}} = n(n+2) \sum_{k=1}^h \frac{\hat{\rho}_k^2}{n - k}
+\]</div>
+<p>Reescribimos el denominador:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{n - k} = \frac{1}{n \left( 1 - \frac{k}{n} \right)} = \frac{1}{n} \cdot \frac{1}{1 - \frac{k}{n}}
+\]</div>
+<p>Por lo tanto,</p>
+<div class="math notranslate nohighlight">
+\[
+Q_{\text{LB}} = n(n+2) \sum_{k=1}^h \hat{\rho}_k^2 \left( \frac{1}{n} \cdot \frac{1}{1 - \frac{k}{n}} \right) = (n+2) \sum_{k=1}^h \hat{\rho}_k^2 \left( \frac{1}{1 - \frac{k}{n}} \right)
+\]</div>
+</section>
+<section id="paso-2-expandir-el-denominador-utilizando-la-serie-de-taylor">
+<h3>Paso 2: Expandir el denominador utilizando la serie de Taylor<a class="headerlink" href="#paso-2-expandir-el-denominador-utilizando-la-serie-de-taylor" title="Link to this heading">#</a></h3>
+<p>Para ( n ) grande y pequeño ( \frac{k}{n} ), podemos usar la expansión en serie de Taylor:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{1 - x} = 1 + x + x^2 + x^3 + \dots, \quad \text{para} \quad |x| &lt; 1
+\]</div>
+<p>Sea ( x = \frac{k}{n} ), entonces:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{1 - \frac{k}{n}} = 1 + \frac{k}{n} + \left( \frac{k}{n} \right)^2 + \left( \frac{k}{n} \right)^3 + \dots
+\]</div>
+</section>
+<section id="paso-3-aproximar-q-text-lb-utilizando-la-expansion">
+<h3>Paso 3: Aproximar ( Q_{\text{LB}} ) utilizando la expansión<a class="headerlink" href="#paso-3-aproximar-q-text-lb-utilizando-la-expansion" title="Link to this heading">#</a></h3>
+<p>Sustituimos la expansión en ( Q_{\text{LB}} ):</p>
+<div class="math notranslate nohighlight">
+\[
+Q_{\text{LB}} = (n+2) \sum_{k=1}^h \hat{\rho}_k^2 \left( 1 + \frac{k}{n} + \left( \frac{k}{n} \right)^2 + \dots \right)
+\]</div>
+<p>Además, expresamos ( n+2 ) como:</p>
+<div class="math notranslate nohighlight">
+\[
+n+2 = n \left( 1 + \frac{2}{n} \right)
+\]</div>
+<p>Por lo tanto:</p>
+<div class="math notranslate nohighlight">
+\[
+Q_{\text{LB}} = n \left( 1 + \frac{2}{n} \right) \sum_{k=1}^h \hat{\rho}_k^2 \left( 1 + \frac{k}{n} + \left( \frac{k}{n} \right)^2 + \dots \right)
+\]</div>
+</section>
+<section id="paso-4-multiplicar-y-simplificar-terminos">
+<h3>Paso 4: Multiplicar y simplificar términos<a class="headerlink" href="#paso-4-multiplicar-y-simplificar-terminos" title="Link to this heading">#</a></h3>
+<p>Multiplicando las expresiones y reteniendo términos hasta ( \frac{1}{n} ):</p>
+<div class="math notranslate nohighlight">
+\[
+Q_{\text{LB}} \approx n \left( 1 + \frac{2}{n} \right) \sum_{k=1}^h \hat{\rho}_k^2 \left( 1 + \frac{k}{n} \right)
+\]</div>
+<p>Simplificamos dentro de la suma:</p>
+<div class="math notranslate nohighlight">
+\[
+\left( 1 + \frac{2}{n} \right) \left( 1 + \frac{k}{n} \right) = 1 + \frac{2}{n} + \frac{k}{n} + \frac{2k}{n^2}
+\]</div>
+<p>Despreciando el término ( \frac{2k}{n^2} ):</p>
+<div class="math notranslate nohighlight">
+\[
+Q_{\text{LB}} \approx n \sum_{k=1}^h \hat{\rho}_k^2 \left( 1 + \frac{2 + k}{n} \right)
+\]</div>
+</section>
+<section id="paso-5-separar-la-suma">
+<h3>Paso 5: Separar la suma<a class="headerlink" href="#paso-5-separar-la-suma" title="Link to this heading">#</a></h3>
+<p>Dividimos la expresión:</p>
+<div class="math notranslate nohighlight">
+\[
+Q_{\text{LB}} \approx n \sum_{k=1}^h \hat{\rho}_k^2 + \sum_{k=1}^h \hat{\rho}_k^2 (2 + k)
+\]</div>
+<p>Reconocemos que:</p>
+<div class="math notranslate nohighlight">
+\[
+Q_{\text{BP}} = n \sum_{k=1}^h \hat{\rho}_k^2
+\]</div>
+<p>Por lo tanto, la diferencia es:</p>
+<div class="math notranslate nohighlight">
+\[
+Q_{\text{LB}} - Q_{\text{BP}} \approx \sum_{k=1}^h \hat{\rho}_k^2 (2 + k)
+\]</div>
+</section>
+<section id="paso-6-evaluar-el-valor-esperado-bajo-la-hipotesis-nula">
+<h3>Paso 6: Evaluar el valor esperado bajo la hipótesis nula<a class="headerlink" href="#paso-6-evaluar-el-valor-esperado-bajo-la-hipotesis-nula" title="Link to this heading">#</a></h3>
+<p>Bajo la hipótesis nula:</p>
+<ul class="simple">
+<li><p>( E[\hat{\rho}_k] = 0 )</p></li>
+<li><p>( \text{Var}(\hat{\rho}_k) = \frac{1}{n} )</p></li>
+</ul>
+<p>Así:</p>
+<div class="math notranslate nohighlight">
+\[
+E[\hat{\rho}_k^2] = \text{Var}(\hat{\rho}_k) = \frac{1}{n}
+\]</div>
+<p>Entonces:</p>
+<div class="math notranslate nohighlight">
+\[
+E[Q_{\text{LB}} - Q_{\text{BP}}] \approx \sum_{k=1}^h \frac{1}{n} (2 + k)
+\]</div>
+<p>Calculamos la suma:</p>
+<div class="math notranslate nohighlight">
+\[
+E[Q_{\text{LB}} - Q_{\text{BP}}] = \frac{1}{n} \left( 2h + \frac{h(h+1)}{2} \right) = \frac{h^2 + 5h}{2n}
+\]</div>
+</section>
+<section id="paso-7-conclusion">
+<h3>Paso 7: Conclusión<a class="headerlink" href="#paso-7-conclusion" title="Link to this heading">#</a></h3>
+<p>Cuando ( n \to \infty ):</p>
+<div class="math notranslate nohighlight">
+\[
+E[Q_{\text{LB}} - Q_{\text{BP}}] \to 0
+\]</div>
+<p>Por lo tanto:</p>
+<div class="math notranslate nohighlight">
+\[
+Q_{\text{LB}} - Q_{\text{BP}} \xrightarrow{P} 0
+\]</div>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="id3">
+<h1>Fin de la Demostración<a class="headerlink" href="#id3" title="Link to this heading">#</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="bono-3-derivacion-del-error-estandar-del-coeficiente-de-autocorrelacion-muestral-r-k">
+<h1>Bono 3: Derivación del Error Estándar del Coeficiente de Autocorrelación Muestral ( r(k) )<a class="headerlink" href="#bono-3-derivacion-del-error-estandar-del-coeficiente-de-autocorrelacion-muestral-r-k" title="Link to this heading">#</a></h1>
+<section id="id4">
+<h2>Introducción<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>En el análisis de series temporales, el <strong>coeficiente de autocorrelación muestral</strong> ( r(k) ) es una estimación de la autocorrelación verdadera ( \rho(k) ) en el rezago ( k ). Conocer la <strong>varianza</strong> y el <strong>error estándar</strong> de ( r(k) ) es esencial para evaluar la significancia estadística de las autocorrelaciones estimadas y para construir intervalos de confianza.</p>
+<p>Nuestro objetivo es <strong>derivar matemáticamente</strong> el error estándar de ( r(k) ), especialmente para rezagos grandes ( k ), bajo el supuesto de que las autocorrelaciones verdaderas más allá de un cierto rezago ( q ) son cero (( \rho(k) = 0 ) para ( k &gt; q )). También incluiremos la <strong>fórmula reducida que Bartlett encontró</strong> para la varianza de ( r(k) ).</p>
+</section>
+<section id="definiciones-y-supuestos">
+<h2>Definiciones y Supuestos<a class="headerlink" href="#definiciones-y-supuestos" title="Link to this heading">#</a></h2>
+<ol class="arabic">
+<li><p><strong>Serie Temporal</strong>: Consideramos una serie temporal ( {X_t}_{t=1}^n ) con media cero (( \bar{X} = 0 )) y varianza constante ( \gamma_0 = \text{Var}(X_t) ).</p></li>
+<li><p><strong>Coeficiente de Autocorrelación Muestral</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+   r(k) = \frac{\sum_{t=1}^{n - k} X_t X_{t + k}}{\sum_{t=1}^{n} X_t^2}
+   \]</div>
+</li>
+<li><p><strong>Autocorrelaciones Verdaderas</strong>: Suponemos que las autocorrelaciones verdaderas son cero para ( k &gt; q ):</p>
+<div class="math notranslate nohighlight">
+\[
+   \rho(k) = 0 \quad \text{para} \quad k &gt; q
+   \]</div>
+</li>
+<li><p><strong>Independencia Aproximada</strong>: Para ( k &gt; q ), asumimos que ( X_t ) y ( X_{t + k} ) son independientes.</p></li>
+</ol>
+</section>
+<section id="id5">
+<h2>Objetivo<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>Demostrar que, para rezagos grandes ( k &gt; q ):</p>
+<ol class="arabic">
+<li><p>La varianza del coeficiente de autocorrelación muestral es:</p>
+<div class="math notranslate nohighlight">
+\[
+   \text{Var}[r(k)] \approx \frac{1}{n}
+   \]</div>
+</li>
+<li><p>El error estándar es:</p>
+<div class="math notranslate nohighlight">
+\[
+   \text{SE}[r(k)] = \sqrt{\text{Var}[r(k)]} \approx \frac{1}{\sqrt{n}}
+   \]</div>
+</li>
+</ol>
+</section>
+<section id="id6">
+<h2>Demostración<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<section id="paso-1-expresion-de-r-k">
+<h3>Paso 1: Expresión de ( r(k) )<a class="headerlink" href="#paso-1-expresion-de-r-k" title="Link to this heading">#</a></h3>
+<p>Con ( \bar{X} = 0 ), el coeficiente de autocorrelación muestral se simplifica a:</p>
+<div class="math notranslate nohighlight">
+\[
+r(k) = \frac{\sum_{t=1}^{n - k} X_t X_{t + k}}{\sum_{t=1}^{n} X_t^2}
+\]</div>
+<p>Sea:</p>
+<div class="math notranslate nohighlight">
+\[
+S = \sum_{t=1}^{n} X_t^2
+\]</div>
+<p>Entonces:</p>
+<div class="math notranslate nohighlight">
+\[
+r(k) = \frac{1}{S} \sum_{t=1}^{n - k} X_t X_{t + k}
+\]</div>
+</section>
+<section id="paso-2-calculo-de-la-varianza-de-r-k">
+<h3>Paso 2: Cálculo de la Varianza de ( r(k) )<a class="headerlink" href="#paso-2-calculo-de-la-varianza-de-r-k" title="Link to this heading">#</a></h3>
+<p>La varianza es:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Var}[r(k)] = E\left[ \left( r(k) - E[r(k)] \right)^2 \right]
+\]</div>
+<p>Para ( k &gt; q ), ( \rho(k) = 0 ), y como ( E[X_t] = 0 ), tenemos:</p>
+<div class="math notranslate nohighlight">
+\[
+E[r(k)] = E\left[ \frac{1}{S} \sum_{t=1}^{n - k} X_t X_{t + k} \right] = \frac{1}{S} \sum_{t=1}^{n - k} E[X_t X_{t + k}] = 0
+\]</div>
+<p>Por lo tanto:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Var}[r(k)] = E\left[ r(k)^2 \right]
+\]</div>
+</section>
+<section id="paso-3-expansion-de-r-k-2">
+<h3>Paso 3: Expansión de ( r(k)^2 )<a class="headerlink" href="#paso-3-expansion-de-r-k-2" title="Link to this heading">#</a></h3>
+<p>Tenemos:</p>
+<div class="math notranslate nohighlight">
+\[
+r(k)^2 = \left( \frac{1}{S} \sum_{t=1}^{n - k} X_t X_{t + k} \right)^2 = \frac{1}{S^2} \left( \sum_{t=1}^{n - k} X_t X_{t + k} \right)^2
+\]</div>
+<p>Expandiendo el cuadrado:</p>
+<div class="math notranslate nohighlight">
+\[
+\left( \sum_{t=1}^{n - k} X_t X_{t + k} \right)^2 = \sum_{t=1}^{n - k} \sum_{s=1}^{n - k} X_t X_{t + k} X_s X_{s + k}
+\]</div>
+</section>
+<section id="paso-4-calculo-de-e-r-k-2">
+<h3>Paso 4: Cálculo de ( E[r(k)^2] )<a class="headerlink" href="#paso-4-calculo-de-e-r-k-2" title="Link to this heading">#</a></h3>
+<p>Calculamos la esperanza:</p>
+<div class="math notranslate nohighlight">
+\[
+E[r(k)^2] = \frac{1}{S^2} \sum_{t=1}^{n - k} \sum_{s=1}^{n - k} E\left[ X_t X_{t + k} X_s X_{s + k} \right]
+\]</div>
+<p>Analizamos dos casos:</p>
+<section id="caso-1-t-s">
+<h4>Caso 1: ( t = s )<a class="headerlink" href="#caso-1-t-s" title="Link to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+E\left[ X_t X_{t + k} X_t X_{t + k} \right] = E\left[ X_t^2 X_{t + k}^2 \right]
+\]</div>
+<p>Dado que ( X_t ) y ( X_{t + k} ) son independientes para ( k &gt; q ):</p>
+<div class="math notranslate nohighlight">
+\[
+E\left[ X_t^2 X_{t + k}^2 \right] = E\left[ X_t^2 \right] E\left[ X_{t + k}^2 \right] = \gamma_0^2
+\]</div>
+</section>
+<section id="caso-2-t-neq-s">
+<h4>Caso 2: ( t \neq s )<a class="headerlink" href="#caso-2-t-neq-s" title="Link to this heading">#</a></h4>
+<p>Para ( t \neq s ) y ( k &gt; q ), las variables son independientes, por lo que:</p>
+<div class="math notranslate nohighlight">
+\[
+E\left[ X_t X_{t + k} X_s X_{s + k} \right] = E[X_t] E[X_{t + k}] E[X_s] E[X_{s + k}] = 0
+\]</div>
+<p>Porque ( E[X_t] = 0 ).</p>
+</section>
+</section>
+<section id="paso-5-simplificacion-de-la-suma">
+<h3>Paso 5: Simplificación de la Suma<a class="headerlink" href="#paso-5-simplificacion-de-la-suma" title="Link to this heading">#</a></h3>
+<p>Solo los términos donde ( t = s ) contribuyen:</p>
+<div class="math notranslate nohighlight">
+\[
+E[r(k)^2] = \frac{1}{S^2} \sum_{t=1}^{n - k} E\left[ X_t^2 X_{t + k}^2 \right] = \frac{n - k}{S^2} \gamma_0^2
+\]</div>
+</section>
+<section id="paso-6-aproximacion-de-s">
+<h3>Paso 6: Aproximación de ( S )<a class="headerlink" href="#paso-6-aproximacion-de-s" title="Link to this heading">#</a></h3>
+<p>El valor esperado de ( S ) es:</p>
+<div class="math notranslate nohighlight">
+\[
+E[S] = \sum_{t=1}^{n} E[X_t^2] = n \gamma_0
+\]</div>
+<p>Aproximamos ( S \approx n \gamma_0 ).</p>
+</section>
+<section id="paso-7-calculo-final-de-la-varianza">
+<h3>Paso 7: Cálculo Final de la Varianza<a class="headerlink" href="#paso-7-calculo-final-de-la-varianza" title="Link to this heading">#</a></h3>
+<p>Sustituyendo:</p>
+<div class="math notranslate nohighlight">
+\[
+E[r(k)^2] = \frac{(n - k) \gamma_0^2}{(n \gamma_0)^2} = \frac{n - k}{n^2}
+\]</div>
+<p>Para ( n ) grande y ( k \ll n ):</p>
+<div class="math notranslate nohighlight">
+\[
+E[r(k)^2] \approx \frac{n}{n^2} = \frac{1}{n}
+\]</div>
+<p>Entonces:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Var}[r(k)] = E[r(k)^2] \approx \frac{1}{n}
+\]</div>
+</section>
+<section id="paso-8-error-estandar">
+<h3>Paso 8: Error Estándar<a class="headerlink" href="#paso-8-error-estandar" title="Link to this heading">#</a></h3>
+<p>El error estándar es:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{SE}[r(k)] = \sqrt{\text{Var}[r(k)]} = \sqrt{\frac{1}{n}} = \frac{1}{\sqrt{n}}
+\]</div>
+</section>
+<section id="paso-9-formula-de-bartlett">
+<h3>Paso 9: Fórmula de Bartlett<a class="headerlink" href="#paso-9-formula-de-bartlett" title="Link to this heading">#</a></h3>
+<p>Bartlett (1946) derivó una expresión más general para la varianza de ( r(k) ):</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Var}[r(k)] \approx \frac{1}{n} \left(1 + 2 \sum_{j=1}^{k-1} \rho(j)^2 \right)
+\]</div>
+<p>Bajo el supuesto de que ( \rho(j) = 0 ) para ( j &gt; q ) y que ( k &gt; q ), la suma se reduce a:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{j=1}^{k-1} \rho(j)^2 = \sum_{j=1}^{q} \rho(j)^2
+\]</div>
+<p>Esta suma es una constante para ( k &gt; q ), denotemos:</p>
+<div class="math notranslate nohighlight">
+\[
+C = 1 + 2 \sum_{j=1}^{q} \rho(j)^2
+\]</div>
+<p>Entonces:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Var}[r(k)] \approx \frac{C}{n}
+\]</div>
+<p>Si las autocorrelaciones ( \rho(j) ) son pequeñas, ( C \approx 1 ), y recuperamos el resultado anterior.</p>
+</section>
+</section>
+<section id="id7">
+<h2>Conclusión<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<p>Hemos demostrado que, para rezagos grandes ( k &gt; q ):</p>
+<ol class="arabic">
+<li><p>La varianza del coeficiente de autocorrelación muestral es aproximadamente:</p>
+<div class="math notranslate nohighlight">
+\[
+   \text{Var}[r(k)] \approx \frac{1}{n}
+   \]</div>
+</li>
+<li><p>El error estándar es:</p>
+<div class="math notranslate nohighlight">
+\[
+   \text{SE}[r(k)] \approx \frac{1}{\sqrt{n}}
+   \]</div>
+</li>
+</ol>
+<p>Este resultado es consistente con la <strong>fórmula reducida de Bartlett</strong> y muestra que, para rezagos grandes, el error estándar de ( r(k) ) depende únicamente del tamaño de la muestra ( n ).</p>
+</section>
+<section id="referencia">
+<h2>Referencia<a class="headerlink" href="#referencia" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Bartlett, M. S. (1946)</strong>. <em>On the Theoretical Specification and Sampling Properties of Autocorrelated Time-Series</em>. <strong>Journal of the Royal Statistical Society</strong>, 8(1), 27-41.</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="fin-de-la-derivacion">
+<h1>Fin de la Derivación<a class="headerlink" href="#fin-de-la-derivacion" title="Link to this heading">#</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="bonus-4-significancia-estadistica-del-coeficiente-de-correlacion-muestral">
+<h1>Bonus 4: Significancia Estadística del Coeficiente de Correlación Muestral<a class="headerlink" href="#bonus-4-significancia-estadistica-del-coeficiente-de-correlacion-muestral" title="Link to this heading">#</a></h1>
+<section id="derivacion-del-limite-de-significancia-estadistica">
+<h2>Derivación del Límite de Significancia Estadística<a class="headerlink" href="#derivacion-del-limite-de-significancia-estadistica" title="Link to this heading">#</a></h2>
+<p>En el análisis de series temporales, es importante determinar si los coeficientes de autocorrelación muestral ( r(k) ) son significativamente diferentes de cero. Un criterio práctico es considerar que un coeficiente de autocorrelación muestral es estadísticamente significativo si su valor absoluto excede el límite aproximado de ( \pm \dfrac{2}{\sqrt{n}} ), donde ( n ) es el tamaño de la muestra.</p>
+<section id="id8">
+<h3>Objetivo<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>Derivar matemáticamente el límite de significancia estadística ( \pm \dfrac{2}{\sqrt{n}} ) para el coeficiente de autocorrelación muestral ( r(k) ).</p>
+</section>
+<section id="supuestos">
+<h3>Supuestos<a class="headerlink" href="#supuestos" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Serie Temporal</strong>: ( {X_t} ) es una serie temporal estacionaria con media cero y varianza constante.</p></li>
+<li><p><strong>Observaciones Independientes</strong>: Para rezagos grandes (( k &gt; q )), las observaciones ( X_t ) y ( X_{t+k} ) son aproximadamente independientes.</p></li>
+<li><p><strong>Distribución Normal</strong>: Los ( X_t ) se distribuyen aproximadamente de forma normal.</p></li>
+</ul>
+</section>
+<section id="paso-1-varianza-de-r-k-para-rezagos-grandes">
+<h3>Paso 1: Varianza de ( r(k) ) para Rezagos Grandes<a class="headerlink" href="#paso-1-varianza-de-r-k-para-rezagos-grandes" title="Link to this heading">#</a></h3>
+<p>Como se ha demostrado previamente, para ( k &gt; q ):</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Var}[r(k)] \approx \frac{1}{n}
+\]</div>
+<p>Esto implica que el error estándar es:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{SE}[r(k)] = \sqrt{\text{Var}[r(k)]} \approx \frac{1}{\sqrt{n}}
+\]</div>
+</section>
+<section id="paso-2-distribucion-de-r-k-bajo-la-hipotesis-nula">
+<h3>Paso 2: Distribución de ( r(k) ) Bajo la Hipótesis Nula<a class="headerlink" href="#paso-2-distribucion-de-r-k-bajo-la-hipotesis-nula" title="Link to this heading">#</a></h3>
+<p>Bajo la hipótesis nula de que no hay autocorrelación (( \rho(k) = 0 )), y dado que ( X_t ) es normal, el coeficiente ( r(k) ) para ( k &gt; q ) sigue aproximadamente una distribución normal:</p>
+<div class="math notranslate nohighlight">
+\[
+r(k) \sim N\left( 0, \frac{1}{n} \right)
+\]</div>
+</section>
+<section id="paso-3-determinacion-del-limite-de-significancia-estadistica">
+<h3>Paso 3: Determinación del Límite de Significancia Estadística<a class="headerlink" href="#paso-3-determinacion-del-limite-de-significancia-estadistica" title="Link to this heading">#</a></h3>
+<p>Para un nivel de confianza del 95%, utilizamos el valor crítico de la distribución normal estándar:</p>
+<div class="math notranslate nohighlight">
+\[
+z_{\alpha/2} = z_{0.025} \approx 1.96
+\]</div>
+<p>El intervalo de confianza al 95% es:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{IC}_{95\%} = \left[ -z_{\alpha/2} \cdot \text{SE}[r(k)],\ z_{\alpha/2} \cdot \text{SE}[r(k)] \right]
+\]</div>
+<p>Sustituyendo ( \text{SE}[r(k)] \approx \dfrac{1}{\sqrt{n}} ):</p>
+<div class="math notranslate nohighlight">
+\[
+\text{IC}_{95\%} = \left[ -\dfrac{1.96}{\sqrt{n}},\ \dfrac{1.96}{\sqrt{n}} \right]
+\]</div>
+<p>Para simplificar, se aproxima ( 1.96 ) a ( 2 ), obteniendo:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{IC}_{95\%} \approx \left[ -\dfrac{2}{\sqrt{n}},\ \dfrac{2}{\sqrt{n}} \right]
+\]</div>
+</section>
+<section id="id9">
+<h3>Conclusión<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Significancia Estadística</strong>: Si ( |r(k)| &gt; \dfrac{2}{\sqrt{n}} ), entonces el coeficiente de autocorrelación muestral es estadísticamente significativo al nivel del 5%.</p></li>
+<li><p><strong>No Significativo</strong>: Si ( |r(k)| \leq \dfrac{2}{\sqrt{n}} ), no podemos rechazar la hipótesis nula de que ( \rho(k) = 0 ).</p></li>
+</ul>
+</section>
 </section>
 </section>
 
@@ -672,7 +1187,7 @@ Q_{LB} \approx Q_{BP}.
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Welcome to your Jupyter Book</p>
+        <p class="prev-next-title">Guia para entregables iniciales</p>
       </div>
     </a>
     <a class="right-next"
@@ -701,31 +1216,80 @@ Q_{LB} \approx Q_{BP}.
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Bonus Teoricos</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-1-derivacion-del-error-estandar">Bonus 1: Derivación del error estándar</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simplificacion-para-grandes-k">Simplificación para grandes ( k )</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#error-estandar-simplificado">Error estándar simplificado</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bono-1-demostracion-detallada-del-calculo-de-la-varianza-de-hat-rho-k-y-obtencion-del-error-estandar-para-rezagos-grandes">Bono 1: Demostración detallada del cálculo de la varianza de (\hat{\rho}_k) y obtención del error estándar para rezagos grandes</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduccion">Introducción</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivo">Objetivo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#desarrollo-de-la-demostracion">Desarrollo de la demostración</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definicion-del-proceso-ar-q">1. Definición del proceso AR(( q ))</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#propiedades-de-las-autocorrelaciones-en-un-proceso-ar-q">2. Propiedades de las autocorrelaciones en un proceso AR(( q ))</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definicion-de-la-autocorrelacion-muestral-hat-rho-k">3. Definición de la autocorrelación muestral (\hat{\rho}_k)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculo-de-la-varianza-de-hat-rho-k">4. Cálculo de la varianza de (\hat{\rho}_k)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#expansion-de-hat-rho-k">4.1. Expansión de (\hat{\rho}_k)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#calculo-de-e-hat-rho-k-2">4.2. Cálculo de ( E[\hat{\rho}_k^2] )</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#calculo-de-la-esperanza-e-x-t-x-t-k-x-s-x-s-k">4.3. Cálculo de la esperanza ( E[ X_t X_{t + k} X_s X_{s + k} ] )</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#simplificacion-de-la-suma">4.4. Simplificación de la suma</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#aproximacion-de-d">4.5. Aproximación de ( D )</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#calculo-final-de-e-hat-rho-k-2">4.6. Cálculo final de ( E[\hat{\rho}_k^2] )</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-2-estadisticos-de-box-pierce">Bonus 2: Estadisticos de Box-Pierce</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#demostracion-similitud-entre-q-lb-y-q-bp-cuando-t-es-grande">Demostración: Similitud entre <span class="math notranslate nohighlight">\( ( Q_{LB} )  y  ( Q_{BP} ) \)</span> cuando ( T ) es grande</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definiciones-de-los-estadisticos">Definiciones de los estadísticos</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparacion-de-las-formulas">Comparación de las fórmulas</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comportamiento-asintotico-cuando-t-to-infty">Comportamiento asintótico cuando <span class="math notranslate nohighlight">\( ( T \to \infty ) \)</span></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simplificacion-del-estadistico-q-lb">Simplificación del estadístico <span class="math notranslate nohighlight">\( ( Q_{LB} ) \)</span></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-3-error-estandar-coef-autocorrelacion-muestral">Bonus 3 : Error Estandar Coef. Autocorrelacion Muestral</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#derivacion-del-error-estandar-del-coeficiente-de-autocorrelacion-muestral-r-k">Derivación del error estándar del coeficiente de autocorrelación muestral <span class="math notranslate nohighlight">\( ( r(k) ) \)</span></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-inicial-del-proceso-autoregresivo">Análisis inicial del proceso autoregresivo</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simplificacion-para-valores-grandes-de-k">Simplificación para valores grandes de ( k )</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#incorporacion-de-los-coeficientes-de-autocorrelacion-muestral">Incorporación de los coeficientes de autocorrelación muestral</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relacion-con-el-termino-1-2-sum-r-j-2">Relación con el término <span class="math notranslate nohighlight">\( ( 1 + 2 \sum r(j)^2 ) \)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">5. Conclusión</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-4-significancia-estadistica-del-coeficiente-de-correlacion-muestral">Bonus 4: Significancia Estadistica del coeficiente de correlación muestral</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#derivacion-del-limite-de-significancia-estadistica-pm-frac-2-sqrt-n">Derivación del límite de significancia estadística <span class="math notranslate nohighlight">\( (\pm \frac{2}{\sqrt{N}}) \)</span></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribucion-de-la-autocorrelacion-parcial-estimada">Distribución de la autocorrelación parcial estimada</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relacion-entre-varianza-y-desviacion-estandar">Relación entre varianza y desviación estándar</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relacion-con-el-intervalo-de-confianza">Relación con el intervalo de confianza</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#significancia-estadistica">Significancia estadística</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fin-de-la-demostracion">Fin de la demostración</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bono-2-demostracion-de-la-equivalencia-asintotica-entre-los-estadisticos-de-ljung-box-y-box-pierce">Bono 2: Demostración de la Equivalencia Asintótica entre los Estadísticos de Ljung-Box y Box-Pierce</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Introducción</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definiciones">Definiciones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Objetivo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#demostracion">Demostración</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-1-reescribir-q-text-lb-en-terminos-de-q-text-bp">Paso 1: Reescribir ( Q_{\text{LB}} ) en términos de ( Q_{\text{BP}} )</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-2-expandir-el-denominador-utilizando-la-serie-de-taylor">Paso 2: Expandir el denominador utilizando la serie de Taylor</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-3-aproximar-q-text-lb-utilizando-la-expansion">Paso 3: Aproximar ( Q_{\text{LB}} ) utilizando la expansión</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-4-multiplicar-y-simplificar-terminos">Paso 4: Multiplicar y simplificar términos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-5-separar-la-suma">Paso 5: Separar la suma</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-6-evaluar-el-valor-esperado-bajo-la-hipotesis-nula">Paso 6: Evaluar el valor esperado bajo la hipótesis nula</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-7-conclusion">Paso 7: Conclusión</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Fin de la Demostración</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bono-3-derivacion-del-error-estandar-del-coeficiente-de-autocorrelacion-muestral-r-k">Bono 3: Derivación del Error Estándar del Coeficiente de Autocorrelación Muestral ( r(k) )</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Introducción</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definiciones-y-supuestos">Definiciones y Supuestos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Objetivo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Demostración</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-1-expresion-de-r-k">Paso 1: Expresión de ( r(k) )</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-2-calculo-de-la-varianza-de-r-k">Paso 2: Cálculo de la Varianza de ( r(k) )</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-3-expansion-de-r-k-2">Paso 3: Expansión de ( r(k)^2 )</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-4-calculo-de-e-r-k-2">Paso 4: Cálculo de ( E[r(k)^2] )</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-1-t-s">Caso 1: ( t = s )</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-2-t-neq-s">Caso 2: ( t \neq s )</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-5-simplificacion-de-la-suma">Paso 5: Simplificación de la Suma</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-6-aproximacion-de-s">Paso 6: Aproximación de ( S )</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-7-calculo-final-de-la-varianza">Paso 7: Cálculo Final de la Varianza</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-8-error-estandar">Paso 8: Error Estándar</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-9-formula-de-bartlett">Paso 9: Fórmula de Bartlett</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Conclusión</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#referencia">Referencia</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fin-de-la-derivacion">Fin de la Derivación</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-4-significancia-estadistica-del-coeficiente-de-correlacion-muestral">Bonus 4: Significancia Estadística del Coeficiente de Correlación Muestral</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#derivacion-del-limite-de-significancia-estadistica">Derivación del Límite de Significancia Estadística</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Objetivo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supuestos">Supuestos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-1-varianza-de-r-k-para-rezagos-grandes">Paso 1: Varianza de ( r(k) ) para Rezagos Grandes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-2-distribucion-de-r-k-bajo-la-hipotesis-nula">Paso 2: Distribución de ( r(k) ) Bajo la Hipótesis Nula</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#paso-3-determinacion-del-limite-de-significancia-estadistica">Paso 3: Determinación del Límite de Significancia Estadística</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Conclusión</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

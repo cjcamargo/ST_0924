@@ -1,220 +1,712 @@
 ## Bonus Teoricos
-Se presentan 4 Bonus teoricos, por : Carlos Camargo.
+Se presentan 4 Bonus teoricos, por : Andres Usma y Carlos Camargo.
 
-## Bonus 1: Derivación del error estándar
+# Bono 1: Demostración detallada del cálculo de la varianza de \(\hat{\rho}_k\) y obtención del error estándar para rezagos grandes
 
-El error estándar del coeficiente de autocorrelación $ ( r_k ) $ se obtiene tomando la raíz cuadrada de la varianza. A partir de la expresión aproximada de la varianza en el Paso 5, tenemos que:
+## Introducción
 
-$$
-\text{se}(r_k) = \sqrt{\text{Var}(r_k)} = \sqrt{\frac{1}{T} \left( 1 + 2 \sum_{v=1}^{q} \rho_v^2 \right)}.
-$$
-
-### Simplificación para grandes \( k \)
-
-Cuando el rezago \( k \) es lo suficientemente grande, es decir, \( k > q \), las autocorrelaciones $( \rho_v ) $ para \( v > q \) son insignificantes, ya que:
+En esta demostración, realizaremos un análisis matemático detallado para calcular la varianza de la autocorrelación muestral \(\hat{\rho}_k\) en un proceso autorregresivo (AR) de orden \( q \) para rezagos grandes \( k > q \). Nos enfocaremos en los pasos algebraicos y matemáticos para llegar al resultado:
 
 $$
-\rho_v = \phi^v \quad \text{y} \quad \phi^{v} \text{ decrece exponencialmente}.
+\text{Var}(\hat{\rho}_k) \approx \frac{1}{n}
 $$
 
-Esto permite hacer la siguiente simplificación:
+y, por lo tanto, el error estándar:
 
 $$
-\sum_{v=1}^{q} \rho_v^2 \approx 0 \quad \text{para grandes valores de } k.
+\text{SE}(\hat{\rho}_k) = \sqrt{\text{Var}(\hat{\rho}_k)} \approx \frac{1}{\sqrt{n}}
 $$
 
-Por lo tanto, la varianza se aproxima a:
+donde \( n \) es el tamaño de la muestra.
+
+## Objetivo
+
+Calcular detalladamente la varianza de \(\hat{\rho}_k\) para \( k > q \) en un proceso AR(\( q \)) y demostrar que \(\text{Var}(\hat{\rho}_k) \approx \frac{1}{n}\).
+
+## Desarrollo de la demostración
+
+### 1. Definición del proceso AR(\( q \))
+
+Un proceso autorregresivo de orden \( q \), AR(\( q \)), está dado por:
 
 $$
-\text{Var}(r_k) \simeq \frac{1}{T}.
-$$
-
-### Error estándar simplificado
-
-Al tomar la raíz cuadrada de esta expresión, obtenemos el **error estándar**:
-
-$$
-\text{se}(r_k) \simeq \sqrt{\frac{1}{T}} = \frac{1}{\sqrt{T}}.
-$$
-
-Este resultado tiene una interpretación importante. Para rezagos grandes \( k \), las autocorrelaciones $ ( \rho_k ) $ son prácticamente cero, lo que implica que los valores de la serie temporal son casi independientes. En este caso, el error estándar del estimador $ ( r_k ) $ es similar al error estándar de una estimación basada en datos independientes, que es inversamente proporcional a la raíz cuadrada del tamaño de la muestra \( T \).
-
-Por lo tanto, para grandes valores de \( k \), el error estándar del coeficiente de autocorrelación estimado es:
-
-$$
-\text{se}(r_k) \approx \frac{1}{\sqrt{T}}.
-$$
-
-## Bonus 2: Estadisticos de Box-Pierce
-
-#### Demostración: Similitud entre $ ( Q_{LB} )  y  ( Q_{BP} ) $ cuando \( T \) es grande
-
-### Definiciones de los estadísticos
-
-El **estadístico de Box-Pierce** $ ( Q_{BP} ) $ se define como:
-
-$$
-Q_{BP} = T \sum_{k=1}^{K} r_k^2,
+X_t = \phi_1 X_{t-1} + \phi_2 X_{t-2} + \dots + \phi_q X_{t-q} + \varepsilon_t
 $$
 
 donde:
--  \( T \) es el tamaño de la muestra.
-- \( r_k \) es el coeficiente de autocorrelación muestral en el rezago \( k \).
-- \( K \) es el número de rezagos a considerar en la prueba.
 
-El **estadístico de Ljung-Box** $ ( Q_{LB} ) $ se define como:
+- \( \phi_i \) son los coeficientes autorregresivos.
+- \( \varepsilon_t \) es un ruido blanco con media cero y varianza constante \( \sigma^2 \):
 
-$$
-Q_{LB} = T (T+2) \sum_{k=1}^{K} \left( \frac{1}{T - k} \right) r_k^2.
-$$
-
-### Comparación de las fórmulas
-
-La diferencia entre los dos estadísticos está en el factor de ponderación. En $ ( Q_{LB} ) $, los coeficientes $ ( r_k^2 ) $ se ponderan por:
-
-$$
-\frac{T(T+2)}{T-k}.
-$$
-
-En $ ( Q_{BP} ) $, el coeficiente es simplemente \( T \). Ahora, vamos a estudiar el comportamiento asintótico de este factor cuando \( T \) es muy grande.
-
-###  Comportamiento asintótico cuando $ ( T \to \infty ) $
-
-Para \( T \) grande, observamos lo siguiente:
-- \( T(T+2) \) se aproxima a  \( T^2 \): 
-  
   $$
-  T(T+2) = T^2 + 2T \approx T^2 \quad \text{cuando} \ T \ \text{es grande}.
-  $$
-  
-- \( T - k \) también se aproxima a \( T \), ya que \( k \) es mucho menor que \( T \):
-  
-  $$
-  T - k \approx T \quad \text{cuando} \ T \ \text{es grande}.
+  E[\varepsilon_t] = 0, \quad E[\varepsilon_t^2] = \sigma^2, \quad E[\varepsilon_t \varepsilon_s] = 0 \text{ para } t \neq s
   $$
 
-Por lo tanto, la fracción $ ( \frac{T(T+2)}{T-k} ) $ se simplifica para \( T \) grande:
+### 2. Propiedades de las autocorrelaciones en un proceso AR(\( q \))
+
+Las autocorrelaciones teóricas \(\rho_k\) satisfacen las ecuaciones de Yule-Walker:
+
+Para \( k = 1, 2, \dots, q \):
 
 $$
-\frac{T(T+2)}{T-k} \approx \frac{T^2}{T} = T \quad \text{cuando} \ T \ \text{es grande}.
+\rho_k = \sum_{i=1}^q \phi_i \rho_{k - i}
 $$
 
-### Simplificación del estadístico $ ( Q_{LB} ) $
+Con \( \rho_0 = 1 \).
 
-Cuando \( T \) es muy grande, podemos aproximar el estadístico de Ljung-Box $ ( Q_{LB} ) $ de la siguiente manera:
+Para \( k > q \):
 
-$$
-Q_{LB} \approx T \sum_{k=1}^{K} r_k^2.
-$$
+Las autocorrelaciones \(\rho_k\) dependen de las anteriores, pero en procesos estacionarios, decaen exponencialmente hacia cero. Para \( k > q \), podemos asumir que \(\rho_k \approx 0\).
 
-Esta expresión es exactamente la misma que la fórmula del estadístico de Box-Pierce $ ( Q_{BP} ) $.
+### 3. Definición de la autocorrelación muestral \(\hat{\rho}_k\)
 
-Por lo tanto, cuando \( T \) es muy grande, los estadísticos $ ( Q_{LB} ) y  ( Q_{BP} ) $ se vuelven prácticamente idénticos:
+La autocorrelación muestral para un rezago \( k \) se define como:
 
 $$
-Q_{LB} \approx Q_{BP}.
+\hat{\rho}_k = \frac{\sum_{t=1}^{n - k} (X_t - \bar{X})(X_{t + k} - \bar{X})}{\sum_{t=1}^{n} (X_t - \bar{X})^2}
 $$
 
-Esto significa que, para muestras grandes, ambas pruebas producirán resultados muy similares.
-
-
-### Bonus 3 : Error Estandar Coef. Autocorrelacion Muestral
-
-### Derivación del error estándar del coeficiente de autocorrelación muestral $ ( r(k) ) $
-
-La fórmula precisa para la varianza del coeficiente de autocorrelación muestral $ ( r(k) ) $ es:
+Donde \( \bar{X} \) es la media muestral:
 
 $$
-\text{Var}(r(k)) \approx \frac{1}{N} \left( 1 + 2 \sum_{j=1}^{k-1} r(j)^2 \right),
+\bar{X} = \frac{1}{n} \sum_{t=1}^{n} X_t
 $$
 
-donde \( N \) es el tamaño de la muestra y $ ( r(j) ) $ son los coeficientes de autocorrelación muestral en retardos anteriores a \( k \).
-
-### Análisis inicial del proceso autoregresivo
-
-Según Bartlett (1946), para un proceso autoregresivo $ ( AR(1) ) $, la varianza del coeficiente de autocorrelación estimado en el retardo \( k \) puede expresarse como:
+Sin pérdida de generalidad, podemos asumir que la serie tiene media cero (\( \bar{X} = 0 \)), lo cual simplifica los cálculos:
 
 $$
-\text{Var}(r_k) \approx \frac{1}{T} \sum_{v=-\infty}^{\infty} \left( \rho_v^2 + \rho_{v+k}\rho_{v-k} - 4\rho_k\rho_v\rho_{v-k} + 2\rho_v^2 \rho_k^2 \right),
+\hat{\rho}_k = \frac{\sum_{t=1}^{n - k} X_t X_{t + k}}{\sum_{t=1}^{n} X_t^2}
 $$
 
-donde $ ( \rho_v ) $ representa los coeficientes de autocorrelación teóricos y \( T \) es el tamaño de la muestra.
+### 4. Cálculo de la varianza de \(\hat{\rho}_k\)
 
-### Simplificación para valores grandes de \( k \)
-
-Cuando \( k \) es grande y las autocorrelaciones en retardos mayores a \( k \) se vuelven insignificantes, esta expresión se simplifica como:
+Queremos calcular:
 
 $$
-\text{Var}(r(k)) \approx \frac{1}{T} \left( 1 + 2 \sum_{v=1}^{q} \rho_v^2 \right), \quad k > q.
+\text{Var}(\hat{\rho}_k) = E\left[ \left( \hat{\rho}_k - \rho_k \right)^2 \right]
 $$
 
-Aquí, \( q \) es un valor suficientemente grande donde la autocorrelación teórica es pequeña.
-
-### Incorporación de los coeficientes de autocorrelación muestral
-
-Si no conocemos los coeficientes de autocorrelación teóricos $ ( \rho_v ) $, usamos los coeficientes de autocorrelación muestral $ ( r(j) ) $ como aproximación. Entonces, reemplazamos $ ( \rho_v ) $ por $ ( r(j) ) $, lo que resulta en:
+Dado que para \( k > q \), \(\rho_k \approx 0\), podemos aproximar:
 
 $$
-\text{Var}(r(k)) \approx \frac{1}{N} \left( 1 + 2 \sum_{j=1}^{k-1} r(j)^2 \right).
+\text{Var}(\hat{\rho}_k) = E\left[ \hat{\rho}_k^2 \right]
 $$
 
-### Relación con el término $ ( 1 + 2 \sum r(j)^2 ) $
+#### 4.1. Expansión de \(\hat{\rho}_k\)
 
-El término $ ( 1 + 2 \sum_{j=1}^{k-1} r(j)^2 ) $ proviene del análisis de la autocovarianza y la estructura de la matriz de covarianza de los coeficientes de autocorrelación. Captura cómo las autocorrelaciones en los retardos anteriores afectan la varianza de $ ( r(k) ) $.
-
-
-Finalmente, el error estándar del coeficiente de autocorrelación muestral $ ( r(k) ) $ es:
+Utilizando la definición:
 
 $$
-\text{s.e.}(r(k)) = \frac{1}{\sqrt{N}} \left( 1 + 2 \sum_{j=1}^{k-1} r(j)^2 \right)^{1/2}.
+\hat{\rho}_k = \frac{\sum_{t=1}^{n - k} X_t X_{t + k}}{\sum_{t=1}^{n} X_t^2}
 $$
 
-Esta fórmula es más precisa que $ ( 1/\sqrt{N} ) $, ya que considera la influencia de las autocorrelaciones en los retardos anteriores, ajustando el error estándar según la dependencia serial en la serie temporal.
+Sea \( D = \sum_{t=1}^{n} X_t^2 \).
 
-## Bonus 4: Significancia Estadistica del coeficiente de correlación muestral
-
-### Derivación del límite de significancia estadística $ (\pm \frac{2}{\sqrt{N}}) $
-
-###  Distribución de la autocorrelación parcial estimada
-Cuando se calcula la autocorrelación parcial estimada $ (\hat{\phi}_{kk}) $, esta sigue aproximadamente una distribución normal para muestras grandes. Para un proceso $ (AR(p)) $, la varianza de $ (\hat{\phi}_{kk}) $ es inversamente proporcional al tamaño de la muestra \(N\):
+Entonces:
 
 $$
-\hat{\phi}_{kk} \sim N\left(0, \frac{1}{N}\right)
+\hat{\rho}_k = \frac{1}{D} \sum_{t=1}^{n - k} X_t X_{t + k}
 $$
 
-Esto implica que, en promedio, la autocorrelación parcial estimada será cero si no hay autocorrelación verdadera, con una varianza que disminuye al aumentar \(N\), lo que mejora la precisión de la estimación.
+#### 4.2. Cálculo de \( E[\hat{\rho}_k^2] \)
 
-###  Relación entre varianza y desviación estándar
-La varianza de $ (\hat{\phi}_{kk}) $ es $ (\frac{1}{N}) $, por lo que la desviación estándar es:
-
-$$
-\frac{1}{\sqrt{N}}
-$$
-
-Este comportamiento es típico en estimaciones basadas en muestras: a medida que \(N\) crece, la precisión de la estimación mejora.
-
-###  Relación con el intervalo de confianza
-Para establecer límites de confianza al 95%, usamos la fórmula:
+Tenemos:
 
 $$
-\text{Estimación} \pm \left(Z_{\alpha/2} \times \text{Desviación estándar}\right)
+E[\hat{\rho}_k^2] = E\left[ \left( \frac{1}{D} \sum_{t=1}^{n - k} X_t X_{t + k} \right)^2 \right]
 $$
 
-Donde $ (Z_{\alpha/2} \approx 1.96) $ para un intervalo del 95%. Con la desviación estándar $ (\frac{1}{\sqrt{N}}) $, los límites de confianza se expresan como:
+Como \( D \) es una constante dado que estamos condicionando en los datos, podemos extraer \( \frac{1}{D^2} \):
 
 $$
-\hat{\phi}_{kk} \pm \frac{2}{\sqrt{N}}
+E[\hat{\rho}_k^2] = \frac{1}{D^2} E\left[ \left( \sum_{t=1}^{n - k} X_t X_{t + k} \right)^2 \right]
 $$
 
-Este es el límite comúnmente utilizado para muestras grandes, donde la aproximación normal es válida.
+Expandiendo el cuadrado:
 
-###  Significancia estadística
-Si $ (\hat{\phi}_{kk}) $ cae fuera del rango $ (\pm \frac{2}{\sqrt{N}}) $, es estadísticamente significativa al 95%, indicando que la autocorrelación parcial no es cero.
+$$
+\left( \sum_{t=1}^{n - k} X_t X_{t + k} \right)^2 = \sum_{t=1}^{n - k} \sum_{s=1}^{n - k} X_t X_{t + k} X_s X_{s + k}
+$$
+
+Entonces:
+
+$$
+E[\hat{\rho}_k^2] = \frac{1}{D^2} \sum_{t=1}^{n - k} \sum_{s=1}^{n - k} E\left[ X_t X_{t + k} X_s X_{s + k} \right]
+$$
+
+#### 4.3. Cálculo de la esperanza \( E[ X_t X_{t + k} X_s X_{s + k} ] \)
+
+Consideramos dos casos:
+
+1. **Cuando \( t = s \)**:
+
+   $$
+   E[ X_t X_{t + k} X_t X_{t + k} ] = E[ X_t^2 X_{t + k}^2 ] = E[ X_t^2 ] E[ X_{t + k}^2 ] \quad (\text{asumiendo incorrelación})
+   $$
+
+   Para \( k > q \), podemos aproximar que \( X_t \) y \( X_{t + k} \) están incorrelacionados (\( \rho_k \approx 0 \)).
+
+   Por lo tanto:
+
+   $$
+   E[ X_t^2 X_{t + k}^2 ] \approx E[ X_t^2 ] E[ X_{t + k}^2 ] = (\gamma_0)^2
+   $$
+
+2. **Cuando \( t \neq s \)**:
+
+   Si \( |t - s| \geq q \), entonces \( X_t \) es aproximadamente incorrelacionado con \( X_s \) y con \( X_{s + k} \).
+
+   Entonces:
+
+   $$
+   E[ X_t X_{t + k} X_s X_{s + k} ] \approx E[ X_t ] E[ X_{t + k} ] E[ X_s ] E[ X_{s + k} ] = 0
+   $$
+
+   Porque \( E[X_t] = 0 \).
+
+#### 4.4. Simplificación de la suma
+
+Dado lo anterior, solo los términos donde \( t = s \) contribuyen significativamente:
+
+$$
+E[\hat{\rho}_k^2] \approx \frac{1}{D^2} \sum_{t=1}^{n - k} E[ X_t^2 X_{t + k}^2 ] = \frac{1}{D^2} (n - k) (\gamma_0)^2
+$$
+
+#### 4.5. Aproximación de \( D \)
+
+Sabemos que:
+
+$$
+D = \sum_{t=1}^{n} X_t^2
+$$
+
+El valor esperado de \( D \) es:
+
+$$
+E[D] = n \gamma_0
+$$
+
+Podemos aproximar \( D \approx n \gamma_0 \) para \( n \) grande.
+
+#### 4.6. Cálculo final de \( E[\hat{\rho}_k^2] \)
+
+Sustituyendo en la expresión de \( E[\hat{\rho}_k^2] \):
+
+$$
+E[\hat{\rho}_k^2] \approx \frac{(n - k) (\gamma_0)^2}{(n \gamma_0)^2} = \frac{n - k}{n^2}
+$$
+
+Para \( n \) grande y \( k \ll n \), tenemos que \( n - k \approx n \), entonces:
+
+$$
+E[\hat{\rho}_k^2] \approx \frac{n}{n^2} = \frac{1}{n}
+$$
+
+Por lo tanto:
+
+$$
+\text{Var}(\hat{\rho}_k) = E[\hat{\rho}_k^2] \approx \frac{1}{n}
+$$
+
+### 5. Conclusión
+
+Hemos demostrado que, para \( k > q \) y bajo los supuestos mencionados, la varianza de \(\hat{\rho}_k\) es aproximadamente:
+
+$$
+\text{Var}(\hat{\rho}_k) \approx \frac{1}{n}
+$$
+
+Por lo tanto, el error estándar es:
+
+$$
+\text{SE}(\hat{\rho}_k) = \sqrt{\text{Var}(\hat{\rho}_k)} \approx \frac{1}{\sqrt{n}}
+$$
+
+---
+
+**Referencias**:
+
+- **Bartlett, M. S. (1946)**. *On the Theoretical Specification and Sampling Properties of Autocorrelated Time-Series*. **Journal of the Royal Statistical Society**, 8(1), 27-41.
+
+---
+
+# Fin de la demostración
 
 
-En el trabajo de **Quenouille (1949)** se detalla que, en **muestras pequeñas**, los coeficientes de autocorrelación pueden tener **distribuciones más complejas** y que los límites de confianza deben ajustarse usando la **t de Student** para reflejar mejor la variabilidad. Quenouille sugiere que los límites de confianza en estas situaciones tienden a ser **asimétricos**.
+# Bono 2: Demostración de la Equivalencia Asintótica entre los Estadísticos de Ljung-Box y Box-Pierce
 
-Así: 
+## Introducción
 
-- Para **muestras grandes**, la aproximación normal con límite $ (\pm \frac{2}{\sqrt{N}}) $ es válida.
-- Para **muestras pequeñas**, es más adecuado utilizar la **distribución t de Student**, que ajusta mejor la variabilidad e introduce límites asimétricos que mejor capturan la incertidumbre en la estimación.
+En el análisis de series temporales, las pruebas de **Ljung-Box** y **Box-Pierce** son métodos estadísticos utilizados para detectar la presencia de autocorrelación en los residuos de un modelo ajustado. Aunque sus formulaciones difieren ligeramente, se vuelven asintóticamente equivalentes a medida que el tamaño de la muestra \( n \) se hace grande.
+
+## Definiciones
+
+1. **Estadístico de Box-Pierce**:
+
+   $$
+   Q_{\text{BP}} = n \sum_{k=1}^h \hat{\rho}_k^2
+   $$
+
+2. **Estadístico de Ljung-Box**:
+
+   $$
+   Q_{\text{LB}} = n(n+2) \sum_{k=1}^h \frac{\hat{\rho}_k^2}{n - k}
+   $$
+
+Donde:
+
+- \( n \) es el tamaño de la muestra.
+- \( h \) es el número de rezagos analizados (típicamente \( h \ll n \)).
+- \( \hat{\rho}_k \) es la autocorrelación muestral en el rezago \( k \).
+
+## Objetivo
+
+Nuestro objetivo es demostrar que:
+
+$$
+\lim_{n \to \infty} \left( Q_{\text{LB}} - Q_{\text{BP}} \right) = 0
+$$
+
+Esto demuestra que \( Q_{\text{LB}} \) y \( Q_{\text{BP}} \) son asintóticamente equivalentes cuando \( n \to \infty \).
+
+## Demostración
+
+### Paso 1: Reescribir \( Q_{\text{LB}} \) en términos de \( Q_{\text{BP}} \)
+
+Comenzamos expresando \( Q_{\text{LB}} \) de una forma similar a \( Q_{\text{BP}} \):
+
+$$
+Q_{\text{LB}} = n(n+2) \sum_{k=1}^h \frac{\hat{\rho}_k^2}{n - k}
+$$
+
+Reescribimos el denominador:
+
+$$
+\frac{1}{n - k} = \frac{1}{n \left( 1 - \frac{k}{n} \right)} = \frac{1}{n} \cdot \frac{1}{1 - \frac{k}{n}}
+$$
+
+Por lo tanto,
+
+$$
+Q_{\text{LB}} = n(n+2) \sum_{k=1}^h \hat{\rho}_k^2 \left( \frac{1}{n} \cdot \frac{1}{1 - \frac{k}{n}} \right) = (n+2) \sum_{k=1}^h \hat{\rho}_k^2 \left( \frac{1}{1 - \frac{k}{n}} \right)
+$$
+
+### Paso 2: Expandir el denominador utilizando la serie de Taylor
+
+Para \( n \) grande y pequeño \( \frac{k}{n} \), podemos usar la expansión en serie de Taylor:
+
+$$
+\frac{1}{1 - x} = 1 + x + x^2 + x^3 + \dots, \quad \text{para} \quad |x| < 1
+$$
+
+Sea \( x = \frac{k}{n} \), entonces:
+
+$$
+\frac{1}{1 - \frac{k}{n}} = 1 + \frac{k}{n} + \left( \frac{k}{n} \right)^2 + \left( \frac{k}{n} \right)^3 + \dots
+$$
+
+### Paso 3: Aproximar \( Q_{\text{LB}} \) utilizando la expansión
+
+Sustituimos la expansión en \( Q_{\text{LB}} \):
+
+$$
+Q_{\text{LB}} = (n+2) \sum_{k=1}^h \hat{\rho}_k^2 \left( 1 + \frac{k}{n} + \left( \frac{k}{n} \right)^2 + \dots \right)
+$$
+
+Además, expresamos \( n+2 \) como:
+
+$$
+n+2 = n \left( 1 + \frac{2}{n} \right)
+$$
+
+Por lo tanto:
+
+$$
+Q_{\text{LB}} = n \left( 1 + \frac{2}{n} \right) \sum_{k=1}^h \hat{\rho}_k^2 \left( 1 + \frac{k}{n} + \left( \frac{k}{n} \right)^2 + \dots \right)
+$$
+
+### Paso 4: Multiplicar y simplificar términos
+
+Multiplicando las expresiones y reteniendo términos hasta \( \frac{1}{n} \):
+
+$$
+Q_{\text{LB}} \approx n \left( 1 + \frac{2}{n} \right) \sum_{k=1}^h \hat{\rho}_k^2 \left( 1 + \frac{k}{n} \right)
+$$
+
+Simplificamos dentro de la suma:
+
+$$
+\left( 1 + \frac{2}{n} \right) \left( 1 + \frac{k}{n} \right) = 1 + \frac{2}{n} + \frac{k}{n} + \frac{2k}{n^2}
+$$
+
+Despreciando el término \( \frac{2k}{n^2} \):
+
+$$
+Q_{\text{LB}} \approx n \sum_{k=1}^h \hat{\rho}_k^2 \left( 1 + \frac{2 + k}{n} \right)
+$$
+
+### Paso 5: Separar la suma
+
+Dividimos la expresión:
+
+$$
+Q_{\text{LB}} \approx n \sum_{k=1}^h \hat{\rho}_k^2 + \sum_{k=1}^h \hat{\rho}_k^2 (2 + k)
+$$
+
+Reconocemos que:
+
+$$
+Q_{\text{BP}} = n \sum_{k=1}^h \hat{\rho}_k^2
+$$
+
+Por lo tanto, la diferencia es:
+
+$$
+Q_{\text{LB}} - Q_{\text{BP}} \approx \sum_{k=1}^h \hat{\rho}_k^2 (2 + k)
+$$
+
+### Paso 6: Evaluar el valor esperado bajo la hipótesis nula
+
+Bajo la hipótesis nula:
+
+- \( E[\hat{\rho}_k] = 0 \)
+- \( \text{Var}(\hat{\rho}_k) = \frac{1}{n} \)
+
+Así:
+
+$$
+E[\hat{\rho}_k^2] = \text{Var}(\hat{\rho}_k) = \frac{1}{n}
+$$
+
+Entonces:
+
+$$
+E[Q_{\text{LB}} - Q_{\text{BP}}] \approx \sum_{k=1}^h \frac{1}{n} (2 + k)
+$$
+
+Calculamos la suma:
+
+$$
+E[Q_{\text{LB}} - Q_{\text{BP}}] = \frac{1}{n} \left( 2h + \frac{h(h+1)}{2} \right) = \frac{h^2 + 5h}{2n}
+$$
+
+### Paso 7: Conclusión
+
+Cuando \( n \to \infty \):
+
+$$
+E[Q_{\text{LB}} - Q_{\text{BP}}] \to 0
+$$
+
+Por lo tanto:
+
+$$
+Q_{\text{LB}} - Q_{\text{BP}} \xrightarrow{P} 0
+$$
+
+---
+
+# Fin de la Demostración
+
+# Bono 3: Derivación del Error Estándar del Coeficiente de Autocorrelación Muestral \( r(k) \)
+
+## Introducción
+
+En el análisis de series temporales, el **coeficiente de autocorrelación muestral** \( r(k) \) es una estimación de la autocorrelación verdadera \( \rho(k) \) en el rezago \( k \). Conocer la **varianza** y el **error estándar** de \( r(k) \) es esencial para evaluar la significancia estadística de las autocorrelaciones estimadas y para construir intervalos de confianza.
+
+Nuestro objetivo es **derivar matemáticamente** el error estándar de \( r(k) \), especialmente para rezagos grandes \( k \), bajo el supuesto de que las autocorrelaciones verdaderas más allá de un cierto rezago \( q \) son cero (\( \rho(k) = 0 \) para \( k > q \)). También incluiremos la **fórmula reducida que Bartlett encontró** para la varianza de \( r(k) \).
+
+## Definiciones y Supuestos
+
+1. **Serie Temporal**: Consideramos una serie temporal \( \{X_t\}_{t=1}^n \) con media cero (\( \bar{X} = 0 \)) y varianza constante \( \gamma_0 = \text{Var}(X_t) \).
+
+2. **Coeficiente de Autocorrelación Muestral**:
+
+   $$
+   r(k) = \frac{\sum_{t=1}^{n - k} X_t X_{t + k}}{\sum_{t=1}^{n} X_t^2}
+   $$
+
+3. **Autocorrelaciones Verdaderas**: Suponemos que las autocorrelaciones verdaderas son cero para \( k > q \):
+
+   $$
+   \rho(k) = 0 \quad \text{para} \quad k > q
+   $$
+
+4. **Independencia Aproximada**: Para \( k > q \), asumimos que \( X_t \) y \( X_{t + k} \) son independientes.
+
+## Objetivo
+
+Demostrar que, para rezagos grandes \( k > q \):
+
+1. La varianza del coeficiente de autocorrelación muestral es:
+
+   $$
+   \text{Var}[r(k)] \approx \frac{1}{n}
+   $$
+
+2. El error estándar es:
+
+   $$
+   \text{SE}[r(k)] = \sqrt{\text{Var}[r(k)]} \approx \frac{1}{\sqrt{n}}
+   $$
+
+## Demostración
+
+### Paso 1: Expresión de \( r(k) \)
+
+Con \( \bar{X} = 0 \), el coeficiente de autocorrelación muestral se simplifica a:
+
+$$
+r(k) = \frac{\sum_{t=1}^{n - k} X_t X_{t + k}}{\sum_{t=1}^{n} X_t^2}
+$$
+
+Sea:
+
+$$
+S = \sum_{t=1}^{n} X_t^2
+$$
+
+Entonces:
+
+$$
+r(k) = \frac{1}{S} \sum_{t=1}^{n - k} X_t X_{t + k}
+$$
+
+### Paso 2: Cálculo de la Varianza de \( r(k) \)
+
+La varianza es:
+
+$$
+\text{Var}[r(k)] = E\left[ \left( r(k) - E[r(k)] \right)^2 \right]
+$$
+
+Para \( k > q \), \( \rho(k) = 0 \), y como \( E[X_t] = 0 \), tenemos:
+
+$$
+E[r(k)] = E\left[ \frac{1}{S} \sum_{t=1}^{n - k} X_t X_{t + k} \right] = \frac{1}{S} \sum_{t=1}^{n - k} E[X_t X_{t + k}] = 0
+$$
+
+Por lo tanto:
+
+$$
+\text{Var}[r(k)] = E\left[ r(k)^2 \right]
+$$
+
+### Paso 3: Expansión de \( r(k)^2 \)
+
+Tenemos:
+
+$$
+r(k)^2 = \left( \frac{1}{S} \sum_{t=1}^{n - k} X_t X_{t + k} \right)^2 = \frac{1}{S^2} \left( \sum_{t=1}^{n - k} X_t X_{t + k} \right)^2
+$$
+
+Expandiendo el cuadrado:
+
+$$
+\left( \sum_{t=1}^{n - k} X_t X_{t + k} \right)^2 = \sum_{t=1}^{n - k} \sum_{s=1}^{n - k} X_t X_{t + k} X_s X_{s + k}
+$$
+
+### Paso 4: Cálculo de \( E[r(k)^2] \)
+
+Calculamos la esperanza:
+
+$$
+E[r(k)^2] = \frac{1}{S^2} \sum_{t=1}^{n - k} \sum_{s=1}^{n - k} E\left[ X_t X_{t + k} X_s X_{s + k} \right]
+$$
+
+Analizamos dos casos:
+
+#### Caso 1: \( t = s \)
+
+$$
+E\left[ X_t X_{t + k} X_t X_{t + k} \right] = E\left[ X_t^2 X_{t + k}^2 \right]
+$$
+
+Dado que \( X_t \) y \( X_{t + k} \) son independientes para \( k > q \):
+
+$$
+E\left[ X_t^2 X_{t + k}^2 \right] = E\left[ X_t^2 \right] E\left[ X_{t + k}^2 \right] = \gamma_0^2
+$$
+
+#### Caso 2: \( t \neq s \)
+
+Para \( t \neq s \) y \( k > q \), las variables son independientes, por lo que:
+
+$$
+E\left[ X_t X_{t + k} X_s X_{s + k} \right] = E[X_t] E[X_{t + k}] E[X_s] E[X_{s + k}] = 0
+$$
+
+Porque \( E[X_t] = 0 \).
+
+### Paso 5: Simplificación de la Suma
+
+Solo los términos donde \( t = s \) contribuyen:
+
+$$
+E[r(k)^2] = \frac{1}{S^2} \sum_{t=1}^{n - k} E\left[ X_t^2 X_{t + k}^2 \right] = \frac{n - k}{S^2} \gamma_0^2
+$$
+
+### Paso 6: Aproximación de \( S \)
+
+El valor esperado de \( S \) es:
+
+$$
+E[S] = \sum_{t=1}^{n} E[X_t^2] = n \gamma_0
+$$
+
+Aproximamos \( S \approx n \gamma_0 \).
+
+### Paso 7: Cálculo Final de la Varianza
+
+Sustituyendo:
+
+$$
+E[r(k)^2] = \frac{(n - k) \gamma_0^2}{(n \gamma_0)^2} = \frac{n - k}{n^2}
+$$
+
+Para \( n \) grande y \( k \ll n \):
+
+$$
+E[r(k)^2] \approx \frac{n}{n^2} = \frac{1}{n}
+$$
+
+Entonces:
+
+$$
+\text{Var}[r(k)] = E[r(k)^2] \approx \frac{1}{n}
+$$
+
+### Paso 8: Error Estándar
+
+El error estándar es:
+
+$$
+\text{SE}[r(k)] = \sqrt{\text{Var}[r(k)]} = \sqrt{\frac{1}{n}} = \frac{1}{\sqrt{n}}
+$$
+
+### Paso 9: Fórmula de Bartlett
+
+Bartlett (1946) derivó una expresión más general para la varianza de \( r(k) \):
+
+$$
+\text{Var}[r(k)] \approx \frac{1}{n} \left(1 + 2 \sum_{j=1}^{k-1} \rho(j)^2 \right)
+$$
+
+Bajo el supuesto de que \( \rho(j) = 0 \) para \( j > q \) y que \( k > q \), la suma se reduce a:
+
+$$
+\sum_{j=1}^{k-1} \rho(j)^2 = \sum_{j=1}^{q} \rho(j)^2
+$$
+
+Esta suma es una constante para \( k > q \), denotemos:
+
+$$
+C = 1 + 2 \sum_{j=1}^{q} \rho(j)^2
+$$
+
+Entonces:
+
+$$
+\text{Var}[r(k)] \approx \frac{C}{n}
+$$
+
+Si las autocorrelaciones \( \rho(j) \) son pequeñas, \( C \approx 1 \), y recuperamos el resultado anterior.
+
+## Conclusión
+
+Hemos demostrado que, para rezagos grandes \( k > q \):
+
+1. La varianza del coeficiente de autocorrelación muestral es aproximadamente:
+
+   $$
+   \text{Var}[r(k)] \approx \frac{1}{n}
+   $$
+
+2. El error estándar es:
+
+   $$
+   \text{SE}[r(k)] \approx \frac{1}{\sqrt{n}}
+   $$
+
+Este resultado es consistente con la **fórmula reducida de Bartlett** y muestra que, para rezagos grandes, el error estándar de \( r(k) \) depende únicamente del tamaño de la muestra \( n \).
+
+
+
+## Referencia
+
+- **Bartlett, M. S. (1946)**. *On the Theoretical Specification and Sampling Properties of Autocorrelated Time-Series*. **Journal of the Royal Statistical Society**, 8(1), 27-41.
+
+---
+
+# Fin de la Derivación
+
+# Bonus 4: Significancia Estadística del Coeficiente de Correlación Muestral
+
+## Derivación del Límite de Significancia Estadística
+
+En el análisis de series temporales, es importante determinar si los coeficientes de autocorrelación muestral \( r(k) \) son significativamente diferentes de cero. Un criterio práctico es considerar que un coeficiente de autocorrelación muestral es estadísticamente significativo si su valor absoluto excede el límite aproximado de \( \pm \dfrac{2}{\sqrt{n}} \), donde \( n \) es el tamaño de la muestra.
+
+### Objetivo
+
+Derivar matemáticamente el límite de significancia estadística \( \pm \dfrac{2}{\sqrt{n}} \) para el coeficiente de autocorrelación muestral \( r(k) \).
+
+### Supuestos
+
+- **Serie Temporal**: \( \{X_t\} \) es una serie temporal estacionaria con media cero y varianza constante.
+- **Observaciones Independientes**: Para rezagos grandes (\( k > q \)), las observaciones \( X_t \) y \( X_{t+k} \) son aproximadamente independientes.
+- **Distribución Normal**: Los \( X_t \) se distribuyen aproximadamente de forma normal.
+
+### Paso 1: Varianza de \( r(k) \) para Rezagos Grandes
+
+Como se ha demostrado previamente, para \( k > q \):
+
+$$
+\text{Var}[r(k)] \approx \frac{1}{n}
+$$
+
+Esto implica que el error estándar es:
+
+$$
+\text{SE}[r(k)] = \sqrt{\text{Var}[r(k)]} \approx \frac{1}{\sqrt{n}}
+$$
+
+### Paso 2: Distribución de \( r(k) \) Bajo la Hipótesis Nula
+
+Bajo la hipótesis nula de que no hay autocorrelación (\( \rho(k) = 0 \)), y dado que \( X_t \) es normal, el coeficiente \( r(k) \) para \( k > q \) sigue aproximadamente una distribución normal:
+
+$$
+r(k) \sim N\left( 0, \frac{1}{n} \right)
+$$
+
+### Paso 3: Determinación del Límite de Significancia Estadística
+
+Para un nivel de confianza del 95%, utilizamos el valor crítico de la distribución normal estándar:
+
+$$
+z_{\alpha/2} = z_{0.025} \approx 1.96
+$$
+
+El intervalo de confianza al 95% es:
+
+$$
+\text{IC}_{95\%} = \left[ -z_{\alpha/2} \cdot \text{SE}[r(k)],\ z_{\alpha/2} \cdot \text{SE}[r(k)] \right]
+$$
+
+Sustituyendo \( \text{SE}[r(k)] \approx \dfrac{1}{\sqrt{n}} \):
+
+$$
+\text{IC}_{95\%} = \left[ -\dfrac{1.96}{\sqrt{n}},\ \dfrac{1.96}{\sqrt{n}} \right]
+$$
+
+Para simplificar, se aproxima \( 1.96 \) a \( 2 \), obteniendo:
+
+$$
+\text{IC}_{95\%} \approx \left[ -\dfrac{2}{\sqrt{n}},\ \dfrac{2}{\sqrt{n}} \right]
+$$
+
+### Conclusión
+
+- **Significancia Estadística**: Si \( |r(k)| > \dfrac{2}{\sqrt{n}} \), entonces el coeficiente de autocorrelación muestral es estadísticamente significativo al nivel del 5%.
+- **No Significativo**: Si \( |r(k)| \leq \dfrac{2}{\sqrt{n}} \), no podemos rechazar la hipótesis nula de que \( \rho(k) = 0 \).
+
+
