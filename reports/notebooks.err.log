@@ -15,23 +15,60 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-# Eliminar la columna de índice 1 del DataFrame df
-df = df.drop(df.columns[0], axis=1)
-
-# Combinar los DataFrames df_dates y df
-df_combined = pd.concat([df_dates, df], axis=1)
-
-df_combined.head()
+plt.figure(figsize=(5.5, 5.5))
+pd.Series(data=residuals, index=df_combined['Date']).plot(color='b')
+plt.title('Residuales del modelo de tendencia - consumo energia O&G')
+plt.xlabel('Time')
+plt.ylabel('Energia kWh')
+plt.xticks(rotation=30);
 ------------------
 
 
 [1;31m---------------------------------------------------------------------------[0m
-[1;31mNameError[0m                                 Traceback (most recent call last)
-Cell [1;32mIn[3], line 5[0m
-[0;32m      2[0m df [38;5;241m=[39m df[38;5;241m.[39mdrop(df[38;5;241m.[39mcolumns[[38;5;241m0[39m], axis[38;5;241m=[39m[38;5;241m1[39m)
-[0;32m      4[0m [38;5;66;03m# Combinar los DataFrames df_dates y df[39;00m
-[1;32m----> 5[0m df_combined [38;5;241m=[39m pd[38;5;241m.[39mconcat([[43mdf_dates[49m, df], axis[38;5;241m=[39m[38;5;241m1[39m)
-[0;32m      7[0m df_combined[38;5;241m.[39mhead()
+[1;31mKeyError[0m                                  Traceback (most recent call last)
+File [1;32m~\miniconda3\envs\ml_venv\lib\site-packages\pandas\core\indexes\base.py:3805[0m, in [0;36mIndex.get_loc[1;34m(self, key)[0m
+[0;32m   3804[0m [38;5;28;01mtry[39;00m:
+[1;32m-> 3805[0m     [38;5;28;01mreturn[39;00m [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43m_engine[49m[38;5;241;43m.[39;49m[43mget_loc[49m[43m([49m[43mcasted_key[49m[43m)[49m
+[0;32m   3806[0m [38;5;28;01mexcept[39;00m [38;5;167;01mKeyError[39;00m [38;5;28;01mas[39;00m err:
 
-[1;31mNameError[0m: name 'df_dates' is not defined
+File [1;32mindex.pyx:167[0m, in [0;36mpandas._libs.index.IndexEngine.get_loc[1;34m()[0m
+
+File [1;32mindex.pyx:196[0m, in [0;36mpandas._libs.index.IndexEngine.get_loc[1;34m()[0m
+
+File [1;32mpandas\\_libs\\hashtable_class_helper.pxi:7081[0m, in [0;36mpandas._libs.hashtable.PyObjectHashTable.get_item[1;34m()[0m
+
+File [1;32mpandas\\_libs\\hashtable_class_helper.pxi:7089[0m, in [0;36mpandas._libs.hashtable.PyObjectHashTable.get_item[1;34m()[0m
+
+[1;31mKeyError[0m: 'Date'
+
+The above exception was the direct cause of the following exception:
+
+[1;31mKeyError[0m                                  Traceback (most recent call last)
+Cell [1;32mIn[12], line 2[0m
+[0;32m      1[0m plt[38;5;241m.[39mfigure(figsize[38;5;241m=[39m([38;5;241m5.5[39m, [38;5;241m5.5[39m))
+[1;32m----> 2[0m pd[38;5;241m.[39mSeries(data[38;5;241m=[39mresiduals, index[38;5;241m=[39m[43mdf_combined[49m[43m[[49m[38;5;124;43m'[39;49m[38;5;124;43mDate[39;49m[38;5;124;43m'[39;49m[43m][49m)[38;5;241m.[39mplot(color[38;5;241m=[39m[38;5;124m'[39m[38;5;124mb[39m[38;5;124m'[39m)
+[0;32m      3[0m plt[38;5;241m.[39mtitle([38;5;124m'[39m[38;5;124mResiduales del modelo de tendencia - consumo energia O&G[39m[38;5;124m'[39m)
+[0;32m      4[0m plt[38;5;241m.[39mxlabel([38;5;124m'[39m[38;5;124mTime[39m[38;5;124m'[39m)
+
+File [1;32m~\miniconda3\envs\ml_venv\lib\site-packages\pandas\core\frame.py:4102[0m, in [0;36mDataFrame.__getitem__[1;34m(self, key)[0m
+[0;32m   4100[0m [38;5;28;01mif[39;00m [38;5;28mself[39m[38;5;241m.[39mcolumns[38;5;241m.[39mnlevels [38;5;241m>[39m [38;5;241m1[39m:
+[0;32m   4101[0m     [38;5;28;01mreturn[39;00m [38;5;28mself[39m[38;5;241m.[39m_getitem_multilevel(key)
+[1;32m-> 4102[0m indexer [38;5;241m=[39m [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43mcolumns[49m[38;5;241;43m.[39;49m[43mget_loc[49m[43m([49m[43mkey[49m[43m)[49m
+[0;32m   4103[0m [38;5;28;01mif[39;00m is_integer(indexer):
+[0;32m   4104[0m     indexer [38;5;241m=[39m [indexer]
+
+File [1;32m~\miniconda3\envs\ml_venv\lib\site-packages\pandas\core\indexes\base.py:3812[0m, in [0;36mIndex.get_loc[1;34m(self, key)[0m
+[0;32m   3807[0m     [38;5;28;01mif[39;00m [38;5;28misinstance[39m(casted_key, [38;5;28mslice[39m) [38;5;129;01mor[39;00m (
+[0;32m   3808[0m         [38;5;28misinstance[39m(casted_key, abc[38;5;241m.[39mIterable)
+[0;32m   3809[0m         [38;5;129;01mand[39;00m [38;5;28many[39m([38;5;28misinstance[39m(x, [38;5;28mslice[39m) [38;5;28;01mfor[39;00m x [38;5;129;01min[39;00m casted_key)
+[0;32m   3810[0m     ):
+[0;32m   3811[0m         [38;5;28;01mraise[39;00m InvalidIndexError(key)
+[1;32m-> 3812[0m     [38;5;28;01mraise[39;00m [38;5;167;01mKeyError[39;00m(key) [38;5;28;01mfrom[39;00m [38;5;21;01merr[39;00m
+[0;32m   3813[0m [38;5;28;01mexcept[39;00m [38;5;167;01mTypeError[39;00m:
+[0;32m   3814[0m     [38;5;66;03m# If we have a listlike key, _check_indexing_error will raise[39;00m
+[0;32m   3815[0m     [38;5;66;03m#  InvalidIndexError. Otherwise we fall through and re-raise[39;00m
+[0;32m   3816[0m     [38;5;66;03m#  the TypeError.[39;00m
+[0;32m   3817[0m     [38;5;28mself[39m[38;5;241m.[39m_check_indexing_error(key)
+
+[1;31mKeyError[0m: 'Date'
 
