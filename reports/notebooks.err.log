@@ -1,4 +1,15 @@
 Traceback (most recent call last):
+  File "C:\Users\cjcam\miniconda3\envs\ml_venv\lib\site-packages\nbclient\client.py", line 782, in _async_poll_for_reply
+    msg = await ensure_async(self.kc.shell_channel.get_msg(timeout=new_timeout))
+  File "C:\Users\cjcam\miniconda3\envs\ml_venv\lib\site-packages\jupyter_core\utils\__init__.py", line 182, in ensure_async
+    result = await obj
+  File "C:\Users\cjcam\miniconda3\envs\ml_venv\lib\site-packages\jupyter_client\channels.py", line 315, in get_msg
+    raise Empty
+_queue.Empty
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
   File "C:\Users\cjcam\miniconda3\envs\ml_venv\lib\site-packages\jupyter_cache\executors\utils.py", line 58, in single_nb_execution
     executenb(
   File "C:\Users\cjcam\miniconda3\envs\ml_venv\lib\site-packages\nbclient\client.py", line 1314, in execute
@@ -9,62 +20,18 @@ Traceback (most recent call last):
     return future.result()
   File "C:\Users\cjcam\miniconda3\envs\ml_venv\lib\site-packages\nbclient\client.py", line 709, in async_execute
     await self.async_execute_cell(
-  File "C:\Users\cjcam\miniconda3\envs\ml_venv\lib\site-packages\nbclient\client.py", line 1062, in async_execute_cell
-    await self._check_raise_for_error(cell, cell_index, exec_reply)
-  File "C:\Users\cjcam\miniconda3\envs\ml_venv\lib\site-packages\nbclient\client.py", line 918, in _check_raise_for_error
-    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
-nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
-------------------
-df_combined.index = df_combined['Date']
-df_combined.drop('fecha', axis=1, inplace=True)
-df_combined.head()
-------------------
-
-
-[1;31m---------------------------------------------------------------------------[0m
-[1;31mKeyError[0m                                  Traceback (most recent call last)
-File [1;32m~\miniconda3\envs\ml_venv\lib\site-packages\pandas\core\indexes\base.py:3805[0m, in [0;36mIndex.get_loc[1;34m(self, key)[0m
-[0;32m   3804[0m [38;5;28;01mtry[39;00m:
-[1;32m-> 3805[0m     [38;5;28;01mreturn[39;00m [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43m_engine[49m[38;5;241;43m.[39;49m[43mget_loc[49m[43m([49m[43mcasted_key[49m[43m)[49m
-[0;32m   3806[0m [38;5;28;01mexcept[39;00m [38;5;167;01mKeyError[39;00m [38;5;28;01mas[39;00m err:
-
-File [1;32mindex.pyx:167[0m, in [0;36mpandas._libs.index.IndexEngine.get_loc[1;34m()[0m
-
-File [1;32mindex.pyx:196[0m, in [0;36mpandas._libs.index.IndexEngine.get_loc[1;34m()[0m
-
-File [1;32mpandas\\_libs\\hashtable_class_helper.pxi:7081[0m, in [0;36mpandas._libs.hashtable.PyObjectHashTable.get_item[1;34m()[0m
-
-File [1;32mpandas\\_libs\\hashtable_class_helper.pxi:7089[0m, in [0;36mpandas._libs.hashtable.PyObjectHashTable.get_item[1;34m()[0m
-
-[1;31mKeyError[0m: 'Date'
-
-The above exception was the direct cause of the following exception:
-
-[1;31mKeyError[0m                                  Traceback (most recent call last)
-Cell [1;32mIn[20], line 1[0m
-[1;32m----> 1[0m df_combined[38;5;241m.[39mindex [38;5;241m=[39m [43mdf_combined[49m[43m[[49m[38;5;124;43m'[39;49m[38;5;124;43mDate[39;49m[38;5;124;43m'[39;49m[43m][49m
-[0;32m      2[0m df_combined[38;5;241m.[39mdrop([38;5;124m'[39m[38;5;124mfecha[39m[38;5;124m'[39m, axis[38;5;241m=[39m[38;5;241m1[39m, inplace[38;5;241m=[39m[38;5;28;01mTrue[39;00m)
-[0;32m      3[0m df_combined[38;5;241m.[39mhead()
-
-File [1;32m~\miniconda3\envs\ml_venv\lib\site-packages\pandas\core\frame.py:4102[0m, in [0;36mDataFrame.__getitem__[1;34m(self, key)[0m
-[0;32m   4100[0m [38;5;28;01mif[39;00m [38;5;28mself[39m[38;5;241m.[39mcolumns[38;5;241m.[39mnlevels [38;5;241m>[39m [38;5;241m1[39m:
-[0;32m   4101[0m     [38;5;28;01mreturn[39;00m [38;5;28mself[39m[38;5;241m.[39m_getitem_multilevel(key)
-[1;32m-> 4102[0m indexer [38;5;241m=[39m [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43mcolumns[49m[38;5;241;43m.[39;49m[43mget_loc[49m[43m([49m[43mkey[49m[43m)[49m
-[0;32m   4103[0m [38;5;28;01mif[39;00m is_integer(indexer):
-[0;32m   4104[0m     indexer [38;5;241m=[39m [indexer]
-
-File [1;32m~\miniconda3\envs\ml_venv\lib\site-packages\pandas\core\indexes\base.py:3812[0m, in [0;36mIndex.get_loc[1;34m(self, key)[0m
-[0;32m   3807[0m     [38;5;28;01mif[39;00m [38;5;28misinstance[39m(casted_key, [38;5;28mslice[39m) [38;5;129;01mor[39;00m (
-[0;32m   3808[0m         [38;5;28misinstance[39m(casted_key, abc[38;5;241m.[39mIterable)
-[0;32m   3809[0m         [38;5;129;01mand[39;00m [38;5;28many[39m([38;5;28misinstance[39m(x, [38;5;28mslice[39m) [38;5;28;01mfor[39;00m x [38;5;129;01min[39;00m casted_key)
-[0;32m   3810[0m     ):
-[0;32m   3811[0m         [38;5;28;01mraise[39;00m InvalidIndexError(key)
-[1;32m-> 3812[0m     [38;5;28;01mraise[39;00m [38;5;167;01mKeyError[39;00m(key) [38;5;28;01mfrom[39;00m [38;5;21;01merr[39;00m
-[0;32m   3813[0m [38;5;28;01mexcept[39;00m [38;5;167;01mTypeError[39;00m:
-[0;32m   3814[0m     [38;5;66;03m# If we have a listlike key, _check_indexing_error will raise[39;00m
-[0;32m   3815[0m     [38;5;66;03m#  InvalidIndexError. Otherwise we fall through and re-raise[39;00m
-[0;32m   3816[0m     [38;5;66;03m#  the TypeError.[39;00m
-[0;32m   3817[0m     [38;5;28mself[39m[38;5;241m.[39m_check_indexing_error(key)
-
-[1;31mKeyError[0m: 'Date'
+  File "C:\Users\cjcam\miniconda3\envs\ml_venv\lib\site-packages\nbclient\client.py", line 1005, in async_execute_cell
+    exec_reply = await self.task_poll_for_reply
+  File "C:\Users\cjcam\miniconda3\envs\ml_venv\lib\site-packages\nbclient\client.py", line 806, in _async_poll_for_reply
+    error_on_timeout_execute_reply = await self._async_handle_timeout(timeout, cell)
+  File "C:\Users\cjcam\miniconda3\envs\ml_venv\lib\site-packages\nbclient\client.py", line 856, in _async_handle_timeout
+    raise CellTimeoutError.error_from_timeout_and_cell(
+nbclient.exceptions.CellTimeoutError: A cell timed out while it was being executed, after 30 seconds.
+The message was: Cell execution timed out.
+Here is a preview of the cell contents:
+-------------------
+['import numpy as np', 'from sklearn.preprocessing import MinMaxScaler', '', 'n_steps_list = [7,15,30,60 ]', 'epochs_list = [50, 100,150]']
+...
+['# Mostrar los resultados', 'for result in results:', '    print(f"n_steps: {result[\'n_steps\']}, epochs: {result[\'epochs\']}")', '    print(f"mae Validation: {result[\'mae_val\']}, R2 Validation: {result[\'r2_val\']}")', '    print()']
+-------------------
 
