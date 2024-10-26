@@ -30,8 +30,8 @@ nbclient.exceptions.CellTimeoutError: A cell timed out while it was being execut
 The message was: Cell execution timed out.
 Here is a preview of the cell contents:
 -------------------
-['import numpy as np', 'from sklearn.preprocessing import MinMaxScaler', '', 'n_steps_list = [7,15,30,60 ]', 'epochs_list = [50, 100,150]']
+['import datetime', 'import pytz', 'import numpy as np', 'import pandas as pd', 'import matplotlib.pyplot as plt']
 ...
-['# Mostrar los resultados', 'for result in results:', '    print(f"n_steps: {result[\'n_steps\']}, epochs: {result[\'epochs\']}")', '    print(f"mae Validation: {result[\'mae_val\']}, R2 Validation: {result[\'r2_val\']}")', '    print()']
+['model2.fit(X_train, y_train, epochs=200, batch_size=16, validation_data=(X_val, y_val),', '           callbacks=[early_stopping], verbose=0)', '', '# Plot Model 2 results', "plot_results(model2, X_train, y_train, X_val, y_val, X_test, y_test, title='Model 2 - Fully Optimized')"]
 -------------------
 
