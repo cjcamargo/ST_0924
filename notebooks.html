@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Proyecto Final: Predicción de la demanda de energía eléctrica para una compañía del sector O&amp;G &#8212; Trabajos iniciales (Data + Bonus)</title>
+    <title>Proyecto Final: Predicción de la demanda de energía eléctrica para una compañía del sector O&amp;G &#8212; Series de Tiempo (Proyecto Final + Bonus)</title>
   
   
   
@@ -154,8 +154,8 @@
       
     
     
-    <img src="_static/logo.png" class="logo__image only-light" alt="Trabajos iniciales (Data + Bonus) - Home"/>
-    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Trabajos iniciales (Data + Bonus) - Home"/>`);</script>
+    <img src="_static/UN.png" class="logo__image only-light" alt="Series de Tiempo (Proyecto Final + Bonus) - Home"/>
+    <script>document.write(`<img src="_static/UN.png" class="logo__image only-dark" alt="Series de Tiempo (Proyecto Final + Bonus) - Home"/>`);</script>
   
   
 </a></div>
@@ -176,7 +176,7 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="intro.html">
-                    Guia para entregables iniciales
+                    Guia para entregables Series de Tiempo
                 </a>
             </li>
         </ul>
@@ -419,7 +419,10 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="proyecto-final-prediccion-de-la-demanda-de-energia-electrica-para-una-compania-del-sector-o-g">
 <h1>Proyecto Final: Predicción de la demanda de energía eléctrica para una compañía del sector O&amp;G<a class="headerlink" href="#proyecto-final-prediccion-de-la-demanda-de-energia-electrica-para-una-compania-del-sector-o-g" title="Link to this heading">#</a></h1>
 <p>Datos reales anoninimizados de los historicos de consumo de energía de una empresa del sector Oil and Gas en colombia.</p>
-<p>El objetivo del proyecto es predecir el consumo diario de energía eléctrica, esto es un input importante para el despacho eficiente de energía en este tipo de compañías, un dato adecuado del consumo futuro permite alinear los sistemas de generación más costo eficientes que logren atender esta demanda</p>
+<p>El objetivo del proyecto es predecir el consumo diario de energía eléctrica, esto es un input importante para el despacho eficiente de energía en este tipo de compañías, un dato adecuado del consumo futuro permite alinear los sistemas de generación más costo eficientes que logren atender esta demanda.</p>
+<div style="text-align: center;">
+    <img src="OG.jpg" alt="OG" width="500"/>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">rcParams</span><span class="p">,</span> <span class="n">cycler</span>
@@ -430,7 +433,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;contextlib.ExitStack at 0x178be93cf40&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;contextlib.ExitStack at 0x297437325b0&gt;
 </pre></div>
 </div>
 </div>
@@ -1528,6 +1531,12 @@ MAPE: 3.21%
 </div>
 </div>
 </div>
+<p>Se evalúo cómo diferentes configuraciones de estacionalidad afectan la precisión de un modelo ETS (Exponential Smoothing) aplicado a una serie temporal. Los modelos de suavizamiento exponencial son métodos de pronóstico que funcionan bien en series temporales con patrones estacionales, ya que permiten incorporar componentes de tendencia y estacionalidad en las predicciones.</p>
+<p>En particular, este código utiliza tres períodos estacionales (semanal, mensual y anual) para entrenar el modelo ETS y así determinar cuál de ellos produce las predicciones más precisas. Esto se hace iterativamente, ajustando el modelo a cada período estacional y evaluando las predicciones generadas para los datos de validación.</p>
+<p>Las métricas utilizadas para medir la precisión son el RMSE (Root Mean Squared Error) y el MAPE (Mean Absolute Percentage Error):</p>
+<p>RMSE: Mide el error absoluto promedio en unidades de la serie original. Un valor de RMSE más bajo indica un mejor ajuste entre las predicciones y los valores reales.
+MAPE: Calcula el error porcentual promedio. Al ser un porcentaje, permite entender la precisión en términos relativos, haciendo más fácil comparar el rendimiento entre diferentes configuraciones de modelos.</p>
+<p>El modelo con mejor MAPE fue seleccionado, en este caso un periodo semanal (7).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -1619,6 +1628,19 @@ the &#39;smoothing_slope&#39; keyword is deprecated, use &#39;smoothing_trend&#3
 </div>
 </div>
 </div>
+<p>Se implemmentó una optimización del modelo Triple Exponential Smoothing (TES) (también conocido como Modelo de Suavizamiento Exponencial Holt-Winters) para ajustar una serie temporal con componentes de tendencia y estacionalidad. El objetivo es encontrar los mejores valores de los parámetros de suavizamiento (alpha, beta y gamma) que minimicen el error absoluto medio (MAE) entre las predicciones y los valores reales en un conjunto de prueba.</p>
+<p>Proceso de Optimización:</p>
+<ul class="simple">
+<li><p>Para cada combinación de alpha, beta y gamma en abg, se entrena un modelo TES en los datos de entrenamiento.</p></li>
+<li><p>Calculo del MAE: Se calculan predicciones (y_pred) para el conjunto de prueba y se evalúan con el MAE.</p></li>
+<li><p>Si el MAE de la combinación actual es menor que el best_mae guardado, se actualizan los mejores parámetros alpha, beta, y gamma.</p></li>
+</ul>
+<p>Tunning:</p>
+<ul class="simple">
+<li><p>Genera un rango de valores para alpha, beta, y gamma (de 0.1 a 0.9, en pasos de 0.1), y crea todas las combinaciones posibles usando itertools.product.</p></li>
+<li><p>Llama a tes_optimizer para encontrar el mejor conjunto de parámetros que minimicen el MAE en el conjunto de prueba.</p></li>
+<li><p>Ajusta un modelo final usando los valores óptimos de alpha, beta, y gamma obtenidos y calcula las predicciones finales (y_pred), junto con el MAE correspondiente.</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
@@ -1684,6 +1706,11 @@ MAPE: 2.76%
 </div>
 </div>
 </div>
+<p>Aunque el modelo captura la tendencia ascendente de los datos a lo largo del tiempo, parece fallar en captar ciertos patrones no lineales que están presentes en la serie. Esto se refleja en la forma de la línea de predicción (roja discontinua), que es mucho más suave en comparación con los datos reales de prueba (verde).
+La predicción sigue una curva relativamente suavizada y estable, lo cual sugiere que el modelo no está respondiendo bien a la variabilidad intrínseca de los datos reales. Esto indica que el modelo está sobreenfatizando la tendencia general y subestimando la dinámica compleja en los datos.</p>
+<p>El modelo ETS es conocido por ser eficaz en series con patrones de tendencia y estacionalidad, pero si la serie tiene ciclos no estacionarios o componentes no lineales, este tipo de modelo podría no ser adecuado. Las fluctuaciones visibles en los datos de prueba (verde) parecen ser causadas por factores que el modelo no puede capturar, como irregularidades estacionales o cambios rápidos en la dinámica de la serie.</p>
+<p>A pesar de los valores relativamente bajos de RMSE (0.17) y MAPE (2.76%), la gráfica revela que estos valores promedio ocultan desviaciones significativas en puntos específicos. El modelo parece funcionar bien en promedio, pero si observamos la forma de la curva, es evidente que fallan en seguir las oscilaciones de alta frecuencia en los datos reales.
+Esto es especialmente problemático si el objetivo es hacer pronósticos precisos en el corto plazo o si esas fluctuaciones son críticas para la aplicación en cuestión (por ejemplo, en un contexto financiero o climático, donde los cambios pequeños pueden ser importantes).</p>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="implementacion-arima">
 <h1>IMPLEMENTACIÓN ARIMA<a class="headerlink" href="#implementacion-arima" title="Link to this heading">#</a></h1>
@@ -1716,6 +1743,12 @@ MAPE: 2.76%
 <img alt="_images/15c82fa74ce3afd0ea90922bacd1c075505e1d934271af87b4df76fb16c7432c.png" src="_images/15c82fa74ce3afd0ea90922bacd1c075505e1d934271af87b4df76fb16c7432c.png" />
 </div>
 </div>
+<p>Todos los histogramas muestran una forma simétrica y aproximadamente normal centrada en cero, con una ligera desviación hacia el lado izquierdo (errores negativos). Esto podría indicar un ligero sesgo en las predicciones del modelo, donde tiende a sobrestimar o subestimar los valores reales en ciertos momentos.
+La simetría en los errores sugiere que no hay grandes anomalías o patrones de error sistemático en los horizontes analizados, lo cual es un buen indicador de un modelo bien balanceado.
+Comparación Entre Horizontes de Predicción:</p>
+<p>Los histogramas representan diferentes horizontes de predicción (posiblemente t+0, t+1, t+2, etc.), y parece que la distribución de los errores se mantiene consistente en todos los horizontes.
+Esto indica que el modelo tiene un rendimiento similar a través de los distintos períodos de pronóstico, lo cual es una buena señal de estabilidad en las predicciones.
+La forma y amplitud de cada histograma son similares, lo cual sugiere que el modelo no pierde precisión significativa conforme aumenta el horizonte de predicción.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">target_series</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Demanda MW&#39;</span><span class="p">]</span>
@@ -1898,6 +1931,7 @@ Shape of test: (118,)
 </table>
 </div></div></div>
 </div>
+<p>El parametro AR que minimiza el AIC es un AR(2) con diferenciación de orden 1</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">arima_mod</span> <span class="o">=</span> <span class="n">smtsa</span><span class="o">.</span><span class="n">ARIMA</span><span class="p">(</span><span class="n">train</span><span class="p">,</span><span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
@@ -1960,6 +1994,14 @@ Shape of test: (118,)
 </tr>
 </table><br/><br/>Warnings:<br/>[1] Covariance matrix calculated using the outer product of gradients (complex-step).</div></div>
 </div>
+<p>Pruebas de Diagnóstico</p>
+<ul class="simple">
+<li><p>Ljung-Box (L1) Q: 0.17 con un p-valor de 0.68. Esto sugiere que no hay autocorrelación significativa en los residuos, lo cual es deseable ya que indica que el modelo ha capturado adecuadamente la dependencia temporal en los datos.</p></li>
+<li><p>Jarque-Bera (JB): 51593.88 con un p-valor de 0.00. Esto indica que los residuos no siguen una distribución normal, lo cual podría ser una señal de que el modelo no captura completamente la estructura de los datos. La falta de normalidad en los residuos podría afectar algunas inferencias y pronósticos.</p></li>
+<li><p>Heteroskedasticity (H): 1.49 con un p-valor de 0.00. Esto sugiere la presencia de heterocedasticidad en los residuos, es decir, que la varianza de los errores no es constante a lo largo del tiempo. Esto puede ser problemático ya que indica que el modelo no está capturando algunas variaciones en la serie.</p></li>
+<li><p>Skew: -2.71. Este valor negativo sugiere que la distribución de los residuos está sesgada hacia la izquierda.</p></li>
+<li><p>Kurtosis: 39.95, que indica una distribución leptocúrtica, es decir, con colas más pesadas que una distribución normal. Esto significa que los errores extremos ocurren con más frecuencia de lo esperado, lo que podría afectar la precisión de las predicciones en ciertos períodos.</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># prompt: include a plot that has the arima model the train and test with arima predictions</span>
@@ -2096,6 +2138,12 @@ Name: 14, dtype: float64
 </tr>
 </table><br/><br/>Warnings:<br/>[1] Covariance matrix calculated using the outer product of gradients (complex-step).</div></div>
 </div>
+<p>Pruebas de Diagnóstico
+Ljung-Box (L1) Q: 0.02 con p-valor de 0.89. Este alto p-valor sugiere que no hay autocorrelación significativa en los residuos del modelo, lo que indica que el modelo ha capturado adecuadamente la dependencia temporal de los datos.</p>
+<p>Jarque-Bera (JB): 59912.71 con p-valor de 0.00. Esto indica que los residuos no siguen una distribución normal, lo cual puede ser una limitación, ya que la falta de normalidad en los residuos puede afectar la calidad de las predicciones.</p>
+<p>Heteroskedasticidad (H): 1.50 con p-valor de 0.00, lo que sugiere que hay heterocedasticidad en los residuos, es decir, la varianza de los errores no es constante. Esto puede significar que el modelo no está capturando algunas variaciones en los datos.</p>
+<p>Skewness: -3.50. Un valor negativo indica que la distribución de los residuos está sesgada hacia la izquierda.</p>
+<p>Kurtosis: 42.63, lo que indica que la distribución de los residuos es leptocúrtica (con colas más pesadas que una distribución normal). Esto significa que los errores extremos ocurren con mayor frecuencia de lo que se esperaría en una distribución normal.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -2263,6 +2311,10 @@ Name: 14, dtype: float64
 <img alt="_images/0622ace6a123b6d9dc2b0b4aa6e034a353659d5935e757cb65710927869da87f.png" src="_images/0622ace6a123b6d9dc2b0b4aa6e034a353659d5935e757cb65710927869da87f.png" />
 </div>
 </div>
+<p>Modelo 1 - MLP Básico: Se entrenó una red neuronal multicapa (MLP) simple con una capa oculta de 64 neuronas, optimizada únicamente en una hiperparámetro (número de neuronas). Se usa EarlyStopping para evitar el sobreajuste monitoreando la pérdida en el conjunto de validación.</p>
+<p>Evaluación y Visualización de Resultados para Modelo 1: Se predicen los valores en los conjuntos de entrenamiento, validación y prueba, calculando métricas de error como RMSE y MAPE. Los resultados se visualizan en una gráfica que compara los valores reales y las predicciones del modelo.</p>
+<p>Modelo 2 - MLP Optimizado: Definimos un modelo más complejo con múltiples capas ocultas (128, 64 y 32 neuronas) y un entrenamiento más robusto (con más épocas y menor tamaño de lote). Este modelo está diseñado para capturar patrones complejos en los datos.</p>
+<p>Evaluación y Visualización de Resultados para Modelo 2: Se repite el proceso de evaluación para el modelo optimizado y muestra los resultados en un gráfico que compara el rendimiento del modelo con los datos reales en el conjunto de prueba.</p>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="lstm-for-st">
 <h1>LSTM for ST<a class="headerlink" href="#lstm-for-st" title="Link to this heading">#</a></h1>
@@ -2416,6 +2468,13 @@ RMSE Validation: 0.11276243482381325, R2 Validation: 0.5856504584621574
 </div>
 </div>
 </div>
+<p>Este código tiene como objetivo explorar y evaluar el rendimiento de un modelo LSTM para la predicción de la demanda de energía (MW) utilizando múltiples combinaciones de hiperparámetros de ventana de tiempo (n_steps) y épocas de entrenamiento (epochs). Los pasos principales son:</p>
+<p>Normalización y División de Datos: La serie temporal se normaliza usando MinMaxScaler y luego se divide en conjuntos de entrenamiento (70%), validación (15%) y prueba (15%).</p>
+<p>Generación de Secuencias Temporales: Se crean secuencias de entrada y etiquetas de salida para los datos de entrenamiento y validación según las diferentes ventanas de tiempo (n_steps), que definen cuántos pasos previos el modelo utiliza para hacer una predicción.</p>
+<p>Entrenamiento y Evaluación del Modelo LSTM: Para cada combinación de n_steps y epochs, se entrena un modelo LSTM en el conjunto de entrenamiento y se evalúa en el conjunto de validación.</p>
+<p>Cálculo de Métricas: Se calculan el RMSE y el R² en el conjunto de validación para cada combinación de hiperparámetros.</p>
+<p>Registro de Resultados: Los resultados para cada combinación se almacenan y se imprimen al final, permitiendo comparar el rendimiento de las diferentes configuraciones.</p>
+<p>Este proceso ayuda a identificar los valores óptimos de n_steps y epochs que mejoran la precisión de las predicciones en series temporales usando LSTM.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -2595,6 +2654,7 @@ MAPE: 0.81%
 </div>
 </div>
 </div>
+<p>el modelo muestra un excelente ajuste a los datos, con métricas de error muy bajas y una buena capacidad para capturar la mayoría de las variaciones de la serie temporal. El RMSE y el MAPE confirman que las predicciones son muy precisas en comparación con los valores reales. Las pequeñas discrepancias y la caída al final sugieren que el modelo podría beneficiarse de una revisión adicional en los datos extremos o finales, posiblemente ajustando los hiperparámetros para mejorar la estabilidad en estos puntos.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -2719,6 +2779,7 @@ Train Loss: 0.021595284342765808, Val Loss: 0.03464974835515022
 <img alt="_images/f8b071bfd4203efc57f371a403f4042402284d3e3ab5dd79ca4c9e9a76b432a1.png" src="_images/f8b071bfd4203efc57f371a403f4042402284d3e3ab5dd79ca4c9e9a76b432a1.png" />
 </div>
 </div>
+<p>el gráfico sugiere que el modelo está entrenando correctamente, logrando un buen ajuste sin indicios claros de sobreajuste. La pérdida de entrenamiento es baja y estable, y la pérdida de validación se mantiene también baja y cercana a la pérdida de entrenamiento, lo cual es ideal. Estas observaciones son consistentes con el bajo MAPE y RMSE observados en los gráficos de predicción, lo que indica que el modelo está bien ajustado y generaliza adecuadamente.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">keras.models</span> <span class="kn">import</span> <span class="n">Model</span>
@@ -2775,6 +2836,7 @@ _________________________________________________________________
 </div>
 </div>
 </div>
+<p>Este modelo está diseñado para manejar secuencias de series temporales, donde las dos capas LSTM capturan patrones de dependencia temporal a corto y largo plazo. La capa Dropout ayuda a evitar el sobreajuste, y la capa final Dense genera la predicción final de la serie. Esta arquitectura es adecuada para tareas de pronóstico en series temporales y está optimizada para un equilibrio entre complejidad y capacidad de generalización.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">history</span> <span class="o">=</span> <span class="n">model_lstm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">validation_split</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -2919,6 +2981,7 @@ MAPE: 0.80%
 </div>
 </div>
 </div>
+<p>El modelo demuestra un desempeño excelente, capturando de manera precisa tanto los patrones generales como las fluctuaciones en la serie temporal. Las métricas bajas de RMSE y MAPE corroboran que las predicciones son precisas y se acercan mucho a los valores reales. Esto sugiere que el modelo está bien ajustado, con un buen equilibrio entre precisión y capacidad de generalización. Las ligeras divergencias al final de la serie podrían explorarse más a fondo, pero en general, el modelo es altamente eficaz para esta tarea de predicción.</p>
 </section>
 
     <script type="text/x-thebe-config">

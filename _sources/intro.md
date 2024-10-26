@@ -1,6 +1,6 @@
-# Guia para entregables iniciales
+# Guia para entregables Series de Tiempo
 
-Contiene la tabla de contenidos de los entregables iniciales para la materia series de tiempo, por Carlos Camargo, Universidad del Norte.
+Contiene la tabla de contenidos de los entregables para la materia series de tiempo, por Andres Usma y Carlos Camargo, Universidad del Norte.
 
 
 ```{tableofcontents}
