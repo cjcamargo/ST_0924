@@ -194,6 +194,7 @@
 
 
 
+
 </ul>
 
     </div>
@@ -404,6 +405,7 @@ document.write(`
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#implementacion-arima">IMPLEMENTACIÓN ARIMA</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mlp-for-ts">MLP for TS</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#lstm-for-st">LSTM for ST</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo-original-cnn-lstm">Modelo Original: CNN + LSTM</a></li>
 </ul>
 
             </nav>
@@ -420,9 +422,6 @@ document.write(`
 <h1>Proyecto Final: Predicción de la demanda de energía eléctrica para una compañía del sector O&amp;G<a class="headerlink" href="#proyecto-final-prediccion-de-la-demanda-de-energia-electrica-para-una-compania-del-sector-o-g" title="Link to this heading">#</a></h1>
 <p>Datos reales anoninimizados de los historicos de consumo de energía de una empresa del sector Oil and Gas en colombia.</p>
 <p>El objetivo del proyecto es predecir el consumo diario de energía eléctrica, esto es un input importante para el despacho eficiente de energía en este tipo de compañías, un dato adecuado del consumo futuro permite alinear los sistemas de generación más costo eficientes que logren atender esta demanda.</p>
-<div style="text-align: center;">
-    <img src="OG.PNG" alt="OG" width="200"/>
-</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">rcParams</span><span class="p">,</span> <span class="n">cycler</span>
@@ -433,7 +432,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;contextlib.ExitStack at 0x247ae43cf40&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;contextlib.ExitStack at 0x27c1f99cd00&gt;
 </pre></div>
 </div>
 </div>
@@ -636,22 +635,6 @@ document.write(`
 <h2>Modelo de tendencia lineal<a class="headerlink" href="#modelo-de-tendencia-lineal" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">U</span> <span class="n">sklearn</span><span class="o">-</span><span class="n">learn</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Note: you may need to restart the kernel to use updated packages.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ERROR: Could not find a version that satisfies the requirement sklearn-learn (from versions: none)
-ERROR: No matching distribution found for sklearn-learn
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 </pre></div>
@@ -690,7 +673,7 @@ ERROR: No matching distribution found for sklearn-learn
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">5.5</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">))</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">residuals</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">df_combined</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">residuals</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Residuales del modelo de tendencia - consumo energia O&amp;G&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Energia kWh&#39;</span><span class="p">)</span>
@@ -699,58 +682,7 @@ ERROR: No matching distribution found for sklearn-learn
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
-<span class="nn">File ~\miniconda3\envs\ml_venv\lib\site-packages\pandas\core\indexes\base.py:3805,</span> in <span class="ni">Index.get_loc</span><span class="nt">(self, key)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3804</span> <span class="k">try</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">3805</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3806</span> <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
-
-<span class="nn">File index.pyx:167,</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
-
-<span class="nn">File index.pyx:196,</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
-
-<span class="nn">File pandas\\_libs\\hashtable_class_helper.pxi:7081,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
-
-<span class="nn">File pandas\\_libs\\hashtable_class_helper.pxi:7089,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
-
-<span class="ne">KeyError</span>: &#39;Date&#39;
-
-<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
-
-<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">12</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">5.5</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">))</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">residuals</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">df_combined</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Residuales del modelo de tendencia - consumo energia O&amp;G&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
-
-<span class="nn">File ~\miniconda3\envs\ml_venv\lib\site-packages\pandas\core\frame.py:4102,</span> in <span class="ni">DataFrame.__getitem__</span><span class="nt">(self, key)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4100</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">nlevels</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">4101</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getitem_multilevel</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">4102</span> <span class="n">indexer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4103</span> <span class="k">if</span> <span class="n">is_integer</span><span class="p">(</span><span class="n">indexer</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">4104</span>     <span class="n">indexer</span> <span class="o">=</span> <span class="p">[</span><span class="n">indexer</span><span class="p">]</span>
-
-<span class="nn">File ~\miniconda3\envs\ml_venv\lib\site-packages\pandas\core\indexes\base.py:3812,</span> in <span class="ni">Index.get_loc</span><span class="nt">(self, key)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3807</span>     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">casted_key</span><span class="p">,</span> <span class="nb">slice</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">3808</span>         <span class="nb">isinstance</span><span class="p">(</span><span class="n">casted_key</span><span class="p">,</span> <span class="n">abc</span><span class="o">.</span><span class="n">Iterable</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3809</span>         <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">slice</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">casted_key</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3810</span>     <span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">3811</span>         <span class="k">raise</span> <span class="n">InvalidIndexError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">3812</span>     <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
-<span class="g g-Whitespace">   </span><span class="mi">3813</span> <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">3814</span>     <span class="c1"># If we have a listlike key, _check_indexing_error will raise</span>
-<span class="g g-Whitespace">   </span><span class="mi">3815</span>     <span class="c1">#  InvalidIndexError. Otherwise we fall through and re-raise</span>
-<span class="g g-Whitespace">   </span><span class="mi">3816</span>     <span class="c1">#  the TypeError.</span>
-<span class="g g-Whitespace">   </span><span class="mi">3817</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_check_indexing_error</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-
-<span class="ne">KeyError</span>: &#39;Date&#39;
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 550x550 with 0 Axes&gt;
-</pre></div>
-</div>
+<img alt="_images/4266b181b0226f3cab4a499a88215408a5846da3923a25489556f7bdc69a8bce.png" src="_images/4266b181b0226f3cab4a499a88215408a5846da3923a25489556f7bdc69a8bce.png" />
 </div>
 </div>
 <p>Se presenta una grafica de residuales del modelo lineal de tendencia general: Los residuales muestran mucha variabilidad, con fluctuaciones significativas a lo largo del tiempo.</p>
@@ -814,13 +746,6 @@ ERROR: No matching distribution found for sklearn-learn
 <li><p>Después del lag 5, la autocorrelación continúa disminuyendo gradualmente, pero se mantiene en niveles altos (alrededor de 0.92). Esto puede indicar que, aunque el consumo de energía sigue correlacionado con días pasados, la fuerza de la correlación disminuye con el tiempo.</p></li>
 <li><p>Este tipo de comportamiento es típico en series temporales con tendencia, donde los valores tienden a estar correlacionados con sus valores pasados, pero la influencia de esos valores disminuye con el tiempo.</p></li>
 </ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">statsmodels</span>
-</pre></div>
-</div>
-</div>
-</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.graphics.tsaplots</span> <span class="kn">import</span> <span class="n">plot_acf</span>
@@ -940,57 +865,55 @@ En este caso, la mayoría de los valores de autocorrelación están muy por enci
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="nn">File ~\miniconda3\envs\ml_venv\lib\site-packages\pandas\core\indexes\base.py:3805,</span> in <span class="ni">Index.get_loc</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3804</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">3805</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3806</span> <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
+<span class="nn">File index.pyx:167,</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
 
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>fecha</th>
-      <th>Demanda MW</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>2021-01-01</th>
-      <td>44197</td>
-      <td>3.2818</td>
-    </tr>
-    <tr>
-      <th>2021-01-02</th>
-      <td>44198</td>
-      <td>3.3436</td>
-    </tr>
-    <tr>
-      <th>2021-01-03</th>
-      <td>44199</td>
-      <td>3.3460</td>
-    </tr>
-    <tr>
-      <th>2021-01-04</th>
-      <td>44200</td>
-      <td>3.3910</td>
-    </tr>
-    <tr>
-      <th>2021-01-05</th>
-      <td>44201</td>
-      <td>3.3606</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
+<span class="nn">File index.pyx:196,</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+
+<span class="nn">File pandas\\_libs\\hashtable_class_helper.pxi:7081,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
+
+<span class="nn">File pandas\\_libs\\hashtable_class_helper.pxi:7089,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
+
+<span class="ne">KeyError</span>: &#39;Date&#39;
+
+<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
+
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">20</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">df_combined</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">df_combined</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">df_combined</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;fecha&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">df_combined</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+
+<span class="nn">File ~\miniconda3\envs\ml_venv\lib\site-packages\pandas\core\frame.py:4102,</span> in <span class="ni">DataFrame.__getitem__</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">4100</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">nlevels</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">4101</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getitem_multilevel</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">4102</span> <span class="n">indexer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">4103</span> <span class="k">if</span> <span class="n">is_integer</span><span class="p">(</span><span class="n">indexer</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">4104</span>     <span class="n">indexer</span> <span class="o">=</span> <span class="p">[</span><span class="n">indexer</span><span class="p">]</span>
+
+<span class="nn">File ~\miniconda3\envs\ml_venv\lib\site-packages\pandas\core\indexes\base.py:3812,</span> in <span class="ni">Index.get_loc</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3807</span>     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">casted_key</span><span class="p">,</span> <span class="nb">slice</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">3808</span>         <span class="nb">isinstance</span><span class="p">(</span><span class="n">casted_key</span><span class="p">,</span> <span class="n">abc</span><span class="o">.</span><span class="n">Iterable</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3809</span>         <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">slice</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">casted_key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3810</span>     <span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">3811</span>         <span class="k">raise</span> <span class="n">InvalidIndexError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">3812</span>     <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
+<span class="g g-Whitespace">   </span><span class="mi">3813</span> <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">3814</span>     <span class="c1"># If we have a listlike key, _check_indexing_error will raise</span>
+<span class="g g-Whitespace">   </span><span class="mi">3815</span>     <span class="c1">#  InvalidIndexError. Otherwise we fall through and re-raise</span>
+<span class="g g-Whitespace">   </span><span class="mi">3816</span>     <span class="c1">#  the TypeError.</span>
+<span class="g g-Whitespace">   </span><span class="mi">3817</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_check_indexing_error</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+<span class="ne">KeyError</span>: &#39;Date&#39;
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2347,7 +2270,7 @@ Ljung-Box (L1) Q: 0.02 con p-valor de 0.89. Este alto p-valor sugiere que no hay
         <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">GRU</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">return_sequences</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="n">n_steps</span><span class="p">,</span> <span class="n">n_features</span><span class="p">)))</span>
         <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">GRU</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">return_sequences</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
     <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;mse&#39;</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;mae&#39;</span><span class="p">)</span>
     <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="n">epochs</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">validation_split</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">model</span>
 </pre></div>
@@ -2397,73 +2320,80 @@ Ljung-Box (L1) Q: 0.02 con p-valor de 0.89. Este alto p-valor sugiere que no hay
         <span class="n">predictions_val</span> <span class="o">=</span> <span class="n">model_lstm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_val</span><span class="p">)</span>
         <span class="n">predictions_val_inv</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">predictions_val</span><span class="p">)</span>
         <span class="n">y_val_inv</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">y_val</span><span class="p">)</span>
-        <span class="n">rmse_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_val_inv</span><span class="p">,</span> <span class="n">predictions_val_inv</span><span class="p">))</span>
+        <span class="n">mae_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_val_inv</span><span class="p">,</span> <span class="n">predictions_val_inv</span><span class="p">))</span>
         <span class="n">r2_val</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_val_inv</span><span class="p">,</span> <span class="n">predictions_val_inv</span><span class="p">)</span>
 
         <span class="c1"># Guardar los resultados</span>
         <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
             <span class="s1">&#39;n_steps&#39;</span><span class="p">:</span> <span class="n">n_steps</span><span class="p">,</span>
             <span class="s1">&#39;epochs&#39;</span><span class="p">:</span> <span class="n">epochs</span><span class="p">,</span>
-            <span class="s1">&#39;rmse_val&#39;</span><span class="p">:</span> <span class="n">rmse_val</span><span class="p">,</span>
+            <span class="s1">&#39;mae_val&#39;</span><span class="p">:</span> <span class="n">mae_val</span><span class="p">,</span>
             <span class="s1">&#39;r2_val&#39;</span><span class="p">:</span> <span class="n">r2_val</span>
         <span class="p">})</span>
 
 <span class="c1"># Mostrar los resultados</span>
 <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;n_steps: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;n_steps&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, epochs: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;epochs&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RMSE Validation: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;rmse_val&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, R2 Validation: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;r2_val&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;mae Validation: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;mae_val&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, R2 Validation: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;r2_val&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7/7 [==============================] - 0s 2ms/step
-7/7 [==============================] - 0s 0s/step
-7/7 [==============================] - 1s 3ms/step
-7/7 [==============================] - 0s 3ms/step
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Exception ignored in: &lt;function UniquePtr.__del__ at 0x0000016B32C10AF0&gt;
+Traceback (most recent call last):
+  File &quot;c:\Users\cjcam\miniconda3\envs\ml_venv\lib\site-packages\tensorflow\python\framework\c_api_util.py&quot;, line 74, in __del__
+    self.deleter(obj)
+KeyboardInterrupt: 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7/7 [==============================] - 1s 4ms/step
+7/7 [==============================] - 1s 5ms/step
+7/7 [==============================] - 2s 9ms/step
 7/7 [==============================] - 1s 6ms/step
-7/7 [==============================] - 0s 3ms/step
-6/6 [==============================] - 0s 7ms/step
-6/6 [==============================] - 0s 8ms/step
-6/6 [==============================] - 0s 8ms/step
-5/5 [==============================] - 0s 14ms/step
-5/5 [==============================] - 0s 12ms/step
-5/5 [==============================] - 1s 20ms/step
+7/7 [==============================] - 1s 5ms/step
+7/7 [==============================] - 2s 8ms/step
+6/6 [==============================] - 1s 7ms/step
+6/6 [==============================] - 2s 25ms/step
+6/6 [==============================] - 2s 22ms/step
+5/5 [==============================] - 1s 12ms/step
+5/5 [==============================] - 1s 16ms/step
+5/5 [==============================] - 1s 16ms/step
 n_steps: 7, epochs: 50
-RMSE Validation: 0.15954718546383323, R2 Validation: 0.3075983560625609
+mae Validation: 0.3186540975323834, R2 Validation: 0.3675039911948722
 
 n_steps: 7, epochs: 100
-RMSE Validation: 0.14951065900572233, R2 Validation: 0.391971260767233
+mae Validation: 0.3075603258335385, R2 Validation: 0.47636790856153166
 
 n_steps: 7, epochs: 150
-RMSE Validation: 0.13935843819991073, R2 Validation: 0.47174169106683606
+mae Validation: 0.3398106359121833, R2 Validation: 0.38075103474203975
 
 n_steps: 15, epochs: 50
-RMSE Validation: 0.18417610859302339, R2 Validation: 0.04693284259614405
+mae Validation: 0.30232857835069465, R2 Validation: 0.46533585052662574
 
 n_steps: 15, epochs: 100
-RMSE Validation: 0.1504247083155643, R2 Validation: 0.36423696264706884
+mae Validation: 0.29918386175403444, R2 Validation: 0.5114400608147289
 
 n_steps: 15, epochs: 150
-RMSE Validation: 0.1336020964834111, R2 Validation: 0.4984855334705728
+mae Validation: 0.29911653006022476, R2 Validation: 0.494949574173972
 
 n_steps: 30, epochs: 50
-RMSE Validation: 0.14682223137963962, R2 Validation: 0.3813138098021308
+mae Validation: 0.30669501826435447, R2 Validation: 0.4901224434946687
 
 n_steps: 30, epochs: 100
-RMSE Validation: 0.136261696024023, R2 Validation: 0.4671139364727075
+mae Validation: 0.29368680200739855, R2 Validation: 0.5102932031054874
 
 n_steps: 30, epochs: 150
-RMSE Validation: 0.12947858521720249, R2 Validation: 0.5188475820981618
+mae Validation: 0.2933476601363008, R2 Validation: 0.5145668672365787
 
 n_steps: 60, epochs: 50
-RMSE Validation: 0.1419420776323795, R2 Validation: 0.3434613639085914
+mae Validation: 0.31495701331667586, R2 Validation: 0.45814085803372784
 
 n_steps: 60, epochs: 100
-RMSE Validation: 0.1374879682806093, R2 Validation: 0.3840189361319557
+mae Validation: 0.3065220890850673, R2 Validation: 0.5183895815136279
 
 n_steps: 60, epochs: 150
-RMSE Validation: 0.11276243482381325, R2 Validation: 0.5856504584621574
+mae Validation: 0.29402910357955736, R2 Validation: 0.5634678699733575
 </pre></div>
 </div>
 </div>
@@ -2495,8 +2425,10 @@ RMSE Validation: 0.11276243482381325, R2 Validation: 0.5856504584621574
 <span class="n">val_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">train_size</span><span class="p">:</span><span class="n">train_size</span> <span class="o">+</span> <span class="n">val_size</span><span class="p">]</span>
 <span class="n">test_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">train_size</span> <span class="o">+</span> <span class="n">val_size</span><span class="p">:]</span>  <span class="c1"># Reservado para futuras pruebas</span>
 
+
+
 <span class="c1"># Definir la ventana de tiempo</span>
-<span class="n">n_steps</span> <span class="o">=</span> <span class="mi">15</span>
+<span class="n">n_steps</span> <span class="o">=</span> <span class="mi">30</span>
 
 
 <span class="c1"># Crear las secuencias de entrada (X) y las etiquetas de salida (y) para entrenamiento</span>
@@ -2536,10 +2468,10 @@ RMSE Validation: 0.11276243482381325, R2 Validation: 0.5856504584621574
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Forma de X_train: (957, 15, 1)
-Forma de y_train: (957, 1)
-Forma de X_val (193, 15, 1)
-Forma de y_val: (193, 1)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Forma de X_train: (942, 30, 1)
+Forma de y_train: (942, 1)
+Forma de X_val (178, 30, 1)
+Forma de y_val: (178, 1)
 </pre></div>
 </div>
 </div>
@@ -2560,7 +2492,7 @@ Forma de y_val: (193, 1)
 <span class="n">model_lstm</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;mae&#39;</span><span class="p">)</span>
 
 <span class="c1"># Entrenar el modelo LSTM con la mejor combinación de parámetros</span>
-<span class="n">history</span> <span class="o">=</span> <span class="n">model_lstm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">validation_split</span><span class="o">=</span><span class="n">validation_split</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">history</span> <span class="o">=</span> <span class="n">model_lstm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">validation_split</span><span class="o">=</span><span class="n">validation_split</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
 <span class="c1"># Imprimir los resultados del entrenamiento</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Entrenamiento completado con la mejor combinación de neuronas y validation split&quot;</span><span class="p">)</span>
@@ -2641,20 +2573,20 @@ Forma de y_val: (193, 1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7/7 [==============================] - 0s 4ms/step
-MAE: 0.03646080543636659
-MSE: 0.004566701089533899
-MAPE: 0.008130409211999317
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6/6 [==============================] - 1s 10ms/step
+MAE: 0.04719974845286166
+MSE: 0.005293185471769369
+MAPE: 0.010368243815220956
 </pre></div>
 </div>
-<img alt="_images/cdaa66ff1c72d0d19f75d18f1cc50edb4c6de316a8e53583b7c8b0aa75cb93ed.png" src="_images/cdaa66ff1c72d0d19f75d18f1cc50edb4c6de316a8e53583b7c8b0aa75cb93ed.png" />
+<img alt="_images/af430509288e6556ca4f743ef1c727e474cf111806c516df5cd9d3e1ad261d47.png" src="_images/af430509288e6556ca4f743ef1c727e474cf111806c516df5cd9d3e1ad261d47.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RMSE: 0.07
-MAPE: 0.81%
+MAPE: 1.04%
 </pre></div>
 </div>
 </div>
 </div>
-<p>el modelo muestra un excelente ajuste a los datos, con métricas de error muy bajas y una buena capacidad para capturar la mayoría de las variaciones de la serie temporal. El RMSE y el MAPE confirman que las predicciones son muy precisas en comparación con los valores reales. Las pequeñas discrepancias y la caída al final sugieren que el modelo podría beneficiarse de una revisión adicional en los datos extremos o finales, posiblemente ajustando los hiperparámetros para mejorar la estabilidad en estos puntos.</p>
+<p>el modelo muestra un excelente ajuste a los datos, con métricas de error muy bajas, las tendencias siguen muy bien, por lo se explorará posibilidad de sobreajuste.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -2734,7 +2666,7 @@ Train Loss: 0.021595284342765808, Val Loss: 0.03464974835515022
 
 <span class="c1"># Mejor combinación de parámetros</span>
 <span class="n">n_neurons</span> <span class="o">=</span> <span class="mi">50</span>  <span class="c1"># Mejor número de neuronas</span>
-<span class="n">validation_split</span> <span class="o">=</span> <span class="mf">0.1</span>  <span class="c1"># Mejor validation split</span>
+<span class="n">validation_split</span> <span class="o">=</span> <span class="mf">0.2</span>  <span class="c1"># Mejor validation split</span>
 
 <span class="c1"># Construir el modelo LSTM</span>
 <span class="n">model_lstm</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
@@ -2744,7 +2676,7 @@ Train Loss: 0.021595284342765808, Val Loss: 0.03464974835515022
 <span class="n">model_lstm</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;mae&#39;</span><span class="p">)</span>
 
 <span class="c1"># Entrenar el modelo LSTM con la mejor combinación de parámetros</span>
-<span class="n">history</span> <span class="o">=</span> <span class="n">model_lstm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">validation_split</span><span class="o">=</span><span class="n">validation_split</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">history</span> <span class="o">=</span> <span class="n">model_lstm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">validation_split</span><span class="o">=</span><span class="n">validation_split</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
 <span class="c1"># Imprimir los resultados del entrenamiento</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Entrenamiento completado con la mejor combinación de neuronas y validation split&quot;</span><span class="p">)</span>
@@ -2776,17 +2708,24 @@ Train Loss: 0.021595284342765808, Val Loss: 0.03464974835515022
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/f8b071bfd4203efc57f371a403f4042402284d3e3ab5dd79ca4c9e9a76b432a1.png" src="_images/f8b071bfd4203efc57f371a403f4042402284d3e3ab5dd79ca4c9e9a76b432a1.png" />
+<img alt="_images/e8cadcb37123bc3a50394e2751251733e47d93e9e02bc7e4462623f7a0bafbf4.png" src="_images/e8cadcb37123bc3a50394e2751251733e47d93e9e02bc7e4462623f7a0bafbf4.png" />
 </div>
 </div>
-<p>el gráfico sugiere que el modelo está entrenando correctamente, logrando un buen ajuste sin indicios claros de sobreajuste. La pérdida de entrenamiento es baja y estable, y la pérdida de validación se mantiene también baja y cercana a la pérdida de entrenamiento, lo cual es ideal. Estas observaciones son consistentes con el bajo MAPE y RMSE observados en los gráficos de predicción, lo que indica que el modelo está bien ajustado y generaliza adecuadamente.</p>
+<ol class="arabic simple">
+<li><p>La pérdida de entrenamiento es significativamente menor que la pérdida de validación, lo cual indica que el modelo está ajustándose bien a los datos de entrenamiento pero no generaliza tan bien a los datos de validación.
+Esta brecha entre las pérdidas sugiere que el modelo está memorizando patrones específicos de los datos de entrenamiento que no necesariamente son útiles para hacer predicciones en datos nuevos.
+Idealmente, la diferencia entre ambas curvas debería ser pequeña o disminuir a medida que aumenta el número de épocas, pero en este caso, la diferencia persiste, lo cual es una señal clara de sobreajuste.</p></li>
+<li><p>Comportamiento de las Pérdidas en la Fase de Estabilización
+La pérdida de validación parece estabilizarse después de un cierto número de épocas (alrededor de la época 20), mientras que la pérdida de entrenamiento continúa disminuyendo. Esto es un síntoma común de sobreajuste: el modelo sigue optimizándose para el conjunto de entrenamiento, pero su capacidad de generalización se estanca o incluso empeora.
+Este patrón indica que el modelo ha capturado toda la información generalizable de los datos de entrenamiento en las primeras épocas, y las épocas adicionales están contribuyendo a aprender detalles específicos (ruido) de los datos de entrenamiento, lo que no se traduce en un mejor rendimiento en el conjunto de validación.</p></li>
+</ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">keras.models</span> <span class="kn">import</span> <span class="n">Model</span>
 <span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">Input</span><span class="p">,</span> <span class="n">LSTM</span><span class="p">,</span> <span class="n">Dropout</span><span class="p">,</span> <span class="n">Dense</span>
 
 <span class="c1"># Definir la entrada con shape (15,1)</span>
-<span class="n">input_shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">input_shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">input_layer</span> <span class="o">=</span> <span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">input_shape</span><span class="p">)</span>
 
 <span class="c1"># Primera capa LSTM con 150 neuronas y return_sequences=True</span>
@@ -2795,8 +2734,8 @@ Train Loss: 0.021595284342765808, Val Loss: 0.03464974835515022
 <span class="c1"># Segunda capa LSTM con 150 neuronas y return_sequences=False</span>
 <span class="n">lstm_layer2</span> <span class="o">=</span> <span class="n">LSTM</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">return_sequences</span><span class="o">=</span><span class="kc">False</span><span class="p">)(</span><span class="n">lstm_layer1</span><span class="p">)</span>
 
-<span class="c1"># Capa Dropout con probabilidad de 0.4</span>
-<span class="n">dropout_layer</span> <span class="o">=</span> <span class="n">Dropout</span><span class="p">(</span><span class="mf">0.3</span><span class="p">)(</span><span class="n">lstm_layer2</span><span class="p">)</span>
+<span class="c1"># Capa Dropout con probabilidad de 0.2</span>
+<span class="n">dropout_layer</span> <span class="o">=</span> <span class="n">Dropout</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)(</span><span class="n">lstm_layer2</span><span class="p">)</span>
 
 <span class="c1"># Capa de salida con 1 neurona (para regresión)</span>
 <span class="n">output_layer</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)(</span><span class="n">dropout_layer</span><span class="p">)</span>
@@ -2813,19 +2752,19 @@ Train Loss: 0.021595284342765808, Val Loss: 0.03464974835515022
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;model&quot;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;model_4&quot;
 _________________________________________________________________
  Layer (type)                Output Shape              Param #   
 =================================================================
- input_1 (InputLayer)        [(None, 15, 1)]           0         
+ input_5 (InputLayer)        [(None, 30, 1)]           0         
                                                                  
- lstm_4 (LSTM)               (None, 15, 50)            10400     
+ lstm_120 (LSTM)             (None, 30, 50)            10400     
                                                                  
- lstm_5 (LSTM)               (None, 50)                20200     
+ lstm_121 (LSTM)             (None, 50)                20200     
                                                                  
- dropout (Dropout)           (None, 50)                0         
+ dropout_28 (Dropout)        (None, 50)                0         
                                                                  
- dense_2 (Dense)             (None, 1)                 51        
+ dense_60 (Dense)            (None, 1)                 51        
                                                                  
 =================================================================
 Total params: 30,651
@@ -2839,7 +2778,7 @@ _________________________________________________________________
 <p>Este modelo está diseñado para manejar secuencias de series temporales, donde las dos capas LSTM capturan patrones de dependencia temporal a corto y largo plazo. La capa Dropout ayuda a evitar el sobreajuste, y la capa final Dense genera la predicción final de la serie. Esta arquitectura es adecuada para tareas de pronóstico en series temporales y está optimizada para un equilibrio entre complejidad y capacidad de generalización.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">history</span> <span class="o">=</span> <span class="n">model_lstm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">validation_split</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">history</span> <span class="o">=</span> <span class="n">model_lstm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">validation_split</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2852,7 +2791,7 @@ _________________________________________________________________
 
 
 <span class="c1"># Definir la ventana de tiempo</span>
-<span class="n">n_steps</span> <span class="o">=</span> <span class="mi">15</span>
+<span class="n">n_steps</span> <span class="o">=</span> <span class="mi">30</span>
 
 
 <span class="c1"># Crear las secuencias de entrada (X) y las etiquetas de salida (y) para entrenamiento</span>
@@ -2892,10 +2831,10 @@ _________________________________________________________________
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Forma de X_train: (957, 15, 1)
-Forma de y_train: (957, 1)
-Forma de X_test: (194, 15, 1)
-Forma de y_test: (194, 1)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Forma de X_train: (942, 30, 1)
+Forma de y_train: (942, 1)
+Forma de X_test: (179, 30, 1)
+Forma de y_test: (179, 1)
 </pre></div>
 </div>
 </div>
@@ -2950,7 +2889,7 @@ Forma de y_test: (194, 1)
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_plot</span><span class="p">[</span><span class="s1">&#39;Índice&#39;</span><span class="p">],</span> <span class="n">df_plot</span><span class="p">[</span><span class="s1">&#39;Predicciones Ajustadas&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Predicciones Ajustadas&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#ff7f0e&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
 <span class="c1"># Configuración de título y etiquetas</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Comparación de Valores Reales y Predicciones Ajustadas</span><span class="se">\n</span><span class="s1">RMSE: </span><span class="si">{</span><span class="n">rmse</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, MAPE: </span><span class="si">{</span><span class="n">mape</span><span class="si">:</span><span class="s1">.2%</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;navy&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Comparación de Valores Reales y Predicciones Ajustadas en el TEST</span><span class="se">\n</span><span class="s1">RMSE: </span><span class="si">{</span><span class="n">rmse</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, MAPE: </span><span class="si">{</span><span class="n">mape</span><span class="si">:</span><span class="s1">.2%</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;navy&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Índice&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Valor&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
 
@@ -2968,20 +2907,200 @@ Forma de y_test: (194, 1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7/7 [==============================] - 1s 5ms/step
-MAE: 0.03787839084900533
-MSE: 0.004083743437630374
-MAPE: 0.007955695092998745
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6/6 [==============================] - 0s 7ms/step
+MAE: 0.10193845644476687
+MSE: 0.013624034549723257
+MAPE: 0.020868554670936013
 </pre></div>
 </div>
-<img alt="_images/daabe6cef4b5eb59232d13122ae819d9f1330f79cc83b546262418bbc8d2d7ba.png" src="_images/daabe6cef4b5eb59232d13122ae819d9f1330f79cc83b546262418bbc8d2d7ba.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RMSE: 0.06
-MAPE: 0.80%
+<img alt="_images/d29be54d083e4c89bab80fa3bdf9faf52b3c3f1aa0ab3280b3cce09a3e9f9032.png" src="_images/d29be54d083e4c89bab80fa3bdf9faf52b3c3f1aa0ab3280b3cce09a3e9f9032.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RMSE: 0.12
+MAPE: 2.09%
 </pre></div>
 </div>
 </div>
 </div>
-<p>El modelo demuestra un desempeño excelente, capturando de manera precisa tanto los patrones generales como las fluctuaciones en la serie temporal. Las métricas bajas de RMSE y MAPE corroboran que las predicciones son precisas y se acercan mucho a los valores reales. Esto sugiere que el modelo está bien ajustado, con un buen equilibrio entre precisión y capacidad de generalización. Las ligeras divergencias al final de la serie podrían explorarse más a fondo, pero en general, el modelo es altamente eficaz para esta tarea de predicción.</p>
+<p>El modelo tuvo un cambio significativo frente a lo mostrado en el set de validación, corroborando la presencia de sobreajuste, teniendo ahora un desempeño moderado similar al del modelo MLP</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="modelo-original-cnn-lstm">
+<h1>Modelo Original: CNN + LSTM<a class="headerlink" href="#modelo-original-cnn-lstm" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.models</span> <span class="kn">import</span> <span class="n">Sequential</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Conv1D</span><span class="p">,</span> <span class="n">MaxPooling1D</span><span class="p">,</span> <span class="n">LSTM</span><span class="p">,</span> <span class="n">Dense</span><span class="p">,</span> <span class="n">Dropout</span><span class="p">,</span> <span class="n">Flatten</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.optimizers</span> <span class="kn">import</span> <span class="n">Adam</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MinMaxScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_absolute_error</span><span class="p">,</span> <span class="n">mean_absolute_percentage_error</span><span class="p">,</span> <span class="n">mean_squared_error</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Simulación de datos de serie temporal para ejemplo</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Demanda MW&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>  <span class="c1"># Reemplaza con tus datos reales</span>
+
+<span class="c1"># Valores de `n_steps` y `filters` a probar</span>
+<span class="n">n_steps_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">30</span><span class="p">]</span>  <span class="c1"># Diferentes tamaños de ventana</span>
+<span class="n">filters_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">32</span><span class="p">,</span> <span class="mi">64</span><span class="p">]</span>  <span class="c1"># Diferentes números de filtros</span>
+
+<span class="c1"># Escalar los datos</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
+<span class="n">data_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="c1"># Función para crear secuencias de datos con ventanas deslizantes</span>
+<span class="k">def</span> <span class="nf">create_sequences</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n_steps</span><span class="p">):</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">-</span> <span class="n">n_steps</span><span class="p">):</span>
+        <span class="n">X</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="n">n_steps</span><span class="p">])</span>
+        <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">n_steps</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># Variables para almacenar los mejores resultados</span>
+<span class="n">best_mae</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>
+<span class="n">best_n_steps</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">best_filters</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="c1"># Resultados de cada combinación</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">n_steps</span> <span class="ow">in</span> <span class="n">n_steps_list</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">filters</span> <span class="ow">in</span> <span class="n">filters_list</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Probando n_steps=</span><span class="si">{</span><span class="n">n_steps</span><span class="si">}</span><span class="s2"> y filters=</span><span class="si">{</span><span class="n">filters</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Crear secuencias de datos con la ventana `n_steps` actual</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">create_sequences</span><span class="p">(</span><span class="n">data_scaled</span><span class="p">,</span> <span class="n">n_steps</span><span class="p">)</span>
+
+        <span class="c1"># División de datos en conjuntos de entrenamiento y prueba</span>
+        <span class="n">train_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">0.7</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
+        <span class="n">val_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">0.15</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
+        <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="n">train_size</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="n">train_size</span><span class="p">]</span>
+        <span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">train_size</span><span class="p">:</span><span class="n">train_size</span> <span class="o">+</span> <span class="n">val_size</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">train_size</span><span class="p">:</span><span class="n">train_size</span> <span class="o">+</span> <span class="n">val_size</span><span class="p">]</span>
+        <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">train_size</span> <span class="o">+</span> <span class="n">val_size</span><span class="p">:],</span> <span class="n">y</span><span class="p">[</span><span class="n">train_size</span> <span class="o">+</span> <span class="n">val_size</span><span class="p">:]</span>
+
+        <span class="c1"># Redimensionar para Conv1D y LSTM [samples, timesteps, features]</span>
+        <span class="n">X_train</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">X_val</span> <span class="o">=</span> <span class="n">X_val</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">X_val</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">X_val</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">X_test</span> <span class="o">=</span> <span class="n">X_test</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
+
+        <span class="c1"># Construir el modelo CNN-LSTM con Dropout</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Conv1D</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="n">filters</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="n">n_steps</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">MaxPooling1D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">LSTM</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">return_sequences</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">LSTM</span><span class="p">(</span><span class="mi">50</span><span class="p">))</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.2</span><span class="p">))</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+
+        <span class="c1"># Compilar el modelo</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">Adam</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.001</span><span class="p">),</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;mae&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Entrenar el modelo</span>
+        <span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">),</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># Predicciones para cada conjunto</span>
+        <span class="n">y_train_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+        <span class="n">y_val_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_val</span><span class="p">)</span>
+        <span class="n">y_test_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+        <span class="c1"># Desescalar las predicciones y los valores reales</span>
+        <span class="n">y_train_inv</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">y_train</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">y_val_inv</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">y_val</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">y_test_inv</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">y_train_pred_inv</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">y_train_pred</span><span class="p">)</span>
+        <span class="n">y_val_pred_inv</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">y_val_pred</span><span class="p">)</span>
+        <span class="n">y_test_pred_inv</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">y_test_pred</span><span class="p">)</span>
+        <span class="n">y_train_pred_inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">y_train_pred_inv</span><span class="p">,</span> <span class="n">shift</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">y_val_pred_inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">y_val_pred_inv</span><span class="p">,</span> <span class="n">shift</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">y_test_pred_inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">y_test_pred_inv</span><span class="p">,</span> <span class="n">shift</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># Calcular MAE, MAPE y RMSE en el conjunto de prueba</span>
+        <span class="n">mae</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test_inv</span><span class="p">,</span> <span class="n">y_test_pred_inv</span><span class="p">)</span>
+        <span class="n">mape</span> <span class="o">=</span> <span class="n">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">y_test_inv</span><span class="p">,</span> <span class="n">y_test_pred_inv</span><span class="p">)</span>
+        <span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test_inv</span><span class="p">,</span> <span class="n">y_test_pred_inv</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MAE para n_steps=</span><span class="si">{</span><span class="n">n_steps</span><span class="si">}</span><span class="s2">, filters=</span><span class="si">{</span><span class="n">filters</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">mae</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Almacenar los resultados</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;n_steps&#39;</span><span class="p">:</span> <span class="n">n_steps</span><span class="p">,</span> <span class="s1">&#39;filters&#39;</span><span class="p">:</span> <span class="n">filters</span><span class="p">,</span> <span class="s1">&#39;mae&#39;</span><span class="p">:</span> <span class="n">mae</span><span class="p">})</span>
+
+        <span class="c1"># Guardar los mejores parámetros</span>
+        <span class="k">if</span> <span class="n">mae</span> <span class="o">&lt;</span> <span class="n">best_mae</span><span class="p">:</span>
+            <span class="n">best_mae</span> <span class="o">=</span> <span class="n">mae</span>
+            <span class="n">best_mape</span> <span class="o">=</span> <span class="n">mape</span>
+            <span class="n">best_rmse</span> <span class="o">=</span> <span class="n">rmse</span>
+            <span class="n">best_n_steps</span> <span class="o">=</span> <span class="n">n_steps</span>
+            <span class="n">best_filters</span> <span class="o">=</span> <span class="n">filters</span>
+            <span class="n">best_y_train_inv</span><span class="p">,</span> <span class="n">best_y_val_inv</span><span class="p">,</span> <span class="n">best_y_test_inv</span> <span class="o">=</span> <span class="n">y_train_inv</span><span class="p">,</span> <span class="n">y_val_inv</span><span class="p">,</span> <span class="n">y_test_inv</span>
+            <span class="n">best_y_train_pred_inv</span><span class="p">,</span> <span class="n">best_y_val_pred_inv</span><span class="p">,</span> <span class="n">best_y_test_pred_inv</span> <span class="o">=</span> <span class="n">y_train_pred_inv</span><span class="p">,</span> <span class="n">y_val_pred_inv</span><span class="p">,</span> <span class="n">y_test_pred_inv</span>
+
+<span class="c1"># Mostrar los mejores resultados</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Mejor combinación encontrada:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;n_steps: </span><span class="si">{</span><span class="n">best_n_steps</span><span class="si">}</span><span class="s2">, filters: </span><span class="si">{</span><span class="n">best_filters</span><span class="si">}</span><span class="s2">, MAE: </span><span class="si">{</span><span class="n">best_mae</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, MAPE: </span><span class="si">{</span><span class="n">best_mape</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">, RMSE: </span><span class="si">{</span><span class="n">best_rmse</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Visualizar los resultados</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">best_y_train_inv</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Valores Reales - Entrenamiento&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">best_y_train_pred_inv</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Predicciones - Entrenamiento&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">best_y_train_inv</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">best_y_train_inv</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">best_y_val_inv</span><span class="p">)),</span> <span class="n">best_y_val_inv</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Valores Reales - Validación&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">best_y_train_inv</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">best_y_train_inv</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">best_y_val_pred_inv</span><span class="p">)),</span> <span class="n">best_y_val_pred_inv</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Predicciones - Validación&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">best_y_train_inv</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">best_y_val_inv</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">best_y_train_inv</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">best_y_val_inv</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">best_y_test_inv</span><span class="p">)),</span> <span class="n">best_y_test_inv</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Valores Reales - Prueba&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">best_y_train_inv</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">best_y_val_pred_inv</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">best_y_train_inv</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">best_y_val_pred_inv</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">best_y_test_pred_inv</span><span class="p">)),</span> <span class="n">best_y_test_pred_inv</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Predicciones - Prueba&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Comparación de Valores Reales y Predicciones</span><span class="se">\n</span><span class="s2">Mejor Configuración - n_steps=</span><span class="si">{</span><span class="n">best_n_steps</span><span class="si">}</span><span class="s2">, filters=</span><span class="si">{</span><span class="n">best_filters</span><span class="si">}</span><span class="se">\n</span><span class="s2">RMSE: </span><span class="si">{</span><span class="n">best_rmse</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, MAPE: </span><span class="si">{</span><span class="n">best_mape</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Índice&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Valor&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Probando n_steps=7 y filters=32
+31/31 [==============================] - 1s 3ms/step
+7/7 [==============================] - 0s 830us/step
+7/7 [==============================] - 0s 2ms/step
+MAE para n_steps=7, filters=32: 0.1720
+Probando n_steps=7 y filters=64
+31/31 [==============================] - 1s 3ms/step
+7/7 [==============================] - 0s 3ms/step
+7/7 [==============================] - 0s 0s/step
+MAE para n_steps=7, filters=64: 0.1077
+Probando n_steps=30 y filters=32
+30/30 [==============================] - 1s 7ms/step
+7/7 [==============================] - 0s 7ms/step
+7/7 [==============================] - 0s 6ms/step
+MAE para n_steps=30, filters=32: 0.0714
+Probando n_steps=30 y filters=64
+30/30 [==============================] - 1s 9ms/step
+7/7 [==============================] - 0s 10ms/step
+7/7 [==============================] - 0s 10ms/step
+MAE para n_steps=30, filters=64: 0.1259
+
+Mejor combinación encontrada:
+n_steps: 30, filters: 32, MAE: 0.0714, MAPE: 1.50%, RMSE: 0.1077
+</pre></div>
+</div>
+<img alt="_images/211a4a0b8f0f4951eecb8d8bbbff3d57946369bae69d52f1e83b22c6165b6ee1.png" src="_images/211a4a0b8f0f4951eecb8d8bbbff3d57946369bae69d52f1e83b22c6165b6ee1.png" />
+</div>
+</div>
+<p>Se definió la mejor configuración de hiperparámetros para un modelo de predicción de series temporales que combina capas convolucionales (CNN) y LSTM (Long Short-Term Memory). Este modelo se utiliza para predecir la demanda eléctrica, empleando diferentes tamaños de ventana (n_steps) y cantidades de filtros en la capa CNN para capturar patrones relevantes en los datos de entrenamiento.</p>
+<p>Para cada combinación de tamaño de ventana y número de filtros, el código genera secuencias de datos usando ventanas deslizantes y divide los datos en conjuntos de entrenamiento, validación y prueba. Luego, construye y entrena el modelo CNN-LSTM con cada combinación de parámetros, y calcula las métricas de error, incluyendo el error absoluto medio (MAE), el error porcentual absoluto medio (MAPE) y el error cuadrático medio (RMSE) en el conjunto de prueba.</p>
+<p>Finalmente, se selecciona la combinación que produce el menor MAE en el conjunto de prueba y se visualizan los resultados de predicción en comparación con los valores reales para los conjuntos de entrenamiento, validación y prueba. Esto permite evaluar la precisión del modelo en cada uno de los conjuntos y observar su rendimiento en la serie temporal completa.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Gráfico solo del conjunto de prueba (test) con valores reales y predicciones</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">best_y_test_inv</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Valores Reales - Prueba&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">best_y_test_pred_inv</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Predicciones - Prueba&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tendencia en el Conjunto de Prueba</span><span class="se">\n</span><span class="s2">Mejor Configuración - n_steps=</span><span class="si">{</span><span class="n">best_n_steps</span><span class="si">}</span><span class="s2">, filters=</span><span class="si">{</span><span class="n">best_filters</span><span class="si">}</span><span class="se">\n</span><span class="s2">RMSE: </span><span class="si">{</span><span class="n">best_rmse</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, MAPE: </span><span class="si">{</span><span class="n">best_mape</span><span class="si">:</span><span class="s2">.3%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Índice&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Valor&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/2516ec5d3fdf9dac0e7a90fc728a29c132cafb04a6cc3f92a02e80d224fb97ab.png" src="_images/2516ec5d3fdf9dac0e7a90fc728a29c132cafb04a6cc3f92a02e80d224fb97ab.png" />
+</div>
+</div>
+<p>Frente a la misma sección de datos el modelo logro un MAPE del 1,495% el menor logrado en el test set por todos los modelos explorados.</p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -3054,6 +3173,7 @@ MAPE: 0.80%
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#implementacion-arima">IMPLEMENTACIÓN ARIMA</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mlp-for-ts">MLP for TS</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#lstm-for-st">LSTM for ST</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo-original-cnn-lstm">Modelo Original: CNN + LSTM</a></li>
 </ul>
 
   </nav></div>
