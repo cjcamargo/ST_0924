@@ -30,8 +30,15 @@ nbclient.exceptions.CellTimeoutError: A cell timed out while it was being execut
 The message was: Cell execution timed out.
 Here is a preview of the cell contents:
 -------------------
-['# prompt: now include a for cycle as the  one in previous code but including the ma in range(0,3) and also then get the best model minimizing the aic', '', 'import statsmodels.tsa.arima.model as smtsa', 'import pytz', '']
-...
-['# Fit the best ARIMA model', "best_arima_mod = smtsa.ARIMA(train, order=(int(best_params['AR(p)']), int(best_params['diff_order']), best_params['MA(q)']))", "best_arima_mod_fit = best_arima_mod.fit(method='statespace')", '# Make predictions using the best model', 'predictions = best_arima_mod_fit.predict(start=len(train), end=len(train) + len(test) - 1)']
+import warnings
+
+# Ignorar todos los warnings
+with warnings.catch_warnings():
+    warnings.simplefilter("ignore")
+    best_alpha, best_beta, best_gamma, best_mae = tes_model_tuning(train, test, step=209, trend='add', seasonal='mul', seasonal_periods=7)
+
+# Continuar el código sin warnings
+print(f"Best Alpha: {best_alpha}, Best Beta: {best_beta}, Best Gamma: {best_gamma}, Best MAE: {best_mae}")
+
 -------------------
 

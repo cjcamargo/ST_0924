@@ -195,6 +195,8 @@
 
 
 
+
+
 </ul>
 
     </div>
@@ -403,9 +405,23 @@ document.write(`
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#implementacion-de-suavizacion-exponencial">Implementacion de Suavización Exponencial</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#implementacion-arima">IMPLEMENTACIÓN ARIMA</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#rolling-arima">Rolling Arima</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mlp-for-ts">MLP for TS</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#lstm-for-st">LSTM for ST</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo-original-cnn-lstm">Modelo Original: CNN + LSTM</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tabla-resumen-modelos">Tabla Resumen modelos</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-comparativo">Análisis Comparativo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#error-de-prediccion">Error de Predicción:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estacionariedad-y-autocorrelacion-ljung-box">Estacionariedad y Autocorrelación (Ljung-Box):</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#seleccion-del-mejor-modelo">Selección del Mejor Modelo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nota">Nota:</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#limitaciones-de-la-prueba-de-ljung-box-en-modelos-no-lineales">Limitaciones de la Prueba de Ljung-Box en Modelos No Lineales</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
             </nav>
@@ -432,7 +448,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;contextlib.ExitStack at 0x2375650cdc0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;contextlib.ExitStack at 0x21e3783cf40&gt;
 </pre></div>
 </div>
 </div>
@@ -1048,7 +1064,7 @@ Null hypothesis is rejected at lag = 19 for p-val = 9.69844361801027e-21
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\cjcam\AppData\Local\Temp\ipykernel_11232\454346377.py:2: FutureWarning: &#39;M&#39; is deprecated and will be removed in a future version, please use &#39;ME&#39; instead.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\cjcam\AppData\Local\Temp\ipykernel_32188\454346377.py:2: FutureWarning: &#39;M&#39; is deprecated and will be removed in a future version, please use &#39;ME&#39; instead.
   df_monthly_avg = df_combined.resample(&#39;M&#39;).mean()
 </pre></div>
 </div>
@@ -1353,6 +1369,7 @@ Tamaño del conjunto de prueba: 209
     <span class="c1"># Calcular RMSE y MAPE</span>
     <span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">forecast</span><span class="p">))</span>
     <span class="n">mape</span> <span class="o">=</span> <span class="n">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">forecast</span><span class="p">)</span>
+    
 
     <span class="c1"># Visualizar las predicciones</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
@@ -1475,22 +1492,11 @@ MAPE: Calcula el error porcentual promedio. Al ser un porcentaje, permite entend
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Best Alpha: 0.1, Best Beta: 0.9, Best Gamma: 0.2, Best MAE: 0.133134610675421
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">final_model</span> <span class="o">=</span> <span class="n">ExponentialSmoothing</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">trend</span><span class="o">=</span><span class="s1">&#39;add&#39;</span><span class="p">,</span> <span class="n">seasonal</span><span class="o">=</span><span class="s1">&#39;mul&#39;</span><span class="p">,</span> <span class="n">seasonal_periods</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">smoothing_level</span><span class="o">=</span><span class="n">best_alpha</span><span class="p">,</span> <span class="n">smoothing_slope</span><span class="o">=</span><span class="n">best_beta</span><span class="p">,</span> <span class="n">smoothing_seasonal</span><span class="o">=</span><span class="n">best_gamma</span><span class="p">)</span>
 <span class="n">y_pred</span> <span class="o">=</span> <span class="n">final_model</span><span class="o">.</span><span class="n">forecast</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">test</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\cjcam\AppData\Local\Temp\ipykernel_11232\4120273442.py:1: FutureWarning: the &#39;smoothing_slope&#39; keyword is deprecated, use &#39;smoothing_trend&#39; instead.
-  final_model = ExponentialSmoothing(train, trend=&#39;add&#39;, seasonal=&#39;mul&#39;, seasonal_periods=7).fit(smoothing_level=best_alpha, smoothing_slope=best_beta, smoothing_seasonal=best_gamma)
 </pre></div>
 </div>
 </div>
@@ -1516,10 +1522,14 @@ MAPE: Calcula el error porcentual promedio. Al ser un porcentaje, permite entend
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">mean_absolute_percentage_error</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">r2_score</span>
+
 
 <span class="c1"># Calcular RMSE y MAPE entre y_pred y test</span>
 <span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
 <span class="n">mape</span> <span class="o">=</span> <span class="n">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="c1"># Calcular R²</span>
+<span class="n">r2</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
 
 <span class="c1"># Configurar el estilo del gráfico con seaborn</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>  <span class="c1"># Estilo limpio y claro</span>
@@ -1562,6 +1572,7 @@ MAPE: Calcula el error porcentual promedio. Al ser un porcentaje, permite entend
 <span class="c1"># Imprimir las métricas</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RMSE: </span><span class="si">{</span><span class="n">rmse</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MAPE: </span><span class="si">{</span><span class="n">mape</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;R2: </span><span class="si">{</span><span class="n">r2</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1569,6 +1580,7 @@ MAPE: Calcula el error porcentual promedio. Al ser un porcentaje, permite entend
 <img alt="_images/231283bb5924bff9066ab77116b9cd7cfbdc355862637d6ef193b8225fc37ef6.png" src="_images/231283bb5924bff9066ab77116b9cd7cfbdc355862637d6ef193b8225fc37ef6.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RMSE: 0.17
 MAPE: 2.76%
+R2: -27.69%
 </pre></div>
 </div>
 </div>
@@ -1918,10 +1930,10 @@ Shape of test: (118,)
   <th>Model:</th>            <td>ARIMA(2, 1, 0)</td>  <th>  Log Likelihood     </th>  <td>842.526</td> 
 </tr>
 <tr>
-  <th>Date:</th>            <td>Sat, 26 Oct 2024</td> <th>  AIC                </th> <td>-1679.051</td>
+  <th>Date:</th>            <td>Fri, 25 Oct 2024</td> <th>  AIC                </th> <td>-1679.051</td>
 </tr>
 <tr>
-  <th>Time:</th>                <td>12:46:14</td>     <th>  BIC                </th> <td>-1664.684</td>
+  <th>Time:</th>                <td>15:45:51</td>     <th>  BIC                </th> <td>-1664.684</td>
 </tr>
 <tr>
   <th>Sample:</th>             <td>01-01-2021</td>    <th>  HQIC               </th> <td>-1673.559</td>
@@ -1996,7 +2008,7 @@ Shape of test: (118,)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/190cdddb098e79f4dd682f72665b8d8d27befe1c5adb2eaa7ff83bda80e13ea6.png" src="_images/190cdddb098e79f4dd682f72665b8d8d27befe1c5adb2eaa7ff83bda80e13ea6.png" />
+<img alt="_images/bb8e8f6262bcc9799c57705a8854ad0a735a662a2462537e2dd211cab4a8b6a6.png" src="_images/bb8e8f6262bcc9799c57705a8854ad0a735a662a2462537e2dd211cab4a8b6a6.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2032,185 +2044,13 @@ Shape of test: (118,)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">63</span><span class="p">],</span> <span class="n">line</span> <span class="mi">13</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="k">try</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span>     <span class="n">arima_obj</span> <span class="o">=</span> <span class="n">smtsa</span><span class="o">.</span><span class="n">ARIMA</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="n">ari</span><span class="p">,</span> <span class="n">diff_order</span><span class="p">,</span> <span class="n">maj</span><span class="p">))</span>
-<span class="ne">---&gt; </span><span class="mi">13</span>     <span class="n">arima_obj_fit</span> <span class="o">=</span> <span class="n">arima_obj</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">14</span>     <span class="n">aicVal</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">ari</span><span class="p">,</span> <span class="n">diff_order</span><span class="p">,</span><span class="n">maj</span><span class="p">,</span> <span class="n">arima_obj_fit</span><span class="o">.</span><span class="n">aic</span><span class="p">])</span>
-<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Best ARIMA parameters based on AIC:
 
-<span class="nn">File ~\miniconda3\envs\ml_venv\lib\site-packages\statsmodels\tsa\arima\model.py:395,</span> in <span class="ni">ARIMA.fit</span><span class="nt">(self, start_params, transformed, includes_fixed, method, method_kwargs, gls, gls_kwargs, cov_type, cov_kwds, return_params, low_memory)</span>
-<span class="g g-Whitespace">    </span><span class="mi">392</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">393</span>     <span class="n">method_kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;disp&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">395</span>     <span class="n">res</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">396</span>         <span class="n">return_params</span><span class="o">=</span><span class="n">return_params</span><span class="p">,</span> <span class="n">low_memory</span><span class="o">=</span><span class="n">low_memory</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">397</span>         <span class="n">cov_type</span><span class="o">=</span><span class="n">cov_type</span><span class="p">,</span> <span class="n">cov_kwds</span><span class="o">=</span><span class="n">cov_kwds</span><span class="p">,</span> <span class="o">**</span><span class="n">method_kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">398</span>     <span class="k">if</span> <span class="ow">not</span> <span class="n">return_params</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">399</span>         <span class="n">res</span><span class="o">.</span><span class="n">fit_details</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">mlefit</span>
-
-<span class="nn">File ~\miniconda3\envs\ml_venv\lib\site-packages\statsmodels\tsa\statespace\mlemodel.py:705,</span> in <span class="ni">MLEModel.fit</span><span class="nt">(self, start_params, transformed, includes_fixed, cov_type, cov_kwds, method, maxiter, full_output, disp, callback, return_params, optim_score, optim_complex_step, optim_hessian, flags, low_memory, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">703</span>         <span class="n">flags</span><span class="p">[</span><span class="s1">&#39;hessian_method&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">optim_hessian</span>
-<span class="g g-Whitespace">    </span><span class="mi">704</span>     <span class="n">fargs</span> <span class="o">=</span> <span class="p">(</span><span class="n">flags</span><span class="p">,)</span>
-<span class="ne">--&gt; </span><span class="mi">705</span>     <span class="n">mlefit</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">start_params</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">706</span>                          <span class="n">fargs</span><span class="o">=</span><span class="n">fargs</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">707</span>                          <span class="n">maxiter</span><span class="o">=</span><span class="n">maxiter</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">708</span>                          <span class="n">full_output</span><span class="o">=</span><span class="n">full_output</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">709</span>                          <span class="n">disp</span><span class="o">=</span><span class="n">disp</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="n">callback</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">710</span>                          <span class="n">skip_hessian</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">712</span> <span class="c1"># Just return the fitted parameters if requested</span>
-<span class="g g-Whitespace">    </span><span class="mi">713</span> <span class="k">if</span> <span class="n">return_params</span><span class="p">:</span>
-
-<span class="nn">File ~\miniconda3\envs\ml_venv\lib\site-packages\statsmodels\base\model.py:566,</span> in <span class="ni">LikelihoodModel.fit</span><span class="nt">(self, start_params, method, maxiter, full_output, disp, fargs, callback, retall, skip_hessian, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">563</span>     <span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;use_t&quot;</span><span class="p">]</span>
-<span class="g g-Whitespace">    </span><span class="mi">565</span> <span class="n">optimizer</span> <span class="o">=</span> <span class="n">Optimizer</span><span class="p">()</span>
-<span class="ne">--&gt; </span><span class="mi">566</span> <span class="n">xopt</span><span class="p">,</span> <span class="n">retvals</span><span class="p">,</span> <span class="n">optim_settings</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">_fit</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">score</span><span class="p">,</span> <span class="n">start_params</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">567</span>                                                <span class="n">fargs</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">568</span>                                                <span class="n">hessian</span><span class="o">=</span><span class="n">hess</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">569</span>                                                <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">570</span>                                                <span class="n">disp</span><span class="o">=</span><span class="n">disp</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">571</span>                                                <span class="n">maxiter</span><span class="o">=</span><span class="n">maxiter</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">572</span>                                                <span class="n">callback</span><span class="o">=</span><span class="n">callback</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">573</span>                                                <span class="n">retall</span><span class="o">=</span><span class="n">retall</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">574</span>                                                <span class="n">full_output</span><span class="o">=</span><span class="n">full_output</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">575</span> <span class="c1"># Restore cov_type, cov_kwds and use_t</span>
-<span class="g g-Whitespace">    </span><span class="mi">576</span> <span class="n">optim_settings</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwds</span><span class="p">)</span>
-
-<span class="nn">File ~\miniconda3\envs\ml_venv\lib\site-packages\statsmodels\base\optimizer.py:243,</span> in <span class="ni">Optimizer._fit</span><span class="nt">(self, objective, gradient, start_params, fargs, kwargs, hessian, method, maxiter, full_output, disp, callback, retall)</span>
-<span class="g g-Whitespace">    </span><span class="mi">240</span>     <span class="n">fit_funcs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">extra_fit_funcs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">242</span> <span class="n">func</span> <span class="o">=</span> <span class="n">fit_funcs</span><span class="p">[</span><span class="n">method</span><span class="p">]</span>
-<span class="ne">--&gt; </span><span class="mi">243</span> <span class="n">xopt</span><span class="p">,</span> <span class="n">retvals</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">gradient</span><span class="p">,</span> <span class="n">start_params</span><span class="p">,</span> <span class="n">fargs</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">244</span>                      <span class="n">disp</span><span class="o">=</span><span class="n">disp</span><span class="p">,</span> <span class="n">maxiter</span><span class="o">=</span><span class="n">maxiter</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="n">callback</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">245</span>                      <span class="n">retall</span><span class="o">=</span><span class="n">retall</span><span class="p">,</span> <span class="n">full_output</span><span class="o">=</span><span class="n">full_output</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">246</span>                      <span class="n">hess</span><span class="o">=</span><span class="n">hessian</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">248</span> <span class="n">optim_settings</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;optimizer&#39;</span><span class="p">:</span> <span class="n">method</span><span class="p">,</span> <span class="s1">&#39;start_params&#39;</span><span class="p">:</span> <span class="n">start_params</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">249</span>                   <span class="s1">&#39;maxiter&#39;</span><span class="p">:</span> <span class="n">maxiter</span><span class="p">,</span> <span class="s1">&#39;full_output&#39;</span><span class="p">:</span> <span class="n">full_output</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">250</span>                   <span class="s1">&#39;disp&#39;</span><span class="p">:</span> <span class="n">disp</span><span class="p">,</span> <span class="s1">&#39;fargs&#39;</span><span class="p">:</span> <span class="n">fargs</span><span class="p">,</span> <span class="s1">&#39;callback&#39;</span><span class="p">:</span> <span class="n">callback</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">251</span>                   <span class="s1">&#39;retall&#39;</span><span class="p">:</span> <span class="n">retall</span><span class="p">,</span> <span class="s2">&quot;extra_fit_funcs&quot;</span><span class="p">:</span> <span class="n">extra_fit_funcs</span><span class="p">}</span>
-<span class="g g-Whitespace">    </span><span class="mi">252</span> <span class="n">optim_settings</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="nn">File ~\miniconda3\envs\ml_venv\lib\site-packages\statsmodels\base\optimizer.py:660,</span> in <span class="ni">_fit_lbfgs</span><span class="nt">(f, score, start_params, fargs, kwargs, disp, maxiter, callback, retall, full_output, hess)</span>
-<span class="g g-Whitespace">    </span><span class="mi">657</span> <span class="k">elif</span> <span class="n">approx_grad</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">658</span>     <span class="n">func</span> <span class="o">=</span> <span class="n">f</span>
-<span class="ne">--&gt; </span><span class="mi">660</span> <span class="n">retvals</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">fmin_l_bfgs_b</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">start_params</span><span class="p">,</span> <span class="n">maxiter</span><span class="o">=</span><span class="n">maxiter</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">661</span>                                  <span class="n">callback</span><span class="o">=</span><span class="n">callback</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">fargs</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">662</span>                                  <span class="n">bounds</span><span class="o">=</span><span class="n">bounds</span><span class="p">,</span> <span class="n">disp</span><span class="o">=</span><span class="n">disp</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">663</span>                                  <span class="o">**</span><span class="n">extra_kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">665</span> <span class="k">if</span> <span class="n">full_output</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">666</span>     <span class="n">xopt</span><span class="p">,</span> <span class="n">fopt</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">retvals</span>
-
-<span class="nn">File ~\miniconda3\envs\ml_venv\lib\site-packages\scipy\optimize\_lbfgsb_py.py:199,</span> in <span class="ni">fmin_l_bfgs_b</span><span class="nt">(func, x0, fprime, args, approx_grad, bounds, m, factr, pgtol, epsilon, iprint, maxfun, maxiter, disp, callback, maxls)</span>
-<span class="g g-Whitespace">    </span><span class="mi">187</span> <span class="n">callback</span> <span class="o">=</span> <span class="n">_wrap_callback</span><span class="p">(</span><span class="n">callback</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">188</span> <span class="n">opts</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;disp&#39;</span><span class="p">:</span> <span class="n">disp</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">189</span>         <span class="s1">&#39;iprint&#39;</span><span class="p">:</span> <span class="n">iprint</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">190</span>         <span class="s1">&#39;maxcor&#39;</span><span class="p">:</span> <span class="n">m</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">196</span>         <span class="s1">&#39;callback&#39;</span><span class="p">:</span> <span class="n">callback</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">197</span>         <span class="s1">&#39;maxls&#39;</span><span class="p">:</span> <span class="n">maxls</span><span class="p">}</span>
-<span class="ne">--&gt; </span><span class="mi">199</span> <span class="n">res</span> <span class="o">=</span> <span class="n">_minimize_lbfgsb</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span> <span class="n">jac</span><span class="o">=</span><span class="n">jac</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="n">bounds</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">200</span>                        <span class="o">**</span><span class="n">opts</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">201</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;grad&#39;</span><span class="p">:</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;jac&#39;</span><span class="p">],</span>
-<span class="g g-Whitespace">    </span><span class="mi">202</span>      <span class="s1">&#39;task&#39;</span><span class="p">:</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">],</span>
-<span class="g g-Whitespace">    </span><span class="mi">203</span>      <span class="s1">&#39;funcalls&#39;</span><span class="p">:</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;nfev&#39;</span><span class="p">],</span>
-<span class="g g-Whitespace">    </span><span class="mi">204</span>      <span class="s1">&#39;nit&#39;</span><span class="p">:</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;nit&#39;</span><span class="p">],</span>
-<span class="g g-Whitespace">    </span><span class="mi">205</span>      <span class="s1">&#39;warnflag&#39;</span><span class="p">:</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]}</span>
-<span class="g g-Whitespace">    </span><span class="mi">206</span> <span class="n">f</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;fun&#39;</span><span class="p">]</span>
-
-<span class="nn">File ~\miniconda3\envs\ml_venv\lib\site-packages\scipy\optimize\_lbfgsb_py.py:365,</span> in <span class="ni">_minimize_lbfgsb</span><span class="nt">(fun, x0, args, jac, bounds, disp, maxcor, ftol, gtol, eps, maxfun, maxiter, iprint, callback, maxls, finite_diff_rel_step, **unknown_options)</span>
-<span class="g g-Whitespace">    </span><span class="mi">359</span> <span class="n">task_str</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">tobytes</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">360</span> <span class="k">if</span> <span class="n">task_str</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;FG&#39;</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">361</span>     <span class="c1"># The minimization routine wants f and g at the current x.</span>
-<span class="g g-Whitespace">    </span><span class="mi">362</span>     <span class="c1"># Note that interruptions due to maxfun are postponed</span>
-<span class="g g-Whitespace">    </span><span class="mi">363</span>     <span class="c1"># until the completion of the current minimization iteration.</span>
-<span class="g g-Whitespace">    </span><span class="mi">364</span>     <span class="c1"># Overwrite f and g:</span>
-<span class="ne">--&gt; </span><span class="mi">365</span>     <span class="n">f</span><span class="p">,</span> <span class="n">g</span> <span class="o">=</span> <span class="n">func_and_grad</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">366</span> <span class="k">elif</span> <span class="n">task_str</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;NEW_X&#39;</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">367</span>     <span class="c1"># new iteration</span>
-<span class="g g-Whitespace">    </span><span class="mi">368</span>     <span class="n">n_iterations</span> <span class="o">+=</span> <span class="mi">1</span>
-
-<span class="nn">File ~\miniconda3\envs\ml_venv\lib\site-packages\scipy\optimize\_differentiable_functions.py:286,</span> in <span class="ni">ScalarFunction.fun_and_grad</span><span class="nt">(self, x)</span>
-<span class="g g-Whitespace">    </span><span class="mi">284</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_update_x_impl</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">285</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_fun</span><span class="p">()</span>
-<span class="ne">--&gt; </span><span class="mi">286</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_grad</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">287</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">g</span>
-
-<span class="nn">File ~\miniconda3\envs\ml_venv\lib\site-packages\scipy\optimize\_differentiable_functions.py:256,</span> in <span class="ni">ScalarFunction._update_grad</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">254</span> <span class="k">def</span> <span class="nf">_update_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">255</span>     <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">g_updated</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">256</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_update_grad_impl</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">257</span>         <span class="bp">self</span><span class="o">.</span><span class="n">g_updated</span> <span class="o">=</span> <span class="kc">True</span>
-
-<span class="nn">File ~\miniconda3\envs\ml_venv\lib\site-packages\scipy\optimize\_differentiable_functions.py:173,</span> in <span class="ni">ScalarFunction.__init__.&lt;locals&gt;.update_grad</span><span class="nt">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">171</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_fun</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">172</span> <span class="bp">self</span><span class="o">.</span><span class="n">ngev</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="ne">--&gt; </span><span class="mi">173</span> <span class="bp">self</span><span class="o">.</span><span class="n">g</span> <span class="o">=</span> <span class="n">approx_derivative</span><span class="p">(</span><span class="n">fun_wrapped</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">f0</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">174</span>                            <span class="o">**</span><span class="n">finite_diff_options</span><span class="p">)</span>
-
-<span class="nn">File ~\miniconda3\envs\ml_venv\lib\site-packages\scipy\optimize\_numdiff.py:505,</span> in <span class="ni">approx_derivative</span><span class="nt">(fun, x0, method, rel_step, abs_step, f0, bounds, sparsity, as_linear_operator, args, kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">502</span>     <span class="n">use_one_sided</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="g g-Whitespace">    </span><span class="mi">504</span> <span class="k">if</span> <span class="n">sparsity</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">505</span>     <span class="k">return</span> <span class="n">_dense_difference</span><span class="p">(</span><span class="n">fun_wrapped</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">f0</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">506</span>                              <span class="n">use_one_sided</span><span class="p">,</span> <span class="n">method</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">507</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">508</span>     <span class="k">if</span> <span class="ow">not</span> <span class="n">issparse</span><span class="p">(</span><span class="n">sparsity</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">sparsity</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-
-<span class="nn">File ~\miniconda3\envs\ml_venv\lib\site-packages\scipy\optimize\_numdiff.py:576,</span> in <span class="ni">_dense_difference</span><span class="nt">(fun, x0, f0, h, use_one_sided, method)</span>
-<span class="g g-Whitespace">    </span><span class="mi">574</span>     <span class="n">x</span> <span class="o">=</span> <span class="n">x0</span> <span class="o">+</span> <span class="n">h_vecs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-<span class="g g-Whitespace">    </span><span class="mi">575</span>     <span class="n">dx</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">x0</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>  <span class="c1"># Recompute dx as exactly representable number.</span>
-<span class="ne">--&gt; </span><span class="mi">576</span>     <span class="n">df</span> <span class="o">=</span> <span class="n">fun</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">f0</span>
-<span class="g g-Whitespace">    </span><span class="mi">577</span> <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;3-point&#39;</span> <span class="ow">and</span> <span class="n">use_one_sided</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-<span class="g g-Whitespace">    </span><span class="mi">578</span>     <span class="n">x1</span> <span class="o">=</span> <span class="n">x0</span> <span class="o">+</span> <span class="n">h_vecs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-
-<span class="nn">File ~\miniconda3\envs\ml_venv\lib\site-packages\scipy\optimize\_numdiff.py:456,</span> in <span class="ni">approx_derivative.&lt;locals&gt;.fun_wrapped</span><span class="nt">(x)</span>
-<span class="g g-Whitespace">    </span><span class="mi">455</span> <span class="k">def</span> <span class="nf">fun_wrapped</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">456</span>     <span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">fun</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
-<span class="g g-Whitespace">    </span><span class="mi">457</span>     <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">458</span>         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;`fun` return value has &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">459</span>                            <span class="s2">&quot;more than 1 dimension.&quot;</span><span class="p">)</span>
-
-<span class="nn">File ~\miniconda3\envs\ml_venv\lib\site-packages\scipy\optimize\_differentiable_functions.py:137,</span> in <span class="ni">ScalarFunction.__init__.&lt;locals&gt;.fun_wrapped</span><span class="nt">(x)</span>
-<span class="g g-Whitespace">    </span><span class="mi">133</span> <span class="bp">self</span><span class="o">.</span><span class="n">nfev</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="g g-Whitespace">    </span><span class="mi">134</span> <span class="c1"># Send a copy because the user may overwrite it.</span>
-<span class="g g-Whitespace">    </span><span class="mi">135</span> <span class="c1"># Overwriting results in undefined behaviour because</span>
-<span class="g g-Whitespace">    </span><span class="mi">136</span> <span class="c1"># fun(self.x) will change self.x, with the two no longer linked.</span>
-<span class="ne">--&gt; </span><span class="mi">137</span> <span class="n">fx</span> <span class="o">=</span> <span class="n">fun</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">138</span> <span class="c1"># Make sure the function returns a true scalar</span>
-<span class="g g-Whitespace">    </span><span class="mi">139</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">fx</span><span class="p">):</span>
-
-<span class="nn">File ~\miniconda3\envs\ml_venv\lib\site-packages\statsmodels\base\model.py:534,</span> in <span class="ni">LikelihoodModel.fit.&lt;locals&gt;.f</span><span class="nt">(params, *args)</span>
-<span class="g g-Whitespace">    </span><span class="mi">533</span> <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">534</span>     <span class="k">return</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">loglike</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">/</span> <span class="n">nobs</span>
-
-<span class="nn">File ~\miniconda3\envs\ml_venv\lib\site-packages\statsmodels\tsa\statespace\mlemodel.py:940,</span> in <span class="ni">MLEModel.loglike</span><span class="nt">(self, params, *args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">937</span> <span class="k">if</span> <span class="n">complex_step</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">938</span>     <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;inversion_method&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">INVERT_UNIVARIATE</span> <span class="o">|</span> <span class="n">SOLVE_LU</span>
-<span class="ne">--&gt; </span><span class="mi">940</span> <span class="n">loglike</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ssm</span><span class="o">.</span><span class="n">loglike</span><span class="p">(</span><span class="n">complex_step</span><span class="o">=</span><span class="n">complex_step</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">942</span> <span class="c1"># Koopman, Shephard, and Doornik recommend maximizing the average</span>
-<span class="g g-Whitespace">    </span><span class="mi">943</span> <span class="c1"># likelihood to avoid scale issues, but the averaging is done</span>
-<span class="g g-Whitespace">    </span><span class="mi">944</span> <span class="c1"># automatically in the base model `fit` method</span>
-<span class="g g-Whitespace">    </span><span class="mi">945</span> <span class="k">return</span> <span class="n">loglike</span>
-
-<span class="nn">File ~\miniconda3\envs\ml_venv\lib\site-packages\statsmodels\tsa\statespace\kalman_filter.py:1005,</span> in <span class="ni">KalmanFilter.loglike</span><span class="nt">(self, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1002</span> <span class="n">loglikelihood_burn</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;loglikelihood_burn&#39;</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1003</span>                                 <span class="bp">self</span><span class="o">.</span><span class="n">loglikelihood_burn</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1004</span> <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;conserve_memory&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">MEMORY_NO_LIKELIHOOD</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">1005</span>     <span class="n">loglike</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">kfilter</span><span class="o">.</span><span class="n">loglikelihood</span><span class="p">[</span><span class="n">loglikelihood_burn</span><span class="p">:])</span>
-<span class="g g-Whitespace">   </span><span class="mi">1006</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1007</span>     <span class="n">loglike</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">kfilter</span><span class="o">.</span><span class="n">loglikelihood</span><span class="p">)</span>
-
-<span class="nn">File ~\miniconda3\envs\ml_venv\lib\site-packages\numpy\core\fromnumeric.py:2313,</span> in <span class="ni">sum</span><span class="nt">(a, axis, dtype, out, keepdims, initial, where)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2310</span>         <span class="k">return</span> <span class="n">out</span>
-<span class="g g-Whitespace">   </span><span class="mi">2311</span>     <span class="k">return</span> <span class="n">res</span>
-<span class="ne">-&gt; </span><span class="mi">2313</span> <span class="k">return</span> <span class="n">_wrapreduction</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">add</span><span class="p">,</span> <span class="s1">&#39;sum&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="n">keepdims</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">2314</span>                       <span class="n">initial</span><span class="o">=</span><span class="n">initial</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="n">where</span><span class="p">)</span>
-
-<span class="nn">File ~\miniconda3\envs\ml_venv\lib\site-packages\numpy\core\fromnumeric.py:88,</span> in <span class="ni">_wrapreduction</span><span class="nt">(obj, ufunc, method, axis, dtype, out, **kwargs)</span>
-<span class="g g-Whitespace">     </span><span class="mi">85</span>         <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">86</span>             <span class="k">return</span> <span class="n">reduction</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">,</span> <span class="o">**</span><span class="n">passkwargs</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">88</span> <span class="k">return</span> <span class="n">ufunc</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="o">**</span><span class="n">passkwargs</span><span class="p">)</span>
-
-<span class="ne">KeyboardInterrupt</span>: 
+AR(p)            1.000000
+diff_order       1.000000
+MA(q)            2.000000
+AIC          -1739.659712
+Name: 14, dtype: float64
 </pre></div>
 </div>
 </div>
@@ -2307,6 +2147,234 @@ Ljung-Box (L1) Q: 0.02 con p-valor de 0.89. Este alto p-valor sugiere que no hay
 </div>
 <div class="cell_output docutils container">
 <img alt="_images/9c5c852c3aa55d9a73873addbb2e93ce213f408291d69e44d30bb0695b7a8a50.png" src="_images/9c5c852c3aa55d9a73873addbb2e93ce213f408291d69e44d30bb0695b7a8a50.png" />
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="rolling-arima">
+<h1>Rolling Arima<a class="headerlink" href="#rolling-arima" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">statsmodels.tsa.arima.model</span> <span class="kn">import</span> <span class="n">ARIMA</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">mean_absolute_percentage_error</span><span class="p">,</span> <span class="n">r2_score</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="c1"># Ignorar warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+
+<span class="c1"># Definir los tamaños de cada conjunto</span>
+<span class="n">train_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">target_series</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.7</span><span class="p">)</span>   <span class="c1"># 70% para entrenamiento</span>
+<span class="n">val_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">target_series</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.15</span><span class="p">)</span>    <span class="c1"># 15% para validación</span>
+<span class="n">test_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">target_series</span><span class="p">)</span> <span class="o">-</span> <span class="n">train_size</span> <span class="o">-</span> <span class="n">val_size</span>  <span class="c1"># El resto para prueba</span>
+
+<span class="c1"># Dividir la serie en los tres conjuntos</span>
+<span class="n">train</span> <span class="o">=</span> <span class="n">target_series</span><span class="p">[:</span><span class="n">train_size</span><span class="p">]</span>
+<span class="n">val</span> <span class="o">=</span> <span class="n">target_series</span><span class="p">[</span><span class="n">train_size</span><span class="p">:</span><span class="n">train_size</span> <span class="o">+</span> <span class="n">val_size</span><span class="p">]</span>
+<span class="n">test</span> <span class="o">=</span> <span class="n">target_series</span><span class="p">[</span><span class="n">train_size</span> <span class="o">+</span> <span class="n">val_size</span><span class="p">:]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tamaño del conjunto de entrenamiento: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">train</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tamaño del conjunto de validación: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tamaño del conjunto de prueba: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">test</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">rolling_arima</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">window_size</span><span class="p">):</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">window_size</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">series</span><span class="p">)):</span>
+        <span class="n">train_window</span> <span class="o">=</span> <span class="n">series</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">window_size</span><span class="p">:</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span class="n">train_window</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">q</span><span class="p">))</span>
+        <span class="n">model_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+        <span class="n">forecast</span> <span class="o">=</span> <span class="n">model_fit</span><span class="o">.</span><span class="n">forecast</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">predictions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">forecast</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="n">test_values</span> <span class="o">=</span> <span class="n">series</span><span class="p">[</span><span class="n">window_size</span><span class="p">:]</span>
+    <span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">test_values</span><span class="p">,</span> <span class="n">predictions</span><span class="p">))</span>
+    <span class="n">mape</span> <span class="o">=</span> <span class="n">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">test_values</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
+    <span class="n">r2</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">test_values</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">rmse</span><span class="p">,</span> <span class="n">mape</span><span class="p">,</span> <span class="n">r2</span>
+
+<span class="k">def</span> <span class="nf">optimize_window_size</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">window_sizes</span><span class="p">):</span>
+    <span class="n">best_window_size</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">best_error</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">window_size</span> <span class="ow">in</span> <span class="n">window_sizes</span><span class="p">:</span>
+        <span class="n">combined_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">train</span><span class="p">,</span> <span class="n">val</span><span class="p">])</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">mape</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">rolling_arima</span><span class="p">(</span><span class="n">combined_series</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">window_size</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">mape</span> <span class="o">&lt;</span> <span class="n">best_error</span><span class="p">:</span>
+            <span class="n">best_error</span> <span class="o">=</span> <span class="n">mape</span>
+            <span class="n">best_window_size</span> <span class="o">=</span> <span class="n">window_size</span>
+            
+    <span class="k">return</span> <span class="n">best_window_size</span><span class="p">,</span> <span class="n">best_error</span>
+
+<span class="c1"># Ejemplo de uso:</span>
+
+<span class="c1"># Parámetros de ARIMA</span>
+<span class="n">p</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">q</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+
+<span class="c1"># Lista de posibles tamaños de ventana para probar</span>
+<span class="n">window_sizes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span><span class="mi">60</span><span class="p">,</span> <span class="mi">90</span><span class="p">]</span>
+
+<span class="c1"># Encontrar el mejor window_size basado en el conjunto de validación</span>
+<span class="n">best_window_size</span><span class="p">,</span> <span class="n">val_mape</span> <span class="o">=</span> <span class="n">optimize_window_size</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">window_sizes</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor tamaño de ventana:&quot;</span><span class="p">,</span> <span class="n">best_window_size</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MAPE en validación:&quot;</span><span class="p">,</span> <span class="n">val_mape</span><span class="p">)</span>
+
+<span class="c1"># Aplicar el modelo con el mejor tamaño de ventana en el conjunto de prueba</span>
+<span class="n">combined_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">train</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">test</span><span class="p">])</span>
+<span class="n">predictions</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">rolling_arima</span><span class="p">(</span><span class="n">combined_series</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">best_window_size</span><span class="p">)</span>
+
+<span class="c1"># Extraer predicciones y valores reales solo para el conjunto de test</span>
+<span class="n">test_predictions</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">predictions</span><span class="p">[</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">test</span><span class="p">):],</span> <span class="n">index</span><span class="o">=</span><span class="n">test</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+<span class="n">test_values</span> <span class="o">=</span> <span class="n">test</span>
+
+<span class="c1"># Calcular métricas para el conjunto de test</span>
+<span class="n">test_rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">test_values</span><span class="p">,</span> <span class="n">test_predictions</span><span class="p">))</span>
+<span class="n">test_mape</span> <span class="o">=</span> <span class="n">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">test_values</span><span class="p">,</span> <span class="n">test_predictions</span><span class="p">)</span>
+<span class="n">test_r2</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">test_values</span><span class="p">,</span> <span class="n">test_predictions</span><span class="p">)</span>
+
+<span class="c1"># Gráfica de resultados</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Graficar series de tiempo</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">train</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">train</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Train&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">val</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Validation&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">test</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Test&quot;</span><span class="p">)</span>
+
+<span class="c1"># Graficar predicciones</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">test_predictions</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Predicciones (Test)&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
+
+<span class="c1"># Añadir título y leyenda con MAPE del test</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Predicciones con ARIMA Rolling (MAPE en test: </span><span class="si">{</span><span class="n">test_mape</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Tiempo&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Valores&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># Mostrar la gráfica y resultados</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Resultados en Test:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RMSE: </span><span class="si">{</span><span class="n">test_rmse</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MAPE: </span><span class="si">{</span><span class="n">test_mape</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;R²: </span><span class="si">{</span><span class="n">test_r2</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tamaño del conjunto de entrenamiento: 972
+Tamaño del conjunto de validación: 208
+Tamaño del conjunto de prueba: 209
+Mejor tamaño de ventana: 60
+MAPE en validación: 0.016419486733322528
+</pre></div>
+</div>
+<img alt="_images/4c1ce80a33f09278033a28db21a47cad9d89ef0e916695d30d87557da5db3cbb.png" src="_images/4c1ce80a33f09278033a28db21a47cad9d89ef0e916695d30d87557da5db3cbb.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Resultados en Test:
+RMSE: 0.1343
+MAPE: 1.82%
+R²: 0.2170
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Convierte a un vector de 1D</span>
+<span class="n">y_test_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_test_pred</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># Calculo de residuos</span>
+<span class="n">residuos</span> <span class="o">=</span> <span class="n">test_values</span> <span class="o">-</span> <span class="n">test_predictions</span>
+
+<span class="c1"># Análisis de normalidad</span>
+<span class="c1"># Prueba de Shapiro-Wilk</span>
+<span class="n">shapiro_test</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">shapiro</span><span class="p">(</span><span class="n">residuos</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Shapiro-Wilk Test: Estadístico=</span><span class="si">{</span><span class="n">shapiro_test</span><span class="o">.</span><span class="n">statistic</span><span class="si">}</span><span class="s2">, p-valor=</span><span class="si">{</span><span class="n">shapiro_test</span><span class="o">.</span><span class="n">pvalue</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Histograma de los residuos</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">residuos</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Histograma de los Residuos&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Residuos&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Frecuencia&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Gráfica Q-Q (Quantile-Quantile) para ver si los residuos siguen una distribución normal</span>
+<span class="n">sm</span><span class="o">.</span><span class="n">qqplot</span><span class="p">(</span><span class="n">residuos</span><span class="p">,</span> <span class="n">line</span> <span class="o">=</span><span class="s1">&#39;45&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Gráfica Q-Q de los Residuos&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Análisis de autocorrelación</span>
+<span class="c1"># Gráfico de autocorrelación (ACF)</span>
+<span class="n">sm</span><span class="o">.</span><span class="n">graphics</span><span class="o">.</span><span class="n">tsa</span><span class="o">.</span><span class="n">plot_acf</span><span class="p">(</span><span class="n">residuos</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Autocorrelación de los Residuos (ACF)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Gráfico de autocorrelación parcial (PACF)</span>
+<span class="n">sm</span><span class="o">.</span><span class="n">graphics</span><span class="o">.</span><span class="n">tsa</span><span class="o">.</span><span class="n">plot_pacf</span><span class="p">(</span><span class="n">residuos</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Autocorrelación Parcial de los Residuos (PACF)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shapiro-Wilk Test: Estadístico=0.827499508857727, p-valor=1.7565139067646923e-14
+</pre></div>
+</div>
+<img alt="_images/d50e908fca814691fe353dc496ac31d30acb6b5f0391badedbb4317c08cc20f6.png" src="_images/d50e908fca814691fe353dc496ac31d30acb6b5f0391badedbb4317c08cc20f6.png" />
+<img alt="_images/eed86da47a08d240f7def3455fba60cc959cbf431455b6191839b53a373fb31a.png" src="_images/eed86da47a08d240f7def3455fba60cc959cbf431455b6191839b53a373fb31a.png" />
+<img alt="_images/ba61a717e3472aac1da12db566f921090327e4d31355d0647d28430bb4f6888e.png" src="_images/ba61a717e3472aac1da12db566f921090327e4d31355d0647d28430bb4f6888e.png" />
+<img alt="_images/4978e85a7039510dae72f1d93d9a13a618438812c307941ffaab1ed5e349de76.png" src="_images/4978e85a7039510dae72f1d93d9a13a618438812c307941ffaab1ed5e349de76.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.tsa.stattools</span> <span class="kn">import</span> <span class="n">adfuller</span>
+
+<span class="c1"># Realizar la prueba de Dickey-Fuller Aumentada (ADF) en la variable residuos</span>
+<span class="n">adf_test</span> <span class="o">=</span> <span class="n">adfuller</span><span class="p">(</span><span class="n">residuos</span><span class="p">)</span>
+
+<span class="c1"># Mostrar los resultados</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Resultados de la Prueba Dickey-Fuller ADF:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Estadístico ADF: </span><span class="si">{</span><span class="n">adf_test</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;p-valor: </span><span class="si">{</span><span class="n">adf_test</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Valores críticos:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">adf_test</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Resultados de la Prueba Dickey-Fuller ADF:
+Estadístico ADF: -14.77041976924119
+p-valor: 2.327141248615243e-27
+Valores críticos:
+   1%: -3.4621857592784546
+   5%: -2.875537986778846
+   10%: -2.574231080806213
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.stats.diagnostic</span> <span class="kn">import</span> <span class="n">acorr_ljungbox</span>
+
+<span class="c1"># Prueba de Ljung-Box para los residuos</span>
+<span class="n">ljung_box_test</span> <span class="o">=</span> <span class="n">acorr_ljungbox</span><span class="p">(</span><span class="n">residuos</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">return_df</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Mostrar los resultados</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Resultados de la Prueba de Ljung-Box:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ljung_box_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Resultados de la Prueba de Ljung-Box:
+      lb_stat  lb_pvalue
+10  11.208359   0.341517
+</pre></div>
+</div>
 </div>
 </div>
 </section>
@@ -2478,7 +2546,20 @@ Ljung-Box (L1) Q: 0.02 con p-valor de 0.89. Este alto p-valor sugiere que no hay
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1/1 [==============================] - 0s 24ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1/1 [==============================] - 0s 33ms/step
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r2</span><span class="o">=</span><span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="n">y_test_pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">r2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-1.758851225826715
 </pre></div>
 </div>
 </div>
@@ -2920,15 +3001,15 @@ Forma de y_val: (178, 1)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6/6 [==============================] - 1s 10ms/step
-MAE: 0.04719974845286166
-MSE: 0.005293185471769369
-MAPE: 0.010368243815220956
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6/6 [==============================] - 0s 12ms/step
+MAE: 0.07385039729000475
+MSE: 0.009143825396722037
+MAPE: 0.016124859942094314
 </pre></div>
 </div>
-<img alt="_images/af430509288e6556ca4f743ef1c727e474cf111806c516df5cd9d3e1ad261d47.png" src="_images/af430509288e6556ca4f743ef1c727e474cf111806c516df5cd9d3e1ad261d47.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RMSE: 0.07
-MAPE: 1.04%
+<img alt="_images/f1b99c7e028a70ad19ff5e2d0a38dc8cb675c0cc9cfbac0cd34a3d59222e5f21.png" src="_images/f1b99c7e028a70ad19ff5e2d0a38dc8cb675c0cc9cfbac0cd34a3d59222e5f21.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RMSE: 0.10
+MAPE: 1.61%
 </pre></div>
 </div>
 </div>
@@ -3253,6 +3334,7 @@ Forma de y_test: (179, 1)
 <span class="c1"># Calcular RMSE y MAPE entre y_test_inv y y_pred_inv</span>
 <span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test_inv</span><span class="p">,</span> <span class="n">y_pred_inv</span><span class="p">))</span>
 <span class="n">mape</span> <span class="o">=</span> <span class="n">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">y_test_inv</span><span class="p">,</span> <span class="n">y_pred_inv</span><span class="p">)</span>
+<span class="n">r2</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test_inv</span><span class="p">,</span> <span class="n">y_pred_inv</span><span class="p">)</span>
 
 <span class="c1"># Configurar el estilo del gráfico con seaborn</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>  <span class="c1"># Estilo de fondo claro y limpio</span>
@@ -3279,11 +3361,12 @@ Forma de y_test: (179, 1)
 <span class="c1"># Imprimir las métricas</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RMSE: </span><span class="si">{</span><span class="n">rmse</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MAPE: </span><span class="si">{</span><span class="n">mape</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;R2: </span><span class="si">{</span><span class="n">r2</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6/6 [==============================] - 0s 13ms/step
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6/6 [==============================] - 0s 14ms/step
 MAE: 0.09325206344007776
 MSE: 0.011205102638060111
 MAPE: 0.01906430436405116
@@ -3292,6 +3375,7 @@ MAPE: 0.01906430436405116
 <img alt="_images/6bb53a70677c26865803d04f0092ff149883076f0ecfbef027206692b7f1f226.png" src="_images/6bb53a70677c26865803d04f0092ff149883076f0ecfbef027206692b7f1f226.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RMSE: 0.11
 MAPE: 1.91%
+R2: 53.95%
 </pre></div>
 </div>
 </div>
@@ -3530,30 +3614,30 @@ Valores críticos:
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Probando n_steps=7 y filters=32
 31/31 [==============================] - 1s 2ms/step
-7/7 [==============================] - 0s 1ms/step
+7/7 [==============================] - 0s 2ms/step
 7/7 [==============================] - 0s 3ms/step
-MAE para n_steps=7, filters=32: 0.1065
+MAE para n_steps=7, filters=32: 0.0953
 Probando n_steps=7 y filters=64
-31/31 [==============================] - 1s 2ms/step
-7/7 [==============================] - 0s 1ms/step
+31/31 [==============================] - 1s 3ms/step
+7/7 [==============================] - 0s 2ms/step
 7/7 [==============================] - 0s 3ms/step
-MAE para n_steps=7, filters=64: 0.0944
+MAE para n_steps=7, filters=64: 0.0947
 Probando n_steps=30 y filters=32
-30/30 [==============================] - 1s 6ms/step
-7/7 [==============================] - 0s 5ms/step
-7/7 [==============================] - 0s 5ms/step
-MAE para n_steps=30, filters=32: 0.0654
-Probando n_steps=30 y filters=64
-30/30 [==============================] - 1s 6ms/step
+30/30 [==============================] - 1s 7ms/step
+7/7 [==============================] - 0s 7ms/step
 7/7 [==============================] - 0s 6ms/step
-7/7 [==============================] - 0s 5ms/step
-MAE para n_steps=30, filters=64: 0.0660
+MAE para n_steps=30, filters=32: 0.0627
+Probando n_steps=30 y filters=64
+30/30 [==============================] - 1s 9ms/step
+7/7 [==============================] - 0s 7ms/step
+7/7 [==============================] - 0s 7ms/step
+MAE para n_steps=30, filters=64: 0.0627
 
 Mejor combinación encontrada:
-n_steps: 30, filters: 32, MAE: 0.0654, MAPE: 1.46%, RMSE: 0.0909
+n_steps: 30, filters: 64, MAE: 0.0627, MAPE: 1.40%, RMSE: 0.0890
 </pre></div>
 </div>
-<img alt="_images/402c0d7270a94eba20e4f86d8772b6b5e4e2dd8bb43f169a9bf4dbe48d244667.png" src="_images/402c0d7270a94eba20e4f86d8772b6b5e4e2dd8bb43f169a9bf4dbe48d244667.png" />
+<img alt="_images/7c8e58fd8e2be25aca93c8b7bacad86b24da0c8f1738cf3095c61ba2c8d3846f.png" src="_images/7c8e58fd8e2be25aca93c8b7bacad86b24da0c8f1738cf3095c61ba2c8d3846f.png" />
 </div>
 </div>
 <p>Se definió la mejor configuración de hiperparámetros para un modelo de predicción de series temporales que combina capas convolucionales (CNN) y LSTM (Long Short-Term Memory). Este modelo se utiliza para predecir la demanda eléctrica, empleando diferentes tamaños de ventana (n_steps) y cantidades de filtros en la capa CNN para capturar patrones relevantes en los datos de entrenamiento.</p>
@@ -3599,18 +3683,21 @@ n_steps: 30, filters: 32, MAE: 0.0654, MAPE: 1.46%, RMSE: 0.0909
 <span class="n">mae</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test_inv</span><span class="p">,</span> <span class="n">y_test_pred_inv</span><span class="p">)</span>
 <span class="n">mape</span> <span class="o">=</span> <span class="n">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">y_test_inv</span><span class="p">,</span> <span class="n">y_test_pred_inv</span><span class="p">)</span>
 <span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test_inv</span><span class="p">,</span> <span class="n">y_test_pred_inv</span><span class="p">))</span>
+<span class="n">r2</span><span class="o">=</span><span class="n">r2_score</span><span class="p">(</span><span class="n">y_test_inv</span><span class="p">,</span> <span class="n">y_test_pred_inv</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MAE para n_steps=</span><span class="si">{</span><span class="n">n_steps</span><span class="si">}</span><span class="s2">, filters=</span><span class="si">{</span><span class="n">filters</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">mae</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MAPE para n_steps=</span><span class="si">{</span><span class="n">n_steps</span><span class="si">}</span><span class="s2">, filters=</span><span class="si">{</span><span class="n">filters</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">mape</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RMSE para n_steps=</span><span class="si">{</span><span class="n">n_steps</span><span class="si">}</span><span class="s2">, filters=</span><span class="si">{</span><span class="n">filters</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">rmse</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;R2 para n_steps=</span><span class="si">{</span><span class="n">n_steps</span><span class="si">}</span><span class="s2">, filters=</span><span class="si">{</span><span class="n">filters</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">r2</span><span class="si">:</span><span class="s2">.4%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7/7 [==============================] - 0s 9ms/step
-MAE para n_steps=30, filters=64: 0.0828
-MAPE para n_steps=30, filters=64: 0.0171
-RMSE para n_steps=30, filters=64: 0.1080
+MAE para n_steps=30, filters=64: 0.0719
+MAPE para n_steps=30, filters=64: 0.0148
+RMSE para n_steps=30, filters=64: 0.0916
+R2 para n_steps=30, filters=64: 64.2145%
 </pre></div>
 </div>
 </div>
@@ -3630,10 +3717,10 @@ RMSE para n_steps=30, filters=64: 0.1080
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/05846c537cf7b69b6bf24d92dbde15b9f28d901c42056dc914e38ba958ea69a0.png" src="_images/05846c537cf7b69b6bf24d92dbde15b9f28d901c42056dc914e38ba958ea69a0.png" />
+<img alt="_images/1f78c06aeb2777147520d25f527f9ccbe9e95c4c990eabacee4a0d1c193a1154.png" src="_images/1f78c06aeb2777147520d25f527f9ccbe9e95c4c990eabacee4a0d1c193a1154.png" />
 </div>
 </div>
-<p>Frente a la misma sección de datos el modelo logro un MAPE del 1,495% el menor logrado en el test set por todos los modelos explorados.</p>
+<p>Frente a la misma sección de datos el modelo logro un MAPE del 1,479% el menor logrado en el test set por todos los modelos explorados.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -3676,13 +3763,13 @@ RMSE para n_steps=30, filters=64: 0.1080
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shapiro-Wilk Test: Estadístico=0.9352262020111084, p-valor=6.631503879361844e-08
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shapiro-Wilk Test: Estadístico=0.8890608549118042, p-valor=3.6402634379095744e-11
 </pre></div>
 </div>
-<img alt="_images/4718cedf6c83effe669ce3241f4489e6e47031ca08dd8c8a9521a864b0511249.png" src="_images/4718cedf6c83effe669ce3241f4489e6e47031ca08dd8c8a9521a864b0511249.png" />
-<img alt="_images/714d7208e246add90e2452e00eed38bc0ecfbd6a657753bdc30edfab9c3c5eb9.png" src="_images/714d7208e246add90e2452e00eed38bc0ecfbd6a657753bdc30edfab9c3c5eb9.png" />
-<img alt="_images/9313b9ba7359af75a1f595ea156c32de902d63765a24146308f3127680db21b2.png" src="_images/9313b9ba7359af75a1f595ea156c32de902d63765a24146308f3127680db21b2.png" />
-<img alt="_images/44bb90fc1f1d94c593cbace5fdecc04c841487b73daf87584b65c4d802585017.png" src="_images/44bb90fc1f1d94c593cbace5fdecc04c841487b73daf87584b65c4d802585017.png" />
+<img alt="_images/5ed83add98483329dd645f1d8fe0af16b7f949d52071427ed1c500bfea850b8c.png" src="_images/5ed83add98483329dd645f1d8fe0af16b7f949d52071427ed1c500bfea850b8c.png" />
+<img alt="_images/5b6dc66f01da893e58d3c18e4eec5de07943b80bcb9051379c73bf089e7b6071.png" src="_images/5b6dc66f01da893e58d3c18e4eec5de07943b80bcb9051379c73bf089e7b6071.png" />
+<img alt="_images/95d23d1d0fafe59a7fc115367efc0cd351a08133ac880b8eac45fa18aeb4945f.png" src="_images/95d23d1d0fafe59a7fc115367efc0cd351a08133ac880b8eac45fa18aeb4945f.png" />
+<img alt="_images/fa5976cf9752c718b967134dfee8c8f111598a2092c1912f493ad590f67f42f4.png" src="_images/fa5976cf9752c718b967134dfee8c8f111598a2092c1912f493ad590f67f42f4.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3704,12 +3791,12 @@ RMSE para n_steps=30, filters=64: 0.1080
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Resultados de la Prueba Dickey-Fuller ADF:
-Estadístico ADF: -4.676874188807491
-p-valor: 9.298593752306898e-05
+Estadístico ADF: -5.216406357337042
+p-valor: 8.138728292022171e-06
 Valores críticos:
-   1%: -3.4631437906252636
-   5%: -2.8759570379821047
-   10%: -2.574454682874228
+   1%: -3.4645146202692527
+   5%: -2.8765564361715534
+   10%: -2.5747745328940375
 </pre></div>
 </div>
 </div>
@@ -3730,11 +3817,111 @@ Valores críticos:
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Resultados de la Prueba de Ljung-Box:
       lb_stat  lb_pvalue
-10  35.554096     0.0001
+10  35.528312   0.000101
 </pre></div>
 </div>
 </div>
 </div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="tabla-resumen-modelos">
+<h1>Tabla Resumen modelos<a class="headerlink" href="#tabla-resumen-modelos" title="Link to this heading">#</a></h1>
+<table>
+  <thead>
+    <tr>
+      <th style="background-color: #4CAF50; color: white;">Modelo</th>
+      <th style="background-color: #4CAF50; color: white;">RMSE</th>
+      <th style="background-color: #4CAF50; color: white;">MAPE</th>
+      <th style="background-color: #4CAF50; color: white;">R²</th>
+      <th style="background-color: #4CAF50; color: white;">Ljung-Box (p-valor)</th>
+      <th style="background-color: #4CAF50; color: white;">Dickey-Fuller (p-valor)</th>
+      <th style="background-color: #4CAF50; color: white;">Shapiro-Wilk (p-valor)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ETS Model</td>
+      <td>0.1700</td>
+      <td>2.76%</td>
+      <td>-0.27</td>
+      <td>&lt;&lt;0.05</td>
+      <td>&lt;&lt;0.05</td>
+      <td>&lt;&lt;0.05</td>
+    </tr>
+    <tr>
+      <td>Arima Rolling</td>
+      <td>0.1342</td>
+      <td>1.82%</td>
+      <td>0.22</td>
+      <td>0.34</td>
+      <td>&lt;&lt;0.05</td>
+      <td>&lt;&lt;0.05</td>
+    </tr>
+    <tr>
+      <td>MLP</td>
+      <td>0.1776</td>
+      <td>2.58%</td>
+      <td>-0.02</td>
+      <td>0.75</td>
+      <td>&lt;&lt;0.05</td>
+      <td>&lt;&lt;0.05</td>
+    </tr>
+    <tr>
+      <td>LSTM</td>
+      <td>0.1120</td>
+      <td>1.91%</td>
+      <td>0.54</td>
+      <td>0.03</td>
+      <td>&lt;&lt;0.05</td>
+      <td>&lt;&lt;0.05</td>
+    </tr>
+    <tr>
+      <td><strong>CNN-LSTM</strong></td>
+      <td><strong>0.0916</strong></td>
+      <td><strong>1.49%</strong></td>
+      <td><strong>0.64</strong></td>
+      <td>0.0001</td>
+      <td>&lt;&lt;0.05</td>
+      <td>&lt;&lt;0.05</td>
+    </tr>
+  </tbody>
+</table>
+<p>Se evaluaron 5 modelos, obtieniendo un desempeño superior en el propuesto CNN - LSTM (<a class="reference external" href="https://www.sciencedirect.com/science/article/abs/pii/S0378779622001389">https://www.sciencedirect.com/science/article/abs/pii/S0378779622001389</a>).</p>
+<section id="analisis-comparativo">
+<h2>Análisis Comparativo<a class="headerlink" href="#analisis-comparativo" title="Link to this heading">#</a></h2>
+<section id="error-de-prediccion">
+<h3>Error de Predicción:<a class="headerlink" href="#error-de-prediccion" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>RMSE:</strong> El modelo CNN-LSTM tiene el menor error cuadrático medio (0.0916), seguido de LSTM (0.1120). Los modelos basados en redes neuronales (LSTM y CNN-LSTM) superan a los métodos estadísticos tradicionales en esta métrica.</p></li>
+<li><p><strong>MAPE:</strong> El CNN-LSTM también muestra el MAPE más bajo (1.49%), lo que indica una menor desviación porcentual de las predicciones respecto a los valores reales.</p></li>
+<li><p><strong>R²:</strong> CNN-LSTM tiene el mayor valor de R² (0.64), lo que indica un buen ajuste y capacidad de explicar la varianza de los datos. El modelo LSTM es el segundo mejor en R² con 0.54.</p></li>
+</ul>
+</section>
+<section id="estacionariedad-y-autocorrelacion-ljung-box">
+<h3>Estacionariedad y Autocorrelación (Ljung-Box):<a class="headerlink" href="#estacionariedad-y-autocorrelacion-ljung-box" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Ljung-Box:</strong> Aunque todos los modelos de redes neuronales (LSTM y CNN-LSTM) muestran cierta autocorrelación, el ARIMA Rolling es el único modelo que pasa esta prueba con un p-valor de 0.34, indicando que los residuos de este modelo no tienen autocorrelación significativa.</p></li>
+<li><p><strong>Estacionariedad (Dickey-Fuller):</strong> Todos los modelos tienen un p-valor menor a 0.05 en Dickey-Fuller, lo que indica que los residuos de cada modelo pueden considerarse estacionarios. Esto es positivo para los modelos de series temporales.</p></li>
+<li><p><strong>Normalidad (Shapiro-Wilk):</strong> Ninguno de los modelos pasa la prueba de normalidad (todos tienen p-valores &lt;&lt;0.05), lo cual es común en series temporales y especialmente en modelos con componentes de tendencia y estacionalidad complejas. Esto sugiere que, para cada modelo, los residuos no son perfectamente normales.</p></li>
+</ul>
+</section>
+<section id="seleccion-del-mejor-modelo">
+<h3>Selección del Mejor Modelo<a class="headerlink" href="#seleccion-del-mejor-modelo" title="Link to this heading">#</a></h3>
+<p>El modelo CNN-LSTM es el mejor en términos de ajuste y precisión (RMSE, MAPE y R²), a pesar de mostrar algo de autocorrelación en los residuos. Su bajo RMSE y MAPE, junto con el mejor R², indican que es el más eficaz en capturar los patrones de la serie temporal y generar predicciones precisas. Aunque el ARIMA Rolling muestra independencia en los residuos (Ljung-Box), su rendimiento es inferior en precisión comparado con el CNN-LSTM.</p>
+<p>Para el balance entre precisión y ajuste, el CNN-LSTM es el modelo recomendado para esta serie temporal, ya que ofrece el mejor rendimiento en términos de error y capacidad de explicación de la varianza. Es posible que mejoras adicionales en el preprocesamiento o en la arquitectura de la red puedan reducir la autocorrelación en los residuos.</p>
+</section>
+<section id="nota">
+<h3>Nota:<a class="headerlink" href="#nota" title="Link to this heading">#</a></h3>
+<section id="limitaciones-de-la-prueba-de-ljung-box-en-modelos-no-lineales">
+<h4>Limitaciones de la Prueba de Ljung-Box en Modelos No Lineales<a class="headerlink" href="#limitaciones-de-la-prueba-de-ljung-box-en-modelos-no-lineales" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Prueba Diseñada para Modelos Lineales:</strong> La prueba de Ljung-Box asume independencia en residuos de modelos lineales. Sin embargo, los modelos de redes neuronales, especialmente aquellos que combinan CNN y LSTM, suelen producir residuos que presentan autocorrelación debido a su capacidad de detectar patrones más profundos y no lineales en la serie.</p></li>
+<li><p><strong>Aceptación de Residuos Correlacionados en Modelos Profundos:</strong> En modelos como el CNN-LSTM, una ligera autocorrelación en los residuos puede interpretarse como el modelo capturando patrones subyacentes adicionales (en este caso máximo 2 lags), los cuales no siempre se eliminan completamente en modelos de series temporales con arquitecturas profundas.</p></li>
+</ul>
+<p>Zhang (1998) en Forecasting with Artificial Neural Networks explica que las redes neuronales, al captar patrones más profundos y relaciones no lineales, pueden producir residuos que no siguen la misma independencia que los modelos lineales. La presencia de autocorrelación en los residuos es un efecto común en redes neuronales, y no necesariamente indica que el modelo no ha capturado toda la información relevante.Zhang (1998) en Forecasting with Artificial Neural Networks explica que las redes neuronales, al captar patrones más profundos y relaciones no lineales, pueden producir residuos que no siguen la misma independencia que los modelos lineales. La presencia de autocorrelación en los residuos es un efecto común en redes neuronales, y no necesariamente indica que el modelo no ha capturado toda la información relevante.
+<a class="reference external" href="https://www.sciencedirect.com/science/article/abs/pii/S0169207097000447">https://www.sciencedirect.com/science/article/abs/pii/S0169207097000447</a></p>
+</section>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -3805,9 +3992,23 @@ Valores críticos:
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#implementacion-de-suavizacion-exponencial">Implementacion de Suavización Exponencial</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#implementacion-arima">IMPLEMENTACIÓN ARIMA</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#rolling-arima">Rolling Arima</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mlp-for-ts">MLP for TS</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#lstm-for-st">LSTM for ST</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo-original-cnn-lstm">Modelo Original: CNN + LSTM</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tabla-resumen-modelos">Tabla Resumen modelos</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-comparativo">Análisis Comparativo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#error-de-prediccion">Error de Predicción:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estacionariedad-y-autocorrelacion-ljung-box">Estacionariedad y Autocorrelación (Ljung-Box):</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#seleccion-del-mejor-modelo">Selección del Mejor Modelo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nota">Nota:</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#limitaciones-de-la-prueba-de-ljung-box-en-modelos-no-lineales">Limitaciones de la Prueba de Ljung-Box en Modelos No Lineales</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
   </nav></div>
